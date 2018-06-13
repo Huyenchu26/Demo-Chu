@@ -1,0 +1,155 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_button_home_normal"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbarHeader"
+        layout="@layout/x_header_bar" />
+
+    <View
+        style="@style/LineDivideVerticalDark"
+        android:layout_width="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/linearContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/buttonProduction"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_home"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_32sdp" />
+
+            <ImageView
+                style="@style/imageViewHome"
+                android:padding="8dp"
+                android:src="@mipmap/ic_production" />
+
+            <TextView
+                style="@style/TextHome"
+                android:text="@string/home.production" />
+
+            <TextView
+                style="@style/TextHomeDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text.home.description.production" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/LineDivideHorizontal" />
+
+        <LinearLayout
+            android:id="@+id/buttonChecklist"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_home"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_32sdp" />
+
+            <ImageView
+                style="@style/imageViewHome"
+                android:padding="12dp"
+                android:src="@mipmap/ic_check_list" />
+
+            <TextView
+                style="@style/TextHome"
+                android:text="@string/home.checklist" />
+
+            <TextView
+                style="@style/TextHomeDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="@string/text.home.description.checklist"/>
+        </LinearLayout>
+
+        <View
+            style="@style/LineDivideHorizontal" />
+
+        <LinearLayout
+            android:id="@+id/buttonDelivery"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_home"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_32sdp" />
+
+            <ImageView
+                style="@style/imageViewHome"
+                android:padding="2dp"
+                android:src="@mipmap/ic_delivery" />
+
+            <TextView
+                style="@style/TextHome"
+                android:text="@string/home.delivery" />
+
+            <TextView
+                style="@style/TextHomeDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text.home.description.delivery"/>
+        </LinearLayout>
+
+        <View
+            style="@style/LineDivideHorizontal" />
+
+        <LinearLayout
+            android:id="@+id/buttonMaterial"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_home"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_32sdp" />
+
+            <ImageView
+                style="@style/imageViewHome"
+                android:paddingBottom="0dp"
+                android:src="@mipmap/ic_material" />
+
+            <TextView
+                style="@style/TextHome"
+                android:text="@string/home.material" />
+
+            <TextView
+                style="@style/TextHomeDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text.home.description.material"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+
+
+

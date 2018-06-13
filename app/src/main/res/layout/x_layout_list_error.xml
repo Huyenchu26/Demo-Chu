@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:paddingLeft="48dp"
+        android:paddingRight="48dp"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:textColor="@color/colorTextPrimaryBold"
+        android:text="Failed. Please try again!"
+        />
+    <Button
+        android:id="@+id/buttonRetry"
+        style="@style/ButtonNormal"
+        android:textSize="20dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:paddingRight="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Retry" />
+
+
+</LinearLayout>

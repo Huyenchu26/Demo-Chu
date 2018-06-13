@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Meat factory</string>
+
+    <string name="login.hint.username">Tên đăng nhập</string>
+    <string name="login.hint.password">Mật khẩu</string>
+    <string name="login.button">Đăng nhập</string>
+    <string name="login.forgot">Quên mật khẩu?</string>
+
+    <string name="production.text.filter">Tìm kiếm </string>
+    <string name="production.hint.filter.order">Đơn hàng</string>
+    <string name="production.hint.filter.team">Tổ sản xuất</string>
+    <string name="production.hint.filter.line">Line sản xuất</string>
+
+    <!--dialog-->
+    <string name="dialog.search.hint.order">Nhập tên khách hàng</string>
+    <string name="dialog.search.hint.date">Nhập ngày</string>
+    <string name="dialog.search.hint.team">Chọn tổ sản xuất</string>
+    <string name="dialog.search.hint.line">Chọn line sản xuất</string>
+    <string name="dialog.search.material.hint.date">Nhập ngày sản xuất</string>
+    <string name="dialog.search.material.hint.type">Chọn loại nguyên liệu</string>
+    <string name="dialog.search.checklist.order">Chọn đơn hàng</string>
+    <string name="dialog.search.checklist.tranfer">Chọn kiểu vận chuyển</string>
+    <string name="dialog.logout.title">Đăng xuất</string>
+    <string name="dialog.logout.message">Bạn có chắc chắn muốn đăng xuất?</string>
+    <string name="dialog.logout.button.yes">Yes</string>
+    <string name="dialog.logout.button.no">Cancel</string>
+    <string name="dialog.update">Update</string>
+    <string name="dialog.logout.refresh">Refresh</string>
+    <string name="dialog.refresh.message">Please refresh data!</string>
+
+    <!--production-->
+    <string name="production.text.number">STT</string>
+    <string name="production.text.id">Mã đơn hàng</string>
+    <string name="production.text.customername">Tên khách hàng</string>
+    <string name="production.text.customerid">Mã khách hàng</string>
+    <string name="production.text.date">Ngày sản xuất</string>
+    <string name="production.text.date.1">Ngày đặt hàng</string>
+    <string name="production.text.status">Trạng thái</string>
+
+    <!--product + check list-->
+    <string name="detail.text.id">Mã sản phẩm</string>
+    <string name="detail.text.name">Tên sản phẩm</string>
+    <string name="detail.text.amount">Số lượng</string>
+    <string name="detail.text.unit">Đơn vị</string>
+    <string name="detail.text.weight">Khối lượng (kg)</string>
+    <string name="detail.text.weight.realy">Thực tế</string>
+    <string name="detail.text.material.type">Loại nguyên liệu</string>
+    <string name="detail.text.action">Action</string>
+
+    <!--material-->
+    <string name="material.text.id">Mã số</string>
+    <string name="material.text.name">Tên nguyên liệu</string>
+    <string name="material.text.team">Tổ sản xuất</string>
+    <string name="material.text.amount">Khối lượng (kg)</string>
+    <string name="material.text.date">Ngày sx</string>
+
+    <!--title-->
+    <string name="title.home">Home</string>
+    <string name="title.production">Production plan</string>
+    <string name="title.material">Material for product plan</string>
+    <string name="title.checklist">Checklist</string>
+    <string name="title.forgot">Forgot password</string>
+    <string name="title.product">Products</string>
+    <string name="title.delivery">Delivery</string>
+    <string name="title.billoflading">Bill of lading</string>
+    <string name="title.list.order">List Orders</string>
+    <string name="title.list.production">List Production</string>
+    <string name="title.total">Total: %s</string>
+    <string name="title.label">Label</string>
+    <string name="title.date">Date: %s</string>
+    <string name="title.type">Type: %s</string>
+    <string name="title.line">Line: %s</string>
+    <string name="title.room">Room: %s</string>
+    <string name="title.setting">Setting</string>
+    <string name="text.nothing">Không có dữ liệu</string>
+    <string name="text.all">All</string>
+    <string name="text.cancel">Cancel</string>
+    <string name="text.loading">Loading data...</string>
+    <string name="text.infomation">情報</string>
+    <string name="title.tab.material">Style</string>
+    <string name="title.tab.material.no.style">No-style</string>
+    <string name="title.delivery.info">Delivery info</string>
+
+    <!--home-->
+    <string name="home.production">Production</string>
+    <string name="home.material">Material</string>
+    <string name="home.checklist">Check list</string>
+    <string name="home.delivery">Delivery</string>
+
+    <!--delivery-->
+    <string name="delivery.button.scan">Scan barcode</string>
+    <string name="delivery.hint">Nhập mã vận đơn</string>
+    <string name="header.button.done">Done</string>
+
+    <!--label-->
+    <string name="label.text.id">ID</string>
+    <string name="label.text.name">Name</string>
+    <string name="label.text.domatic.cow">Domestic cow</string>
+    <string name="label.text.weight.require">weight</string>
+    <string name="label.text.quantity">Quantity</string>
+    <string name="label.text.weight">Weight (kg)</string>
+    <string name="label.text.condition">Condition</string>
+    <string name="label.text.status">Status</string>
+    <string name="label.text.status.material">State Material</string>
+
+    <!--group-->
+    <string name="group.text.name">Name</string>
+    <string name="group.text.description">Description</string>
+    <string name="group.text.created.date">Created date</string>
+    <string name="group.text.type">Type</string>
+
+    <string name="label.spinner.pending">Pending</string>
+    <string name="label.spinner.produced">Produced</string>
+    <string name="label.spinner.checked">Checked</string>
+    <string name="label.spinner.failed">Failed</string>
+    <string name="label.spinner.notfound">Notfound</string>
+    <string name="label.spinner.delivery">Delivering</string>
+    <string name="label.spinner.delivered">Delivered</string>
+    <string name="label.spinner.cancelled">Cancelled</string>
+    <string name="label.spinner.storage">Storage</string>
+    <string name="label.spinner.damaged">Damaged</string>
+
+    <!--message-->
+    <string name="message.login.empty.user.name">Please enter user name</string>
+    <string name="message.login.error">Log in failed. Please try again!</string>
+    <string name="message.password.change.error">Failed. Please try again!</string>
+    <string name="message.password.forgot.request.error">Request failed. Please try again!</string>
+    <string name="message.error.connection">Có lỗi xảy ra khi kết nối đến máy chủ. Vui lòng thử lại!</string>
+    <string name="message.error.internet">Can\'t connect to internet!</string>
+    <string name="message_warning_setting_scale">Go to setting screen and select a scale!</string>
+    <string name="message_warning_setting_printer">Go to setting screen and select a printer!</string>
+    <string name="message_save_scale_success">Save scale success!</string>
+    <string name="message_save_printer_success">Save printer success!</string>
+    <string name="message_error_data_invalid">Data invalid!</string>
+    <string name="button.list.retry">Thử lại</string>
+
+
+    <string name="message.socket.error.unknown">Error socket!</string>
+    <string name="text.input.data">Insert data</string>
+    <string name="text.input.tracking.code">Tracking code</string>
+    <string name="text.button.save">Save</string>
+
+    <!--type group-->
+    <string name="cancelled">Cancelled</string>
+    <string name="temporary">Temporary</string>
+    <string name="official">Official</string>
+    <string name="expected">Expected</string>
+
+    <!--quantity box-->
+    <string name="text.quantity.address">Delivery address</string>
+    <string name="text.quantity.frozen">Frozen</string>
+    <string name="text.quantity.cold">Cold</string>
+    <string name="text.quantity.sausage">Sausage</string>
+    <string name="text.quantity.code">Code</string>
+
+    <!--description-->
+    <string name="text.home.description.production">Production and packaging products</string>
+    <string name="text.home.description.checklist">Check the weight of products</string>
+    <string name="text.home.description.delivery">Tranfer products to the shipper</string>
+    <string name="text.home.description.material">All materials are expected for production</string>
+    <string name="text.setting.scale">Select a scale</string>
+    <string name="text.setting.printer">Select a printer</string>
+    <string name="button.production.print">Print</string>
+    <string name="message_printed">Print label success!</string>
+    <string name="message_no_ticked">No label selected</string>
+    <string name="message_error_transport_code">Tracking code is invalid!</string>
+    <string name="text_confirm_print_labe">Are you sure to print the selected labels?</string>
+    <string name="text_confirm_print_production">Are you sure to print all labels of group:</string>
+    <string name="button_select">Select</string>
+    <string name="text.select.room">Select a production room</string>
+    <string name="number_printing">Number printing:</string>
+
+    <string name="select.line">Select a production line:</string>
+    <string name="text_confirm_info">Ban co chac muon luu nhung thong tin vua thay doi khong? Hay dam bao khong co dia chi nao bi trong</string>
+    <string name="message_error_change_status">Cannot change status of label to your required state.</string>
+    <string name="message_warning_enable_change">Cannot change label status in this screen!</string>
+
+    <string name="title_activity_maps">Map</string>
+</resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusableInTouchMode="true"
+    android:background="@color/colorTextWhite"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/txtSelectTrunk"
+        style="@style/textNomalBold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtTrunk"
+        android:text="Select days:"
+        android:textColor="@color/colorPrimary"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editStartTime"
+            style="@style/EditSingleLine"
+            android:drawableRight="@mipmap/ic_show_down"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Start time"
+            android:imeOptions="actionDone"
+            android:textSize="15sp"/>
+
+        <EditText
+            android:id="@+id/editEndTime"
+            style="@style/EditSingleLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@mipmap/ic_show_down"
+            android:hint="End time"
+            android:imeOptions="actionDone"
+            android:layout_marginTop="16dp"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonSearchOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+        android:text="Tìm kiếm"
+        style="@style/ButtonNormal"
+        android:textSize="13dp" />
+</LinearLayout>

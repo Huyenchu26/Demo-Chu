@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="labelProduction">
+        <item>Pending</item>
+        <item>Produced</item>
+        <item>Failed</item>
+        <item>Not found</item>
+        <item>Cancelled</item>
+        <item>Dmaged</item>
+    </array>
+    <array name="labelChecklist">
+        <item>Produced</item>
+        <item>Checked</item>
+        <item>Failed</item>
+        <item>Not found</item>
+        <item>Storage</item>
+        <item>Cancelled</item>
+    </array>
+    <array name="labelDelivery">
+        <item>Checked</item>
+        <item>Not found</item>
+        <item>Delivering</item>
+        <item>Storage</item>
+        <item>Cancelled</item>
+    </array>
+
+    <array name="label">
+        <item>Pending</item>
+        <item>Produced</item>
+        <item>Checked</item>
+        <item>Failed</item>
+        <item>Not found</item>
+        <item>Delivering</item>
+        <item>Delivered</item>
+        <item>Storage</item>
+        <item>Cancelled</item>
+        <item>Dmaged</item>
+    </array>
+
+</resources>

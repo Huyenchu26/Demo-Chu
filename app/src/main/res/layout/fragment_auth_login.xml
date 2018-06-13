@@ -1,0 +1,184 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:focusable="false"
+        android:focusableInTouchMode="true"
+        android:background="@drawable/bg_button_home_normal"
+        tools:context="mq.com.chuohapps.ui.account.login.LoginFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:text="@string/app_name"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_26sdp"
+                android:textColor="@color/colorTextWhite"
+                />
+        </LinearLayout>
+        <EditText
+            android:id="@+id/editUserName"
+            style="@style/EditTextLogin"
+            android:textSize="@dimen/_13sdp"
+            android:textAlignment="center"
+            android:hint="@string/login.hint.username"
+            android:inputType="number" />
+
+        <!--<EditText-->
+            <!--android:textAlignment="center"-->
+            <!--android:id="@+id/editPassword"-->
+            <!--style="@style/EditTextLogin"-->
+            <!--android:layout_marginTop="@dimen/_8sdp"-->
+            <!--android:hint="@string/login.hint.password"-->
+            <!--android:textSize="@dimen/_13sdp"-->
+            <!--android:inputType="textPassword" />-->
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:textSize="@dimen/_14sdp"
+            style="@style/ButtonBase"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_width="@dimen/_230sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:text="@string/login.button" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            />
+        <!--<TextView-->
+            <!--android:id="@+id/textForgotPassword"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginBottom="@dimen/_8sdp"-->
+            <!--android:text="@string/login.forgot"-->
+            <!--android:textColor="@color/colorTextWhite"-->
+            <!--android:textSize="@dimen/_13sdp" />-->
+
+    </LinearLayout>
+
+    <!-- Cấu hình động server url, sau này release thật thì chỉ cần ẩn Button setting (visibility=gone) đi là được -->
+    <Button
+        android:id="@+id/btn_setting_login"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/ic_settings"
+        android:visibility="visible"/>
+
+    <RelativeLayout
+        android:id="@+id/layout_setting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:visibility="gone">
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <RadioButton
+                android:id="@+id/radio_chuoh"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:checked="true" />
+            <RadioButton
+                android:id="@+id/radio_mq"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/labels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/radio_group"
+            android:layout_toRightOf="@id/radio_group"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="left|center"
+                android:text="Server Chuoh"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="left|center"
+                android:text="Server dev MQ"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/input_host"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/radio_group"
+            android:layout_toRightOf="@id/labels"
+            android:orientation="vertical">
+            <EditText
+                android:id="@+id/host_chuoh"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="left|center"
+                android:text="http://192.168.0.254"/>
+            <EditText
+                android:id="@+id/host_mq"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="left|center"
+                android:text="http://test.mqsolutions.vn"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/input_port"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/input_host"
+            android:layout_alignTop="@id/radio_group"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <EditText
+                android:id="@+id/port_mq"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="left|center"
+                android:text="3068"/>
+            <EditText
+                android:id="@+id/port_chuoh"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="left|center"
+                android:text="3068"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnOK"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/radio_group"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:text="OK"/>
+
+    </RelativeLayout>
+</RelativeLayout>

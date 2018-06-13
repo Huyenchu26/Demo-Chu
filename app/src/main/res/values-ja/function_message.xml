@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--message global-->
+    <string name="message.no.internet">インターネット接続はありません。 インターネット接続を確認してください。</string>
+    <string name="message.connect.error">システムに接続できません。 もう一度お試しください！</string>
+    <string name="message.undefine.error">エラーが発生しました。 もう一度お試しください！</string>
+    <string name="message.token.expired">もう一度ログインしてください。現在のセッションはタイムアウトしました。</string>
+
+    <string name="permission.dialog.title">Cấp quyền</string>
+    <string name="permission.dialog.message">Bạn cần cấp quyền cho ứng dụng để thực hiện!</string>
+    <string name="permission.dialog.button.yes">Đi đến cài đặt</string>
+    <string name="permission.dialog.button.no">Bỏ qua</string>
+</resources>

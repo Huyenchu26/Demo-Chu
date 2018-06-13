@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorBackGround">#ede2e2</color>
+    <color name="colorBackGroundTable">#e9d7d7</color>
+    <color name="colorBackGroundTableRow">#f2dfdf</color>
+    <color name="colorAccentPressedLight">#a3372f</color>
+
+    <color name="colorPrimary">#b32a38</color>
+    <color name="colorPrimarySecond">#689F38</color>
+    <color name="colorPrimaryDark">#121212</color>
+    <color name="colorAccent">#00B0FF</color>
+    <color name="colorAccentPressed">#0277BD</color>
+    <color name="colorButtonText">#00C853</color>
+    <color name="colorEditTextNormal">#EEEEEE</color>
+    <color name="colorEditTextFocus">#E1F5FE</color>
+    <color name="colorTextPrimary">#121212</color>
+    <color name="colorTextPrimaryBold">#757575</color>
+    <color name="colorTextSecondary">#9E9E9E</color>
+    <color name="colorTextWhite">#FFFFFF</color>
+    <color name="colorTextWhiteSecond">#99FFFFFF</color>
+    <color name="colorTextWhiteThird">#EEEEEE</color>
+    <color name="default_bg_color">#DDDDDD</color>
+    <color name="colorLineDivide">#E0E0E0</color>
+    <color name="colorLineDivideDark">#BDBDBD</color>
+    <color name="colorButtonBlack">#424242</color>
+    <color name="colorFacebook">#3B5998</color>
+    <color name="colorTwitters">#4DA8E0</color>
+    <color name="colorEditText">#FF0000</color>
+    <color name="colorPlaceHole">#E0E0E0</color>
+    <color name="colorItemBackground0">#FFFFFF</color>
+    <color name="colorItemBackground1">#E0F2F1</color>
+    <color name="colorBackgroundContainerLabel">#BF000000</color>
+    <!--<color name="colorHeader">#FAFAFA</color>-->
+    <color name="colorHeader">#E3F2FD</color>
+    <color name="colorButtonHome">#0091EA</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorStatusError">#C62828</color>
+    <color name="colorStatusWarning">#f5d717</color>
+    <color name="colorStatusOk">#388E3C</color>
+
+    <color name="colorTextNomal">#121212</color>
+
+</resources>
