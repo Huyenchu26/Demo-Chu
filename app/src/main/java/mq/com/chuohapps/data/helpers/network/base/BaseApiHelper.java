@@ -43,7 +43,7 @@ public abstract class BaseApiHelper {
                     .readTimeout(AppConfigs.HTTP_TIMEOUT, TimeUnit.SECONDS)
                     .build();
             Retrofit.Builder builder = new Retrofit.Builder()
-                    .baseUrl(AppConfigs.HOST)
+                    .baseUrl(AppConfigs.HOST_MQ)
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create(gson));
             if (AppConfigs.isEnableLog) builder = builder.client(client);

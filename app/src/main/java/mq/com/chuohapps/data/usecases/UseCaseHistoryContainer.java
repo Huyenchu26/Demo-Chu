@@ -5,4 +5,5 @@ package mq.com.chuohapps.data.usecases;
  */
 
 public interface UseCaseHistoryContainer extends BaseUseCase {
+
 }

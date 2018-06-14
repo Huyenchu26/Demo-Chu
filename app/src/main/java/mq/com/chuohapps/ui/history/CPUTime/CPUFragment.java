@@ -24,7 +24,7 @@ import mq.com.chuohapps.utils.HistoryUtil;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HistoryCPUFragment extends Fragment {
+public class CPUFragment extends Fragment {
 
     @BindView(R.id.listViewCPUtime)
     RecyclerView listViewCPUtime;
@@ -39,12 +39,12 @@ public class HistoryCPUFragment extends Fragment {
     String imei;
     Unbinder unbinder;
 
-    public static HistoryCPUFragment newInstance(String imei, List<Vehicle> vehicleList,
-                                                 String startDate, String endDate) {
-        return new HistoryCPUFragment().setDate(imei, vehicleList, startDate, endDate);
+    public static CPUFragment newInstance(String imei, List<Vehicle> vehicleList,
+                                          String startDate, String endDate) {
+        return new CPUFragment().setDate(imei, vehicleList, startDate, endDate);
     }
 
-    public HistoryCPUFragment setDate(String imei, List<Vehicle> vehicleList, String startDate, String endDate){
+    public CPUFragment setDate(String imei, List<Vehicle> vehicleList, String startDate, String endDate){
         this.vehicleList = vehicleList;
         this.imei = imei;
         this.startDate = startDate;

@@ -21,7 +21,7 @@ import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.history.Trunk.adapter.TrunkAdapter;
 import mq.com.chuohapps.utils.HistoryUtil;
 
-public class HistoryTrunkFragment extends Fragment {
+public class TrunkFragment extends Fragment {
 
     @BindView(R.id.recyclerViewTrunk)
     RecyclerView recyclerViewTrunk;
@@ -36,12 +36,12 @@ public class HistoryTrunkFragment extends Fragment {
     private View view;
     Unbinder unbinder;
 
-    public static HistoryTrunkFragment newInstance(String imei, List<Vehicle> vehicleList,
-                                                   String startDate, String endDate) {
-        return new HistoryTrunkFragment().setDate(imei, vehicleList, startDate, endDate);
+    public static TrunkFragment newInstance(String imei, List<Vehicle> vehicleList,
+                                            String startDate, String endDate) {
+        return new TrunkFragment().setDate(imei, vehicleList, startDate, endDate);
     }
 
-    public HistoryTrunkFragment setDate(String imei, List<Vehicle> vehicleList, String startDate, String endDate) {
+    public TrunkFragment setDate(String imei, List<Vehicle> vehicleList, String startDate, String endDate) {
         this.vehicleList = vehicleList;
         this.imei = imei;
         this.startDate = startDate;

@@ -25,8 +25,8 @@ import butterknife.BindView;
 import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.OnClickListener;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
-import mq.com.chuohapps.ui.history.CPUTime.HistoryCPUFragment;
-import mq.com.chuohapps.ui.history.Trunk.HistoryTrunkFragment;
+import mq.com.chuohapps.ui.history.CPUTime.CPUFragment;
+import mq.com.chuohapps.ui.history.Trunk.TrunkFragment;
 import mq.com.chuohapps.ui.history.event.ChangeDateEvent;
 import mq.com.chuohapps.ui.home.dialog.DateDialog;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
@@ -196,8 +196,8 @@ public class HistoryContainerFragment extends BaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 0) return HistoryTrunkFragment.newInstance(imei, vehicleList, startDate, endDate);
-            else return HistoryCPUFragment.newInstance(imei, vehicleList, startDate, endDate);
+            if (position == 0) return TrunkFragment.newInstance(imei, vehicleList, startDate, endDate);
+            else return CPUFragment.newInstance(imei, vehicleList, startDate, endDate);
         }
 
         @Override

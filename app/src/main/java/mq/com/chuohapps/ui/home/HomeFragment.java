@@ -2,6 +2,7 @@ package mq.com.chuohapps.ui.home;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -17,6 +18,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
+import mq.com.chuohapps.MapsActivity;
 import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.LoadMoreRecyclerView;
 import mq.com.chuohapps.customview.OnClickListener;
@@ -93,10 +95,10 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
 
             @Override
             public void onImageLocationClick(String longitude, String latitude) {
-//                Intent intent = new Intent(myActivity(), MapsActivity.class);
-//                intent.putExtra("longitude", longitude);
-//                intent.putExtra("latitude", latitude);
-//                startActivity(intent);
+                Intent intent = new Intent(myActivity(), MapsActivity.class);
+                intent.putExtra("longitude", longitude);
+                intent.putExtra("latitude", latitude);
+                startActivity(intent);
             }
 
             @Override
@@ -139,12 +141,14 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     }
 
     @Override
-    public void onGetVehicleSuccess(List<Vehicle> vehicleList) {
-        vehicles.clear();
-        vehicles.addAll(vehicleList);
-        adapter.clearData();
-        adapter.addData(vehicles);
-        LogUtil.e("isSuccessful: " + vehicleList.size());
+    public void onGetVehicleSuccess(Vehicle vehicle) {
+
+//        vehicles.clear();
+//        vehicles.addAll(vehicle);
+//        adapter.clearData();
+//        adapter.addData(vehicles);
+
+        LogUtil.e("isSuccessful: " + vehicle);
     }
 
     @Override

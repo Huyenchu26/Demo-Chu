@@ -15,6 +15,7 @@ public final class AppConfigs {
 
     public static final String LOG_TAG = "HC-Tag";
 
+    public static final String HOST_MQ = "http://192.168.6.34:22222/api/";
     public static final String HOST = "http://192.168.6.34:22222/api/";
     public static final int HTTP_TIMEOUT = 20;//in second
     public static boolean isEnableLog = true;
