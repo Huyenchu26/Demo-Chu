@@ -7,11 +7,6 @@ import android.view.ViewGroup;
 
 import mq.com.chuohapps.R;
 
-
-/**
- * Created by nguyen.dang.tho on 9/14/2017.
- */
-
 public class AppRefresher implements Refresher {
     private SwipeRefreshLayout refreshLayout;
 

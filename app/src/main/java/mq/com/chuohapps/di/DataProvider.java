@@ -15,10 +15,6 @@ import mq.com.chuohapps.data.helpers.network.ApiHelper;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
-/**
- * Created by nguyen.dang.tho on 2/26/2018.
- */
-
 public class DataProvider {
     @SuppressLint("StaticFieldLeak")
     private static Context context = null;

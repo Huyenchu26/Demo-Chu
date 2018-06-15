@@ -6,8 +6,6 @@ import mq.com.chuohapps.ui.xbase.BasePresenter;
 import mq.com.chuohapps.ui.xbase.container.ContainerContract;
 import mq.com.chuohapps.ui.xbase.container.ContainerPresenter;
 
-
-
 public class PresenterProvider {
     private static boolean matched(Class<?> classTypeSource, Class<?> classTypeDestination) {
         return classTypeSource.getCanonicalName().equals(classTypeDestination.getCanonicalName());
