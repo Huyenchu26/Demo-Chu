@@ -10,8 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.facebook.stetho.common.LogUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -27,6 +25,7 @@ import mq.com.chuohapps.ui.history.container.HistoryContainerFragment;
 import mq.com.chuohapps.ui.home.adapter.VehicleAdapter;
 import mq.com.chuohapps.ui.home.dialog.RFIDDialog;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
+import mq.com.chuohapps.utils.AppLogger;
 
 public class HomeFragment extends BaseFragment<HomeContract.Presenter> implements HomeContract.View {
 
@@ -73,8 +72,8 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         init();
         setHeaderTextColor(R.color.colorTextWhiteSecond);
         setupAdapter();
-//        getPresenter().getVehicle();
-        callAsynchronousTask();
+        getPresenter().getVehicle();
+//        callAsynchronousTask();
         setupSearch();
     }
 
@@ -137,23 +136,25 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
 
     @Override
     public void onStartGetVehicle() {
-
+//        showLoading();
     }
 
     @Override
-    public void onGetVehicleSuccess(Vehicle vehicle) {
+    public void onGetVehicleSuccess(List<Vehicle> vehicle) {
+        vehicles.clear();
+        vehicles.addAll(vehicle);
+        adapter.clearData();
+        adapter.addData(vehicles);
 
-//        vehicles.clear();
-//        vehicles.addAll(vehicle);
-//        adapter.clearData();
-//        adapter.addData(vehicles);
-
-        LogUtil.e("isSuccessful: " + vehicle);
+        hideLoading();
+        AppLogger.error("isSuccessful: " + vehicle);
     }
 
     @Override
     public void onGetVehicleError(String message) {
+        hideLoading();
         showMessage(message);
+        AppLogger.error("onGetVehicleError: " + message);
     }
 
     private void setupSearch() {

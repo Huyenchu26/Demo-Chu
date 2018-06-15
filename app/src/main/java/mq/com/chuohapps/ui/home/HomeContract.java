@@ -1,5 +1,7 @@
 package mq.com.chuohapps.ui.home;
 
+import java.util.List;
+
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.xbase.BaseContract;
 import mq.com.chuohapps.ui.xbase.BasePresenter;
@@ -15,7 +17,7 @@ public class HomeContract extends BaseContract {
     interface View extends BaseView {
         void onStartGetVehicle();
 
-        void onGetVehicleSuccess(Vehicle vehicleList);
+        void onGetVehicleSuccess(List<Vehicle> vehicleList);
 
         void onGetVehicleError(String message);
 

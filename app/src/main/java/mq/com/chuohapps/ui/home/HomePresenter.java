@@ -1,9 +1,12 @@
 package mq.com.chuohapps.ui.home;
 
+import java.util.List;
+
 import mq.com.chuohapps.data.DataCallBack;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.data.usecases.UseCaseGetVehicle;
 import mq.com.chuohapps.ui.xbase.BaseAppPresenter;
+import mq.com.chuohapps.utils.AppLogger;
 
 
 public class HomePresenter extends BaseAppPresenter<HomeContract.View, UseCaseGetVehicle>
@@ -11,12 +14,14 @@ public class HomePresenter extends BaseAppPresenter<HomeContract.View, UseCaseGe
 
     @Override
     public void getVehicle() {
+        AppLogger.error("HomePresenter: ");
         if (getView() != null)
             getView().onStartGetVehicle();
-        getUseCase().getVehicle(handleCallBack(new DataCallBack<Vehicle>() {
+        getUseCase().getVehicle(handleCallBack(new DataCallBack<List<Vehicle>>() {
             @Override
-            public void onSuccess(Vehicle response, String message) {
+            public void onSuccess(List<Vehicle> response, String message) {
                 getView().onGetVehicleSuccess(response);
+
             }
 
             @Override

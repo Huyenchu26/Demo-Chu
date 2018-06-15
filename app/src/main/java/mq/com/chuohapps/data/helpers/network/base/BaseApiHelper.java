@@ -13,14 +13,12 @@ import mq.com.chuohapps.AppConfigs;
 import mq.com.chuohapps.data.DataCallBack;
 import mq.com.chuohapps.data.helpers.network.ApiCallBack;
 import mq.com.chuohapps.data.helpers.network.client.ApiClient;
+import mq.com.chuohapps.utils.AppLogger;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by nguyen.dang.tho on 10/23/2017.
- */
 
 public abstract class BaseApiHelper {
 
@@ -68,13 +66,15 @@ public abstract class BaseApiHelper {
     }
 
 
-    protected <R extends BaseResponse> ApiCallBack<R> handle(final DataCallBack<R> dataCallBack) {
+    protected <R> ApiCallBack<R> handle(final DataCallBack<R> dataCallBack) {
+        AppLogger.error("Api callback");
         return new ApiCallBack<R>() {
             @Override
             public void onSuccess(R response, String message) {
                 if (dataCallBack != null)
                     dataCallBack.onSuccess(response, message);
                 callList.clear();
+                AppLogger.error("Api callback success");
             }
 
             @Override
@@ -82,6 +82,7 @@ public abstract class BaseApiHelper {
                 if (dataCallBack == null) return;
                 dataCallBack.onError(throwable, message);
                 callList.clear();
+                AppLogger.error("Api callback error");
             }
         };
 

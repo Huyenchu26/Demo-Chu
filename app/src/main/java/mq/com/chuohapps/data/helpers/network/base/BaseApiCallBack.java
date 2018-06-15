@@ -11,9 +11,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-
-public abstract class BaseApiCallBack<R extends BaseResponse> implements Callback<R> {
+public abstract class BaseApiCallBack<R> implements Callback<R> {
 
 
     /**

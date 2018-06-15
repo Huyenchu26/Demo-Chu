@@ -3,7 +3,6 @@ package mq.com.chuohapps.data;
 import mq.com.chuohapps.AppConfigs;
 import mq.com.chuohapps.data.helpers.local.PreferencesHelper;
 import mq.com.chuohapps.data.helpers.network.ApiHelper;
-import mq.com.chuohapps.data.helpers.network.base.BaseResponse;
 import mq.com.chuohapps.data.usecases.BaseUseCase;
 
 
@@ -24,7 +23,7 @@ public abstract class BaseDataManager implements DataManager, BaseUseCase {
         preferencesHelper.clear();
     }
 
-    protected <R extends BaseResponse> DataCallBack<R> handleCache(final Class<?> classType, final DataCallBack<R> callBack) {
+    protected <R> DataCallBack<R> handleCache(final Class<?> classType, final DataCallBack<R> callBack) {
         return new DataCallBack<R>() {
             @Override
             public void onSuccess(R response, String message) {
@@ -46,8 +45,9 @@ public abstract class BaseDataManager implements DataManager, BaseUseCase {
         };
     }
 
-    protected <R extends BaseResponse> DataCallBack<R> handleCallBack(final DataCallBack<R> callBack) {
+    protected <R> DataCallBack<R> handleCallBack(final DataCallBack<R> callBack) {
         return new DataCallBack<R>() {
+
             @Override
             public void onSuccess(R response, String message) {
                 if (callBack != null)

@@ -3,9 +3,7 @@ package mq.com.chuohapps.data.helpers.network.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import mq.com.chuohapps.data.helpers.network.base.BaseResponse;
-
-public class Vehicle extends BaseResponse{
+public class Vehicle{
 
     @SerializedName("timestamp_recv")
     @Expose

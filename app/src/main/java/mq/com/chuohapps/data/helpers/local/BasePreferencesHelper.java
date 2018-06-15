@@ -12,10 +12,6 @@ import mq.com.chuohapps.utils.AppLogger;
 import mq.com.chuohapps.utils.data.SharedPrefsUtils;
 
 
-/**
- * Created by nguyen.dang.tho on 10/23/2017.
- */
-
 public abstract class BasePreferencesHelper {
 
 
