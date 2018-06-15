@@ -12,6 +12,9 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.facebook.stetho.common.LogUtil;
+
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -29,9 +32,11 @@ import mq.com.chuohapps.ui.history.Trunk.TrunkFragment;
 import mq.com.chuohapps.ui.history.event.ChangeDateEvent;
 import mq.com.chuohapps.ui.home.dialog.DateDialog;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
+import mq.com.chuohapps.utils.AppLogger;
 import mq.com.chuohapps.utils.data.DateUtils;
 
-public class HistoryContainerFragment extends BaseFragment {
+public class HistoryContainerFragment extends BaseFragment<HistoryContainerContract.Presenter>
+        implements HistoryContainerContract.View {
 
     private static int TAB_COUNT = 2;
 
@@ -79,8 +84,8 @@ public class HistoryContainerFragment extends BaseFragment {
     }
 
     @Override
-    protected Class providePresenter() {
-        return null;
+    protected Class<HistoryContainerContract.Presenter> providePresenter() {
+        return HistoryContainerContract.Presenter.class;
     }
 
     @Override
@@ -106,6 +111,11 @@ public class HistoryContainerFragment extends BaseFragment {
         long DAY_IN_MS = 1000 * 60 * 60 * 24;
         startDate = DateUtils.dateToStringSent(new Date(dateCurrent.getTime() - (3 * DAY_IN_MS)));
         endDate = DateUtils.dateToStringSent(dateCurrent);
+        doLoadData();
+    }
+
+    private void doLoadData() {
+        getPresenter().getHistory(imei, startDate, endDate);
     }
 
     private void setupHeader() {
@@ -124,6 +134,25 @@ public class HistoryContainerFragment extends BaseFragment {
         });
     }
 
+    @Override
+    public void onStartGetHistory() {
+        showLoading();
+    }
+
+    @Override
+    public void getHistorySuccess(List<Vehicle> vehicleList) {
+        hideLoading();
+        vehicleList.clear();
+        vehicleList.addAll(vehicleList);
+        LogUtil.e("isSuccessful: " + vehicleList.size());
+    }
+
+    @Override
+    public void getHistoryError(String message) {
+        hideLoading();
+        AppLogger.error("load history Error: " + message);
+    }
+
     DateDialog dateDialog;
 
     private void openDateDialog() {
@@ -132,10 +161,12 @@ public class HistoryContainerFragment extends BaseFragment {
         dateDialog.setCanceledOnTouchOutside(true);
         dateDialog.setOnChooseListener(new DateDialog.OnChooseListener() {
             @Override
-            public void onDone(String startDate, String endDate) {
+            public void onDone(String startDate_, String endDate_) {
                 // TODO: 4/19/2018 some thing with dates
-//                setupConnect();
-//                EventBus.getDefault().post(new ChangeDateEvent(startDate, endDate));
+                startDate = startDate_;
+                endDate = endDate_;
+                doLoadData();
+                EventBus.getDefault().post(new ChangeDateEvent(startDate, endDate));
             }
         });
         dateDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -145,7 +176,6 @@ public class HistoryContainerFragment extends BaseFragment {
             }
         });
         dateDialog.show();
-
     }
 
     private void setupViewPager() {
@@ -171,7 +201,7 @@ public class HistoryContainerFragment extends BaseFragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (vehicleList != null){
+                if (vehicleList != null) {
                     adapter = new ViewPagerAdapter(getChildFragmentManager());
                     adapter.addTab("Trunk");
                     adapter.addTab("CPU time");
@@ -191,7 +221,8 @@ public class HistoryContainerFragment extends BaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 0) return TrunkFragment.newInstance(imei, vehicleList, startDate, endDate);
+            if (position == 0)
+                return TrunkFragment.newInstance(imei, vehicleList, startDate, endDate);
             else return CPUFragment.newInstance(imei, vehicleList, startDate, endDate);
         }
 
@@ -209,29 +240,6 @@ public class HistoryContainerFragment extends BaseFragment {
             return mFragmentTitleList.get(position);
         }
     }
-
-//    private void setupConnect() {
-//        ApiClient client = ApiHelper.getClient().create(ApiClient.class);
-//        Call<List<Vehicle>> call = client.loadHistory(imei, startDate, endDate);
-//        call.enqueue(new Callback<List<Vehicle>>() {
-//            @Override
-//            public void onResponse(Call<List<Vehicle>> call, Response<List<Vehicle>> response) {
-//                if (response.isSuccessful()) {
-//                    vehicleList.clear();
-//                    vehicleList.addAll(response.body());
-//                    LogUtil.e("isSuccessful: " + response.toString());
-//                } else {
-//                    LogUtil.e("" + response.errorBody());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Vehicle>> call, Throwable t) {
-//                t.printStackTrace();
-//                LogUtil.e("onFailure History: " + t.getMessage());
-//            }
-//        });
-//    }
 
     // TODO: 6/5/2018 keep change date
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
