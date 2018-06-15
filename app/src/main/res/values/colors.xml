@@ -3,9 +3,9 @@
     <color name="colorBackGround">#ede2e2</color>
     <color name="colorBackGroundTable">#e9d7d7</color>
     <color name="colorBackGroundTableRow">#f2dfdf</color>
-    <color name="colorAccentPressedLight">#a3372f</color>
+    <color name="colorAccentPressedLight">#480e0a</color>
 
-    <color name="colorPrimary">#b32a38</color>
+    <color name="colorPrimary">#155B96</color>
     <color name="colorPrimarySecond">#689F38</color>
     <color name="colorPrimaryDark">#121212</color>
     <color name="colorAccent">#00B0FF</color>
@@ -17,13 +17,14 @@
     <color name="colorTextPrimaryBold">#757575</color>
     <color name="colorTextSecondary">#9E9E9E</color>
     <color name="colorTextWhite">#FFFFFF</color>
+    <color name="colorTextNomal">#121212</color>
     <color name="colorTextWhiteSecond">#99FFFFFF</color>
     <color name="colorTextWhiteThird">#EEEEEE</color>
     <color name="default_bg_color">#DDDDDD</color>
     <color name="colorLineDivide">#E0E0E0</color>
     <color name="colorLineDivideDark">#BDBDBD</color>
     <color name="colorButtonBlack">#424242</color>
-    <color name="colorFacebook">#3B5998</color>
+    <color name="colorFacebook">#15935C</color>
     <color name="colorTwitters">#4DA8E0</color>
     <color name="colorEditText">#FF0000</color>
     <color name="colorPlaceHole">#E0E0E0</color>
@@ -37,7 +38,5 @@
     <color name="colorStatusError">#C62828</color>
     <color name="colorStatusWarning">#f5d717</color>
     <color name="colorStatusOk">#388E3C</color>
-
-    <color name="colorTextNomal">#121212</color>
 
 </resources>

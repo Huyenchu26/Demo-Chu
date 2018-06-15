@@ -12,7 +12,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -65,14 +64,12 @@ public class HistoryContainerFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
         registerEventBus();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
         unregisterEventBus();
     }
 
@@ -150,8 +147,6 @@ public class HistoryContainerFragment extends BaseFragment {
         dateDialog.show();
 
     }
-
-
 
     private void setupViewPager() {
         tabOption.setupWithViewPager(viewpagerOption);

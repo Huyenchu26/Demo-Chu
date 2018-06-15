@@ -9,11 +9,12 @@ import mq.com.chuohapps.data.helpers.network.ApiHelper;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.data.usecases.BaseUseCase;
 import mq.com.chuohapps.data.usecases.UseCaseGetVehicle;
-import mq.com.chuohapps.utils.AppLogger;
+import mq.com.chuohapps.data.usecases.UseCaseHistoryContainer;
 
 
 public class AppDataManager extends BaseDataManager implements
         UseCaseGetVehicle,
+        UseCaseHistoryContainer,
         BaseUseCase {
 
     public AppDataManager(ApiHelper apiHelper, PreferencesHelper preferencesHelper) {
@@ -22,7 +23,11 @@ public class AppDataManager extends BaseDataManager implements
 
     @Override
     public void getVehicle(@NonNull DataCallBack<List<Vehicle>> callBack) {
-        AppLogger.error("AppDataManager: ");
         apiHelper.getVehicle(handleCallBack(callBack));
+    }
+
+    @Override
+    public void getVehicle(String imei, String startDate, String endDate, @NonNull DataCallBack<List<Vehicle>> callBack) {
+        apiHelper.getHistory(imei, startDate, endDate, handleCallBack(callBack));
     }
 }
