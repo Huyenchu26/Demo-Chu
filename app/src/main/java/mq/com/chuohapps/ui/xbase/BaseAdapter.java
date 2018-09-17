@@ -181,15 +181,6 @@ public abstract class BaseAdapter<IVH extends BaseAdapter.BaseItemViewHolder, IL
             this.position = position;
             needUpdate = false;
             isBindData = true;
-            setBackground(position);
-        }
-
-        private void setBackground(int position) {
-            if (position % 2 == 0) {
-                linearItemContainer.setBackgroundColor(itemView.getResources().getColor(R.color.colorItemBackground0));
-            } else {
-                linearItemContainer.setBackgroundColor(itemView.getResources().getColor(R.color.colorItemBackground1));
-            }
         }
     }
 
