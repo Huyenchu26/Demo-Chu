@@ -25,8 +25,6 @@ public class TrunkFragment extends Fragment {
 
     @BindView(R.id.recyclerViewTrunk)
     RecyclerView recyclerViewTrunk;
-    @BindView(R.id.txtTrunktime)
-    TextView txtTrunktime;
 
     String startDate, endDate;
     List<Vehicle> vehicleList = new ArrayList<>();
@@ -55,7 +53,6 @@ public class TrunkFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_history_trunk, container, false);
         unbinder = ButterKnife.bind(this, view);
-        txtTrunktime.setText("Time: " + startDate + " - " + endDate);
         setupAdapter();
         return view;
     }

@@ -61,7 +61,6 @@
             android:padding="15dp"
             android:visibility="gone" />
 
-
         <!--Search Layout-->
         <RelativeLayout
             android:id="@+id/relativeSearchLayout"
@@ -100,5 +99,17 @@
                 android:padding="11dp"
                 android:src="@mipmap/ic_clear_search_black" />
         </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/texttime"
+            android:textColor="@color/colorTextWhite"
+            android:text="time to time"
+            android:gravity="center"
+            android:layout_below="@+id/textTitle"
+            android:layout_marginBottom="@dimen/_3sdp"
+            android:textSize="@dimen/_8sdp"
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

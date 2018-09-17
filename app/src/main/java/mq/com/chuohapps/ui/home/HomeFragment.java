@@ -80,6 +80,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     private void init() {
         enableHeader("Vehicle");
         imageBack.setImageResource(R.mipmap.ic_option);
+        imageBack.setOnClickListener(null);
         relativeSearchLayout.setVisibility(View.VISIBLE);
         imageRight.setVisibility(View.VISIBLE);
     }
@@ -87,6 +88,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     private void setupAdapter() {
         adapter = new VehicleAdapter();
         recyclerViewVehicle.setAdapter(adapter);
+//        recyclerViewVehicle.set
         adapter.setItemListener(new VehicleAdapter.ItemListener() {
             @Override
             public void onRetryClick() {

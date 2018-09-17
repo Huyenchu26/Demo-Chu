@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.facebook.stetho.common.LogUtil;
 
@@ -48,6 +49,8 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
     ImageView imageBack;
     @BindView(R.id.imageRight)
     ImageView imageRight;
+    @BindView(R.id.texttime)
+    TextView textTime;
 
     private ViewPagerAdapter adapter;
 
@@ -132,6 +135,7 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
                 openDateDialog();
             }
         });
+        textTime.setText("From: " + startDate + " - To: " + endDate);
     }
 
     @Override
@@ -203,8 +207,8 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
             public void run() {
                 if (vehicleList != null) {
                     adapter = new ViewPagerAdapter(getChildFragmentManager());
-                    adapter.addTab("Trunk");
-                    adapter.addTab("CPU time");
+                    adapter.addTab("1");
+                    adapter.addTab("2");
                     viewpagerOption.setAdapter(adapter);
                 }
             }

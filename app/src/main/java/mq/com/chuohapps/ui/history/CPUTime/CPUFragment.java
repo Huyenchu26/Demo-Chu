@@ -28,8 +28,6 @@ public class CPUFragment extends Fragment {
 
     @BindView(R.id.listViewCPUtime)
     RecyclerView listViewCPUtime;
-    @BindView(R.id.txtCPUtime)
-    TextView txtCPUtime;
 
     View view;
     CPUtimeAdapter adapter;
@@ -58,7 +56,6 @@ public class CPUFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_history_cpu, container, false);
         unbinder = ButterKnife.bind(this, view);
-        txtCPUtime.setText("Time: " + startDate + " - " + endDate);
         setupAdapter();
         return view;
     }
