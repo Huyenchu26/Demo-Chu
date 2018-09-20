@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbarHeader"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@drawable/bg_header"
-    android:elevation="4dp"
-    android:minHeight="?attr/actionBarSize"
-    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-    app:contentInsetStart="0dp"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    app:contentInsetStart="0dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,6 +24,7 @@
             android:id="@+id/textTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="2"
@@ -37,10 +33,9 @@
             android:text="Title"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@color/colorTextWhiteSecond"
+            android:textColor="@color/colorTextWhite"
             android:textSize="22sp"
-            android:textStyle="bold"
-            android:visibility="gone" />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imageRight"
@@ -101,16 +96,15 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/texttime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/texttime"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:gravity="center"
+            android:text="time to time"
             android:visibility="gone"
             android:textColor="@color/colorTextWhite"
-            android:text="time to time"
-            android:gravity="center"
-            android:layout_below="@+id/textTitle"
-            android:layout_marginBottom="@dimen/_2sdp"
-            android:textSize="@dimen/_8sdp"
-            android:layout_alignParentBottom="true"/>
+            android:textSize="@dimen/_7sdp"/>
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

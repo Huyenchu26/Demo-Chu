@@ -51,6 +51,8 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
     ImageView imageRight;
     @BindView(R.id.texttime)
     TextView textTime;
+    @BindView(R.id.textTitle)
+    TextView textTitle;
 
     private ViewPagerAdapter adapter;
 
@@ -99,8 +101,8 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
     @Override
     protected void setupViews(@NonNull View view) {
         setupDate();
-        setupViewPager();
         setupHeader();
+        setupViewPager();
     }
 
     @Override
@@ -118,14 +120,53 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
     }
 
     private void doLoadData() {
-        getPresenter().getHistory(imei, startDate, endDate);
+//        getPresenter().getHistory(imei, startDate, endDate);
+
+        Vehicle vehicle1 = new Vehicle(new Vehicle.Data("123456321", "26-06-1996", "120", "120",
+                "1", "0", "1", "1", "1", "1", "0", "1", "12",
+                "12", "ffffffffff010100035b7189ffffffff010100035b8894ffffffffff01010003ab7129ffffffffff01" +
+                "0100035be694ffffffffff010100035b7129ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff810100035bc" +
+                "c94ffffffffff01010003597129ffffffffff010100066d3194ffffffffff01010003", "1", "1", "1", "123"));
+        Vehicle vehicle2 = new Vehicle(new Vehicle.Data("123456321", "26-06-1996", "120", "120",
+                "1", "0", "1", "1", "0", "1", "0", "1", "16",
+                "12", "ffffffffff010100035b7189ffffffff010100035b8894ffffffffff01010003ab7129ffffffffff01" +
+                "0100035be694ffffffffff010100035b7129ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff810100035bc" +
+                "c94ffffffffff01010003597129ffffffffff010100066d3194ffffffffff01010003", "1", "1", "1", "165"));
+        Vehicle vehicle3 = new Vehicle(new Vehicle.Data("123456321", "26-06-1996", "120", "120",
+                "1", "0", "1", "1", "1", "1", "0", "1", "16",
+                "12", "ffffffffff010100035b7189ffffffff010100035b8894ffffffffff01010003ab7129ffffffffff01" +
+                "0100035be694ffffffffff010100035b7129ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff810100035bc" +
+                "c94ffffffffff01010003597129ffffffffff010100066d3194ffffffffff01010003", "1", "1", "1", "369"));
+        Vehicle vehicle4 = new Vehicle(new Vehicle.Data("123456321", "26-06-1996", "120", "120",
+                "1", "0", "1", "1", "0", "1", "0", "1", "16",
+                "12", "ffffffffff010100035b7189ffffffff010100035b8894ffffffffff01010003ab7129ffffffffff01" +
+                "0100035be694ffffffffff010100035b7129ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff810100035bc" +
+                "c94ffffffffff01010003597129ffffffffff010100066d3194ffffffffff01010003", "1", "1", "1", "025"));
+        Vehicle vehicle5 = new Vehicle(new Vehicle.Data("123456321", "26-06-1996", "120", "120",
+                "1", "0", "1", "1", "1", "1", "0", "1", "16",
+                "12", "ffffffffff010100035b7189ffffffff010100035b8894ffffffffff01010003ab7129ffffffffff01" +
+                "0100035be694ffffffffff010100035b7129ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff810100035bc" +
+                "c94ffffffffff01010003597129ffffffffff010100066d3194ffffffffff01010003", "1", "1", "1", "169"));
+
+        vehicleList.add(vehicle1);
+        vehicleList.add(vehicle2);
+        vehicleList.add(vehicle3);
+        vehicleList.add(vehicle4);
+        vehicleList.add(vehicle5);
     }
 
     private void setupHeader() {
+        enableHeader("");
+        tabOption.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onDelayedClick(View v) {
+                showMessage("taboption");
+            }
+        });
         imageBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
-                getActivity().onBackPressed();
+                moveBack();
             }
         });
         imageRight.setVisibility(View.VISIBLE);
@@ -135,12 +176,13 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
                 openDateDialog();
             }
         });
+        textTime.setVisibility(View.VISIBLE);
         textTime.setText("From: " + startDate + " - To: " + endDate);
     }
 
     @Override
     public void onStartGetHistory() {
-        showLoading();
+//        showLoading();
     }
 
     @Override
@@ -148,7 +190,7 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
         hideLoading();
         vehicleList.clear();
         vehicleList.addAll(vehicleList);
-        LogUtil.e("isSuccessful: " + vehicleList.size());
+        AppLogger.error("isSuccessful: " + vehicleList.size());
     }
 
     @Override
@@ -183,7 +225,6 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
     }
 
     private void setupViewPager() {
-        tabOption.setupWithViewPager(viewpagerOption);
         viewpagerOption.setOffscreenPageLimit(TAB_COUNT);
         viewpagerOption.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -207,13 +248,13 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
             public void run() {
                 if (vehicleList != null) {
                     adapter = new ViewPagerAdapter(getChildFragmentManager());
-                    adapter.addTab("1");
-                    adapter.addTab("2");
+                    adapter.addTab("Trunk");
+                    adapter.addTab("CPUTime");
                     viewpagerOption.setAdapter(adapter);
                 }
             }
         }, 2 * 1000);
-
+        tabOption.setupWithViewPager(viewpagerOption);
     }
 
     private class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -248,6 +289,6 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
     // TODO: 6/5/2018 keep change date
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onMessageEvent(ChangeDateEvent event) {
-
+        textTime.setText("From: " + event.startDate + " - To: " + event.endDate);
     }
 }
