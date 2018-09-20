@@ -104,11 +104,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/texttime"
+            android:visibility="gone"
             android:textColor="@color/colorTextWhite"
             android:text="time to time"
             android:gravity="center"
             android:layout_below="@+id/textTitle"
-            android:layout_marginBottom="@dimen/_3sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:textSize="@dimen/_8sdp"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>

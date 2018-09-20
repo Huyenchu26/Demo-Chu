@@ -166,8 +166,6 @@ public abstract class BaseAdapter<IVH extends BaseAdapter.BaseItemViewHolder, IL
         public boolean needUpdate = false;
         public int position = -1;
         protected boolean isBindData = true;
-        @BindView(R.id.linearItemContainer)
-        View linearItemContainer;
 
         public BaseItemViewHolder(View itemView) {
             super(itemView);

@@ -12,7 +12,7 @@
         android:paddingTop="2dp">
 
         <TextView
-            style="@style/textNomalItem"
+            style="@style/textNomalHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -20,28 +20,28 @@
             android:text="STT" />
 
         <TextView
-            style="@style/textNomalItem"
+            style="@style/textNomalHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:text="Time line" />
 
         <TextView
-            style="@style/textNomalItem"
+            style="@style/textNomalHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Time" />
 
         <TextView
-            style="@style/textNomalItem"
+            style="@style/textNomalHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Front" />
 
         <TextView
-            style="@style/textNomalItem"
+            style="@style/textNomalHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -45,9 +45,6 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         public int position = -1;
         protected boolean isBindData = true;
 
-        @BindView(R.id.linearItemContainer)
-        View linearItemContainer;
-
         @BindView(R.id.txtImei)
         TextView txtImei;
         @BindView(R.id.txtDateTime)
