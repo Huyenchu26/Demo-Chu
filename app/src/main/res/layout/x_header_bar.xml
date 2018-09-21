@@ -105,6 +105,6 @@
             android:text="time to time"
             android:visibility="gone"
             android:textColor="@color/colorTextWhite"
-            android:textSize="@dimen/_7sdp"/>
+            android:textSize="@dimen/_8sdp"/>
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
