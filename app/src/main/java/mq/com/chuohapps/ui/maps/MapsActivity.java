@@ -1,5 +1,6 @@
-package mq.com.chuohapps;
+package mq.com.chuohapps.ui.maps;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -13,12 +14,26 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.OnClickListener;
+import mq.com.chuohapps.ui.xbase.BaseActivity;
+import mq.com.chuohapps.ui.xbase.BaseFragment;
+import mq.com.chuohapps.utils.data.DateUtils;
+import mq.com.chuohapps.utils.functions.MessageUtils;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implements OnMapReadyCallback, MapsConstract.View {
 
     private GoogleMap mMap;
     @BindView(R.id.textTitle)
@@ -27,16 +42,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ImageView imageBack;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+    protected int provideLayout() {
+        return R.layout.activity_maps;
+    }
 
-        ButterKnife.bind(this, MapsActivity.this);
+    @Override
+    protected Class<MapsConstract.Presenter> providePresenter() {
+        return MapsConstract.Presenter.class;
+    }
+
+    String imei = "";
+    String startDate = null;
+    String endDate = null;
+    List<LatLng> latLngs = new ArrayList<>();
+    @Override
+    protected void setupViews() {
         setupHeader();
+        setupDate();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    private void setupDate() {
+        Date dateCurrent = Calendar.getInstance().getTime();
+        long DAY_IN_MS = 1000 * 60 * 60 * 24;
+        imei = getIntent().getStringExtra("imei");
+        startDate = DateUtils.dateToStringSent(new Date(dateCurrent.getTime() - (3 * DAY_IN_MS)));
+        endDate = DateUtils.dateToStringSent(dateCurrent);
+        doLoadData();
+    }
+
+    @Override
+    protected void beginFlow() {
+
     }
 
     private void setupHeader() {
@@ -50,25 +90,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerEventBus();
+    }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterEventBus();
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        double longitude = getIntent().getDoubleExtra("longitude", 0);
-        double latitude = getIntent().getDoubleExtra("latitude", 0);
-
-        // Add a marker in Sydney and move the camera
-        LatLng location = new LatLng(latitude, longitude);
+        PolylineOptions polylineOptions = new PolylineOptions();
+        for (int i = 0; i < latLngs.size(); i++) {
+            polylineOptions.add(latLngs.get(i));
+        }
+        LatLng location = latLngs.get(0);
 //        CameraUpdate zoom = CameraUpdateFactory.zoomTo(20);
 //        mMap.animateCamera(zoom);
 //        mMap.addMarker(new MarkerOptions().position(location).title("This imei in here"));
@@ -89,5 +131,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera));
+
+        polylineOptions.width(5).color(getResources().getColor(R.color.colorAccent)).geodesic(true);
+        mMap.addPolyline(polylineOptions);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 13));
     }
+
+
+    @Override
+    public void onStartGetListLocation() {
+        showLoading();
+    }
+
+    @Override
+    public void onGetListLocationSuccess(List<LatLng> latLngs) {
+        hideLoading();
+        if (latLngs == null || latLngs.size() == 0) return;
+        this.latLngs.addAll(latLngs);
+    }
+
+    @Override
+    public void onGetListLocationError(String message) {
+        hideLoading();
+        showMessage(message, MessageUtils.ERROR_CODE);
+    }
+
+    private void doLoadData(){
+//        getPresenter().getListLocation(imei, startDate, endDate);
+        latLngs.add(new LatLng(21.000488, 105.798337));
+        latLngs.add(new LatLng(21.003807, 105.802491));
+        latLngs.add(new LatLng(21.006772, 105.806568));
+        latLngs.add(new LatLng(21.013823, 105.813005));
+        latLngs.add(new LatLng(21.022476, 105.819142));
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(Object event) {
+
+    }
+
 }

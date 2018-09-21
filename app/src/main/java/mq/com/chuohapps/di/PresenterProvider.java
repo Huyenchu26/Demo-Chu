@@ -1,9 +1,12 @@
 package mq.com.chuohapps.di;
 
+import mq.com.chuohapps.ui.history.Trunk.TrunkContract;
 import mq.com.chuohapps.ui.history.container.HistoryContainerContract;
 import mq.com.chuohapps.ui.history.container.HistoryContainerPresenter;
 import mq.com.chuohapps.ui.home.HomeContract;
 import mq.com.chuohapps.ui.home.HomePresenter;
+import mq.com.chuohapps.ui.maps.MapsConstract;
+import mq.com.chuohapps.ui.maps.MapsPresenter;
 import mq.com.chuohapps.ui.xbase.BasePresenter;
 import mq.com.chuohapps.ui.xbase.container.ContainerContract;
 import mq.com.chuohapps.ui.xbase.container.ContainerPresenter;
@@ -20,7 +23,10 @@ public class PresenterProvider {
             return new HomePresenter();
         } if (matched(classType, HistoryContainerContract.Presenter.class)) {
             return new HistoryContainerPresenter();
+        } if (matched(classType, MapsConstract.Presenter.class)) {
+            return new MapsPresenter();
         }
+
         throw new IllegalArgumentException("Add [" + classType.getCanonicalName() + "]" + " to Presenter Provider!!!");
     }
 }
