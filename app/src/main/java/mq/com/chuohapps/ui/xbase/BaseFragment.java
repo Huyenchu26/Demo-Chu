@@ -148,7 +148,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         if (toolbarHeader != null) {
             relativeSearchLayout = (RelativeLayout) toolbarHeader.findViewById(R.id.relativeSearchLayout);
             ImageView imageRight = (ImageView) toolbarHeader.findViewById(R.id.imageRight);
-            ImageView imageSearchCancel = (ImageView) relativeSearchLayout.findViewById(R.id.imageSearchCancel);
             imageSearchClear = (ImageView) relativeSearchLayout.findViewById(R.id.imageSearchClearText);
             editSearchQuery = (EditText) relativeSearchLayout.findViewById(R.id.editSearchQuery);
             imageRight.setVisibility(View.VISIBLE);
@@ -159,12 +158,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
                 }
             });
 
-            imageSearchCancel.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onDelayedClick(View v) {
-                    hideSearchBar();
-                }
-            });
             imageSearchClear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

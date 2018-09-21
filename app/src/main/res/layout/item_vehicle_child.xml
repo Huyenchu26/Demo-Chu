@@ -29,7 +29,7 @@
             android:layout_marginLeft="12dp"
             android:text="23/3/2018 15:26:06"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <ImageView
             android:id="@+id/imgLocation"
@@ -51,7 +51,7 @@
             android:drawableLeft="@mipmap/ic_item_bill_id"
             android:text="  Động cơ:"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <View
@@ -71,7 +71,7 @@
             android:drawableLeft="@mipmap/ic_item_bill_id"
             android:text="  Mở két: "
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <View
@@ -92,7 +92,7 @@
             android:drawableLeft="@mipmap/ic_item_bill_id"
             android:text="  Trạng thái định vị: "
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <ImageView

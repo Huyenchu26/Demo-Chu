@@ -75,16 +75,9 @@
                 android:hint="Search imei"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:paddingLeft="44dp"
-                android:paddingRight="44dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
                 android:textSize="16sp" />
-
-            <ImageView
-                android:id="@+id/imageSearchCancel"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:padding="11dp"
-                android:src="@mipmap/ic_back_search" />
 
             <ImageView
                 android:id="@+id/imageSearchClearText"
