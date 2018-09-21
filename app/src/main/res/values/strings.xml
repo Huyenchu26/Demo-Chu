@@ -10,4 +10,10 @@
     <string name="text.input.data">Insert data</string>
 
     <string name="title_activity_maps">Map</string>
+
+    <!--Title-->
+    <string name="title_location">Location</string>
+    <string name="title_trunk">Trunk</string>
+    <string name="title_cpu_time">CPUTime</string>
+    <string name="title_vehicle">Vehicle</string>
 </resources>

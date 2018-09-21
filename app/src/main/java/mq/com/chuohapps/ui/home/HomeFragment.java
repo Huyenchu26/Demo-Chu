@@ -16,7 +16,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
-import mq.com.chuohapps.MapsActivity;
+import mq.com.chuohapps.customview.TextChangedListener;
+import mq.com.chuohapps.ui.maps.MapsActivity;
 import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.LoadMoreRecyclerView;
 import mq.com.chuohapps.customview.OnClickListener;
@@ -37,8 +38,6 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     ImageView imageBack;
     @BindView(R.id.relativeSearchLayout)
     RelativeLayout relativeSearchLayout;
-    @BindView(R.id.imageSearchCancel)
-    ImageView imageSearchCancel;
     @BindView(R.id.imageSearchClearText)
     ImageView imageSearchClearText;
     @BindView(R.id.imageRight)
@@ -72,13 +71,50 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         init();
         setHeaderTextColor(R.color.colorTextWhiteSecond);
         setupAdapter();
-        getPresenter().getVehicle();
+        doLoadData();
 //        callAsynchronousTask();
         setupSearch();
     }
 
+    private void doLoadData() {
+//        getPresenter().getVehicle();
+        Vehicle vehicle1 = new Vehicle(new Vehicle.Data("192345234656321", "26-06-1996", "120", "120",
+                "1", "0", "1", "1", "1", "1", "0", "1", "1",
+                "12", "ffffffffff010100035b7189ffffffff010100035b8894ffffffffff01010003ab7129ffffffffff01" +
+                "0100035be694ffffffffff010100035b7129ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff810100035bc" +
+                "c94ffffffffff01010003597129ffffffffff010100066d3194ffffffffff01010003", "1", "1", "1", "123"));
+        Vehicle vehicle2 = new Vehicle(new Vehicle.Data("18234489756321", "26-06-1996", "120", "120",
+                "1", "0", "1", "1", "1", "1", "0", "1", "1",
+                "12", "ff020180035b7129ffffffffff010100035bcc94ffffffff000100035b7129ffffffffff010100035b71" +
+                "29ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff010100035bcccaffffffffff010100035bb129ffffffff" +
+                "ff010100035bcc94ffffffffff010100035b7129ffffffffff010100035bcc94ff", "1", "1", "1", "1102"));
+        Vehicle vehicle3 = new Vehicle(new Vehicle.Data("12346544563921", "26-06-1996", "120", "120",
+                "1", "0", "1", "1", "1", "1", "0", "1", "1",
+                "12", "ffffffffff010100035b7189ffffffff010100035b8894ffffffffff01010003ab7129ffffffffff01" +
+                "0100035be694ffffffffff010100035b7129ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff810100035bc" +
+                "c94ffffffffff01010003597129ffffffffff010100066d3194ffffffffff01010003", "1", "1", "1", "178"));
+        Vehicle vehicle4 = new Vehicle(new Vehicle.Data("12349512316321", "26-06-1996", "120", "120",
+                "1", "0", "1", "1", "1", "1", "0", "1", "1",
+                "12", "ffffffffff010100035b7129ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff010" +
+                "100022b7bcaffffffffff010100b39ecaffffffffff010100035bcc94ffffffffff010100035b71f9ffffffffff010100035bcc94f" +
+                "fffffffff010100035b7129ffffffffff810100035bcc94ffffffffff01010003", "1", "1", "1", "1983"));
+
+        vehicles.add(vehicle1);
+        vehicles.add(vehicle2);
+        vehicles.add(vehicle1);
+        vehicles.add(vehicle3);
+        vehicles.add(vehicle1);
+        vehicles.add(vehicle4);
+        vehicles.add(vehicle2);
+        vehicles.add(vehicle3);
+        vehicles.add(vehicle1);
+        vehicles.add(vehicle4);
+        vehicles.add(vehicle2);
+        adapter.addData(vehicles);
+    }
+
     private void init() {
-        enableHeader("Vehicle");
+        enableHeader(getString(R.string.title_vehicle));
         imageBack.setImageResource(R.mipmap.ic_option);
         imageBack.setOnClickListener(null);
         relativeSearchLayout.setVisibility(View.VISIBLE);
@@ -95,10 +131,9 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             }
 
             @Override
-            public void onImageLocationClick(String longitude, String latitude) {
+            public void onImageLocationClick(String imei) {
                 Intent intent = new Intent(myActivity(), MapsActivity.class);
-                intent.putExtra("longitude", longitude);
-                intent.putExtra("latitude", latitude);
+                intent.putExtra("imei", imei);
                 startActivity(intent);
             }
 
@@ -147,7 +182,6 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         vehicles.addAll(vehicle);
         adapter.clearData();
         adapter.addData(vehicles);
-
         hideLoading();
         AppLogger.error("isSuccessful: " + vehicle);
     }
@@ -156,7 +190,6 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     public void onGetVehicleError(String message) {
         hideLoading();
         showMessage(message);
-        AppLogger.error("onGetVehicleError: " + message);
     }
 
     private void setupSearch() {
@@ -179,12 +212,17 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                 editSearchQuery.setText(null);
             }
         });
-        imageSearchCancel.setOnClickListener(new OnClickListener() {
+        editSearchQuery.addTextChangedListener(new TextChangedListener() {
             @Override
-            public void onDelayedClick(View v) {
-                editSearchQuery.setText(null);
+            public void onTextChanged(String textChanged) {
+                // TODO: 9/21/2018 search imei
                 clearData();
-                adapter.addData(vehicles);
+                for (Vehicle vehicle : vehicles) {
+                    if (vehicle.data.getImei().contains(textChanged)) {
+                        vehiclesSearch.add(vehicle);
+                    }
+                }
+                adapter.addData(vehiclesSearch);
             }
         });
     }
@@ -209,7 +247,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                 handler.post(new Runnable() {
                     public void run() {
                         try {
-                            getPresenter().getVehicle();
+                            doLoadData();
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
                         }
@@ -219,5 +257,4 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         };
         timer.schedule(doAsynchronousTask, 0, 30000); //execute in every 50000 ms
     }
-
 }

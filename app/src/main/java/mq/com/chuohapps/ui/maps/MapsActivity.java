@@ -1,6 +1,7 @@
 package mq.com.chuohapps.ui.maps;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -28,8 +30,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.OnClickListener;
+import mq.com.chuohapps.ui.history.event.ChangeDateEvent;
+import mq.com.chuohapps.ui.home.dialog.DateDialog;
 import mq.com.chuohapps.ui.xbase.BaseActivity;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
+import mq.com.chuohapps.ui.xbase.container.ContainerActivity;
+import mq.com.chuohapps.utils.AppUtils;
 import mq.com.chuohapps.utils.data.DateUtils;
 import mq.com.chuohapps.utils.functions.MessageUtils;
 
@@ -40,6 +46,10 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     TextView textTitle;
     @BindView(R.id.imageBack)
     ImageView imageBack;
+    @BindView(R.id.imageRight)
+    ImageView imageRight;
+    @BindView(R.id.texttime)
+    TextView textTime;
 
     @Override
     protected int provideLayout() {
@@ -55,10 +65,11 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     String startDate = null;
     String endDate = null;
     List<LatLng> latLngs = new ArrayList<>();
+
     @Override
     protected void setupViews() {
-        setupHeader();
         setupDate();
+        setupHeader();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -74,20 +85,29 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
         doLoadData();
     }
 
-    @Override
-    protected void beginFlow() {
-
-    }
-
     private void setupHeader() {
         textTitle.setVisibility(View.VISIBLE);
-        textTitle.setText("Location");
+        textTitle.setText(getString(R.string.title_location));
+        imageRight.setVisibility(View.VISIBLE);
+        textTime.setVisibility(View.VISIBLE);
+        textTime.setText(imei);
+        imageRight.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onDelayedClick(View v) {
+                openDateDialog();
+            }
+        });
         imageBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void beginFlow() {
+
     }
 
     @Override
@@ -106,9 +126,11 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        MarkerOptions marker = new MarkerOptions();
         PolylineOptions polylineOptions = new PolylineOptions();
         for (int i = 0; i < latLngs.size(); i++) {
             polylineOptions.add(latLngs.get(i));
+            marker.position(latLngs.get(i));
         }
         LatLng location = latLngs.get(0);
 //        CameraUpdate zoom = CameraUpdateFactory.zoomTo(20);
@@ -116,11 +138,8 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
 //        mMap.addMarker(new MarkerOptions().position(location).title("This imei in here"));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
 
-        MarkerOptions marker = new MarkerOptions()
-                .position(location)
-                .title("This imei in here")
-                .draggable(true);
 
+        marker.position(location).draggable(true);
         mMap.addMarker(marker);
 
         CameraPosition camera = new CameraPosition.Builder()
@@ -156,7 +175,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
         showMessage(message, MessageUtils.ERROR_CODE);
     }
 
-    private void doLoadData(){
+    private void doLoadData() {
 //        getPresenter().getListLocation(imei, startDate, endDate);
         latLngs.add(new LatLng(21.000488, 105.798337));
         latLngs.add(new LatLng(21.003807, 105.802491));
@@ -170,4 +189,33 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
 
     }
 
+    DateDialog dateDialog;
+
+    private void openDateDialog() {
+        if (dateDialog != null && dateDialog.isShowing()) return;
+        dateDialog = new DateDialog(this);
+        dateDialog.setCanceledOnTouchOutside(true);
+        dateDialog.setOnChooseListener(new DateDialog.OnChooseListener() {
+            @Override
+            public void onDone(String startDate_, String endDate_) {
+                // TODO: 4/19/2018 some thing with dates
+                startDate = startDate_;
+                endDate = endDate_;
+                doLoadData();
+                EventBus.getDefault().post(new ChangeDateEvent(startDate, endDate));
+            }
+        });
+        dateDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                dateDialog.release();
+            }
+        });
+        dateDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

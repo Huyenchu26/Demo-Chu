@@ -2,6 +2,9 @@ package mq.com.chuohapps.ui.home.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +16,7 @@ import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.OnClickListener;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.xbase.BaseAdapter;
+import mq.com.chuohapps.utils.AppLogger;
 import mq.com.chuohapps.utils.GetRFID;
 
 /**
@@ -20,6 +24,19 @@ import mq.com.chuohapps.utils.GetRFID;
  */
 
 public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, VehicleAdapter.ItemListener, Vehicle> {
+
+    private int lastPosition = -1;
+
+    private void setAnimation(View viewToAnimate, int position) {
+        if (position > lastPosition) {
+            AppLogger.error("set animation");
+            Animation animation = new AlphaAnimation(R.anim.splash_in, R.anim.splash_out);
+            if(position < 4)
+                animation.setStartOffset(position * 200);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
+    }
 
     @Override
     protected ItemViewHolder getCustomItemViewHolder(ViewGroup parent) {
@@ -119,6 +136,7 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
             txtCPUtime.setText(" CPU time: " + vehicleData.getCpuTime());
 
             setTrafficLight(vehicleData);
+            setAnimation(itemView, position);
         }
 
         private void setTrafficLight(Vehicle.Data vehicle) {

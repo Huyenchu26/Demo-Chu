@@ -143,26 +143,39 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
                 "0100035be694ffffffffff010100035b7129ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff810100035bc" +
                 "c94ffffffffff01010003597129ffffffffff010100066d3194ffffffffff01010003", "1", "1", "1", "025"));
         Vehicle vehicle5 = new Vehicle(new Vehicle.Data("123456321", "26-06-1996", "120", "120",
-                "1", "0", "1", "1", "1", "1", "0", "1", "16",
+                "1", "0", "1", "1", "0", "1", "0", "1", "16",
                 "12", "ffffffffff010100035b7189ffffffff010100035b8894ffffffffff01010003ab7129ffffffffff01" +
                 "0100035be694ffffffffff010100035b7129ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff810100035bc" +
                 "c94ffffffffff01010003597129ffffffffff010100066d3194ffffffffff01010003", "1", "1", "1", "169"));
+        Vehicle vehicle6 = new Vehicle(new Vehicle.Data("123456321", "26-06-1996", "120", "120",
+                "1", "0", "1", "1", "1", "1", "0", "1", "1",
+                "12", "ff020180035b7129ffffffffff010100035bcc94ffffffff000100035b7129ffffffffff010100035b71" +
+                "29ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff010100035bcccaffffffffff010100035bb129ffffffff" +
+                "ff010100035bcc94ffffffffff010100035b7129ffffffffff010100035bcc94ff", "1", "1", "1", "1102"));
+        Vehicle vehicle7 = new Vehicle(new Vehicle.Data("123456321", "26-06-1996", "120", "120",
+                "1", "0", "1", "1", "1", "1", "0", "1", "1",
+                "12", "ffffffffff010100035b7189ffffffff010100035b8894ffffffffff01010003ab7129ffffffffff01" +
+                "0100035be694ffffffffff010100035b7129ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff810100035bc" +
+                "c94ffffffffff01010003597129ffffffffff010100066d3194ffffffffff01010003", "1", "1", "1", "178"));
+        Vehicle vehicle8 = new Vehicle(new Vehicle.Data("123456321", "26-06-1996", "120", "120",
+                "1", "0", "1", "1", "0", "1", "0", "1", "1",
+                "12", "ffffffffff010100035b7129ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff010" +
+                "100022b7bcaffffffffff010100b39ecaffffffffff010100035bcc94ffffffffff010100035b71f9ffffffffff010100035bcc94f" +
+                "fffffffff010100035b7129ffffffffff810100035bcc94ffffffffff01010003", "1", "1", "1", "1983"));
 
         vehicleList.add(vehicle1);
         vehicleList.add(vehicle2);
         vehicleList.add(vehicle3);
         vehicleList.add(vehicle4);
         vehicleList.add(vehicle5);
+        vehicleList.add(vehicle6);
+        vehicleList.add(vehicle7);
+        vehicleList.add(vehicle8);
+        vehicleList.add(vehicle2);
     }
 
     private void setupHeader() {
-        enableHeader("");
-        tabOption.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onDelayedClick(View v) {
-                showMessage("taboption");
-            }
-        });
+        enableHeader(imei);
         imageBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
@@ -243,17 +256,13 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
             }
         });
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (vehicleList != null) {
-                    adapter = new ViewPagerAdapter(getChildFragmentManager());
-                    adapter.addTab("Trunk");
-                    adapter.addTab("CPUTime");
-                    viewpagerOption.setAdapter(adapter);
-                }
-            }
-        }, 2 * 1000);
+        if (vehicleList != null) {
+            adapter = new ViewPagerAdapter(getChildFragmentManager());
+            adapter.addTab(getString(R.string.title_trunk));
+            adapter.addTab(getString(R.string.title_cpu_time));
+            if (viewpagerOption != null)
+                viewpagerOption.setAdapter(adapter);
+        }
         tabOption.setupWithViewPager(viewpagerOption);
     }
 

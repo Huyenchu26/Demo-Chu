@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/imageLogo"
         android:padding="@dimen/_8sdp"
-        android:text="Management"
+        android:text="Management Vehicle"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/colorTextWhite"
