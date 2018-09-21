@@ -17,20 +17,23 @@
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="15dp"
+            android:paddingBottom="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="15dp"
+            android:paddingLeft="6dp"
             android:src="@mipmap/ic_back_white" />
 
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_10sdp"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="2"
             android:paddingLeft="?attr/actionBarSize"
             android:paddingRight="?attr/actionBarSize"
             android:text="Title"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/colorTextWhite"
@@ -43,9 +46,11 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentEnd="true"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="15dp"
-            android:src="@mipmap/ic_search_black"
-            android:visibility="gone" />
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:paddingRight="6dp"
+            android:src="@mipmap/ic_search_black"/>
 
         <ProgressBar
             android:id="@+id/progressSearch"
@@ -92,12 +97,12 @@
             android:id="@+id/texttime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/_2sdp"
             android:gravity="center"
             android:text="time to time"
             android:visibility="gone"
             android:textColor="@color/colorTextWhite"
-            android:textSize="@dimen/_8sdp"/>
+            android:textSize="@dimen/_9sdp"/>
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

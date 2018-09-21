@@ -13,21 +13,16 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabOption"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/colorHeader"
         android:layout_width="match_parent"
-        android:layout_alignEnd="@id/toolbarHeader"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_height="@dimen/_24sdp"
+        android:layout_below="@id/toolbarHeader"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp"
-        app:tabGravity="fill"
         app:tabIndicatorColor="@color/colorAccent"
         app:tabIndicatorHeight="2.5dp"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/colorTextWhite"
         app:tabTextAppearance="@style/TabTextProduction"
-        app:tabTextColor="@color/colorLineDivideDark" />
+        app:tabTextColor="@color/colorTextSecondary"
+        app:tabSelectedTextColor="@color/colorTextPrimary"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpagerOption"

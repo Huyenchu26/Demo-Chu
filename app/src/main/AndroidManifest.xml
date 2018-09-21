@@ -29,7 +29,6 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.xbase.splash.SplashActivity"
-            android:screenOrientation="landscape"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

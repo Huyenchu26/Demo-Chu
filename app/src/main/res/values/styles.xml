@@ -265,7 +265,7 @@
         <!--<item name="android:background">@drawable/bg_table_row_order</item>-->
     <!--</style>-->
     <style name="TabTextProduction" parent="@android:style/TextAppearance.Widget.TabWidget">
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -292,7 +292,7 @@
     <style name="textNomalHeader">
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:layout_marginTop">2dp</item>
     </style>
 
