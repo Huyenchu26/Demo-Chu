@@ -77,7 +77,11 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     }
 
     private void doLoadData() {
-//        getPresenter().getVehicle();
+        getPresenter().getVehicle();
+//        fakeData();
+    }
+
+    private void fakeData() {
         Vehicle vehicle1 = new Vehicle(new Vehicle.Data("192345234656321", "26-06-1996", "120", "120",
                 "1", "0", "1", "1", "1", "1", "0", "1", "1",
                 "12", "ffffffffff010100035b7189ffffffff010100035b8894ffffffffff01010003ab7129ffffffffff01" +

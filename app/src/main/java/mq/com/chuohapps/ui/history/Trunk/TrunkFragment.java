@@ -10,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +23,7 @@ import butterknife.Unbinder;
 import mq.com.chuohapps.R;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.history.Trunk.adapter.TrunkAdapter;
+import mq.com.chuohapps.ui.history.event.ChangeDateEvent;
 import mq.com.chuohapps.utils.HistoryUtil;
 
 public class TrunkFragment extends Fragment {
@@ -26,7 +31,6 @@ public class TrunkFragment extends Fragment {
     @BindView(R.id.recyclerViewTrunk)
     RecyclerView recyclerViewTrunk;
 
-    String startDate, endDate;
     List<Vehicle> vehicleList = new ArrayList<>();
     String imei;
 
@@ -34,16 +38,12 @@ public class TrunkFragment extends Fragment {
     private View view;
     Unbinder unbinder;
 
-    public static TrunkFragment newInstance(String imei, List<Vehicle> vehicleList,
-                                            String startDate, String endDate) {
-        return new TrunkFragment().setDate(imei, vehicleList, startDate, endDate);
+    public static TrunkFragment newInstance(List<Vehicle> vehicleList) {
+        return new TrunkFragment().setDate(vehicleList);
     }
 
-    public TrunkFragment setDate(String imei, List<Vehicle> vehicleList, String startDate, String endDate) {
+    public TrunkFragment setDate(List<Vehicle> vehicleList) {
         this.vehicleList = vehicleList;
-        this.imei = imei;
-        this.startDate = startDate;
-        this.endDate = endDate;
         return this;
     }
 
@@ -64,16 +64,22 @@ public class TrunkFragment extends Fragment {
 
     private void setupAdapter() {
         trunkAdapter = new TrunkAdapter();
+
+        parseVehicleToTrunkItem(vehicleList);
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerViewTrunk.setLayoutManager(mLayoutManager);
+        recyclerViewTrunk.setAdapter(trunkAdapter);
+    }
+
+    private void parseVehicleToTrunkItem(List<Vehicle> vehicleList) {
         List<Vehicle> lists = HistoryUtil.getTimeLine(vehicleList);
         List<HistoryUtil.ItemTrunk> itemTrunks = new ArrayList<>();
         for (int i = 0; i < lists.size() - 2; i += 2) {
             itemTrunks.add(HistoryUtil.getItemTrunk(lists.get(i), lists.get(i + 1)));
         }
+        trunkAdapter.clearData();
         trunkAdapter.addData(itemTrunks);
-
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerViewTrunk.setLayoutManager(mLayoutManager);
-        recyclerViewTrunk.setAdapter(trunkAdapter);
     }
 
     @Override
@@ -81,5 +87,22 @@ public class TrunkFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
         unbinder = null;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onMessageEvent(ChangeDateEvent event) {
+        parseVehicleToTrunkItem(event.vehicleList);
     }
 }

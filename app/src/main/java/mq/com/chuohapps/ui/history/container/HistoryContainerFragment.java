@@ -120,8 +120,11 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
     }
 
     private void doLoadData() {
-//        getPresenter().getHistory(imei, startDate, endDate);
+        getPresenter().getHistory(imei, startDate, endDate);
+//        fakeData();
+    }
 
+    private void fakeData() {
         Vehicle vehicle1 = new Vehicle(new Vehicle.Data("123456321", "26-06-1996", "120", "120",
                 "1", "0", "1", "1", "1", "1", "0", "1", "12",
                 "12", "ffffffffff010100035b7189ffffffff010100035b8894ffffffffff01010003ab7129ffffffffff01" +
@@ -201,15 +204,14 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
     @Override
     public void getHistorySuccess(List<Vehicle> vehicleList) {
         hideLoading();
-        vehicleList.clear();
-        vehicleList.addAll(vehicleList);
-        AppLogger.error("isSuccessful: " + vehicleList.size());
+        this.vehicleList.clear();
+        this.vehicleList.addAll(vehicleList);
+        EventBus.getDefault().post(new ChangeDateEvent(startDate, endDate, this.vehicleList));
     }
 
     @Override
     public void getHistoryError(String message) {
         hideLoading();
-        AppLogger.error("load history Error: " + message);
     }
 
     DateDialog dateDialog;
@@ -225,7 +227,6 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
                 startDate = startDate_;
                 endDate = endDate_;
                 doLoadData();
-                EventBus.getDefault().post(new ChangeDateEvent(startDate, endDate));
             }
         });
         dateDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -276,8 +277,8 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
         @Override
         public Fragment getItem(int position) {
             if (position == 0)
-                return TrunkFragment.newInstance(imei, vehicleList, startDate, endDate);
-            else return CPUFragment.newInstance(imei, vehicleList, startDate, endDate);
+                return TrunkFragment.newInstance(vehicleList);
+            else return CPUFragment.newInstance(vehicleList);
         }
 
         @Override

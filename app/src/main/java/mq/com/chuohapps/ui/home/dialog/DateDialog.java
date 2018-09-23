@@ -81,10 +81,9 @@ public class DateDialog extends MyAlertDialog {
     public void buttonSearchClicked() {
         if (onChooseListener != null)
             try {
-
+                onChooseListener.onDone(editStartTime.getText().toString(), editEndTime.getText().toString());
             } catch (NumberFormatException ignored) {
             }
-
         onChooseListener = null;
         dismiss();
     }
