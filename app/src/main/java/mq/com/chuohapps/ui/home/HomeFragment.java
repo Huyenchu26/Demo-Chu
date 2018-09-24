@@ -128,17 +128,8 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         imageRight.setVisibility(View.VISIBLE);
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void setupAdapter() {
         adapter = new VehicleAdapter();
-        recyclerViewVehicle.setAdapter(adapter);
-            recyclerViewVehicle.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                    doLoadData();
-                }
-            });
 //        recyclerViewVehicle.set
         adapter.setItemListener(new VehicleAdapter.ItemListener() {
             @Override
@@ -162,6 +153,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                 goToScreen(HistoryContainerFragment.newInstance(vehicle.getImei()));
             }
         });
+        recyclerViewVehicle.setAdapter(adapter);
     }
 
     RFIDDialog rfidDialog;
@@ -193,11 +185,11 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
 
     @Override
     public void onGetVehicleSuccess(List<Vehicle> vehicle) {
+        hideLoading();
         vehicles.clear();
         vehicles.addAll(vehicle);
         adapter.clearData();
         adapter.addData(vehicles);
-        hideLoading();
         AppLogger.error("isSuccessful: " + vehicle);
     }
 
