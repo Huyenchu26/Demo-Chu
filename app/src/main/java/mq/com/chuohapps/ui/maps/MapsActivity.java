@@ -2,8 +2,10 @@ package mq.com.chuohapps.ui.maps;
 
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.OnClickListener;
+import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.history.event.ChangeDateEvent;
 import mq.com.chuohapps.ui.home.dialog.DateDialog;
 import mq.com.chuohapps.ui.xbase.BaseActivity;
@@ -66,14 +69,15 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     String endDate = null;
     List<LatLng> latLngs = new ArrayList<>();
 
+    SupportMapFragment mapFragment;
     @Override
     protected void setupViews() {
         setupDate();
         setupHeader();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+
     }
 
     private void setupDate() {
@@ -111,49 +115,40 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        registerEventBus();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        unregisterEventBus();
-    }
-
-    @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        MarkerOptions marker = new MarkerOptions();
-        PolylineOptions polylineOptions = new PolylineOptions();
-        for (int i = 0; i < latLngs.size(); i++) {
-            polylineOptions.add(latLngs.get(i));
-            marker.position(latLngs.get(i));
-        }
-        LatLng location = latLngs.get(0);
+        while (latLngs != null && latLngs.size() > 0) {
+//        if (latLngs != null && latLngs.size() > 0) {
+            MarkerOptions marker = new MarkerOptions();
+            PolylineOptions polylineOptions = new PolylineOptions();
+            for (int i = 0; i < latLngs.size(); i++) {
+                polylineOptions.add(latLngs.get(i));
+                marker.position(latLngs.get(i));
+            }
+            LatLng location = latLngs.get(0);
 //        CameraUpdate zoom = CameraUpdateFactory.zoomTo(20);
 //        mMap.animateCamera(zoom);
 //        mMap.addMarker(new MarkerOptions().position(location).title("This imei in here"));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
 
 
-        marker.position(location).draggable(true);
-        mMap.addMarker(marker);
+            marker.position(location).draggable(true);
+            mMap.addMarker(marker);
 
-        CameraPosition camera = new CameraPosition.Builder()
-                .target(location)
-                .zoom(18)  //limite ->21
-                .bearing(0) // 0 - 365
-                .tilt(45) // limite ->90
-                .build();
+            CameraPosition camera = new CameraPosition.Builder()
+                    .target(location)
+                    .zoom(18)  //limite ->21
+                    .bearing(0) // 0 - 365
+                    .tilt(45) // limite ->90
+                    .build();
 
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera));
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera));
 
-        polylineOptions.width(5).color(getResources().getColor(R.color.colorAccent)).geodesic(true);
-        mMap.addPolyline(polylineOptions);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 13));
+            polylineOptions.width(5).color(getResources().getColor(R.color.colorAccent)).geodesic(true);
+            mMap.addPolyline(polylineOptions);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 13));
+        }
     }
 
 
@@ -163,10 +158,18 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     }
 
     @Override
-    public void onGetListLocationSuccess(List<LatLng> latLngs) {
+    public void onGetListLocationSuccess(List<Vehicle> latLngs) {
         hideLoading();
         if (latLngs == null || latLngs.size() == 0) return;
-        this.latLngs.addAll(latLngs);
+        for (int i = 0; i < latLngs.size(); i++) {
+            LatLng latLng = new LatLng(Double.valueOf(latLngs.get(i).data.getLatitude()),
+                    Double.valueOf(latLngs.get(i).data.getLongitude()));
+//            this.latLngs.clear();
+            this.latLngs.add(latLng);
+        }
+
+        mapFragment.getMapAsync(this);
+        showMessage(startDate + " - " + endDate);
     }
 
     @Override
@@ -176,17 +179,16 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     }
 
     private void doLoadData() {
-//        getPresenter().getListLocation(imei, startDate, endDate);
+        getPresenter().getListLocation(imei, startDate, endDate);
+//        fakeData();
+    }
+
+    private void fakeData() {
         latLngs.add(new LatLng(21.000488, 105.798337));
         latLngs.add(new LatLng(21.003807, 105.802491));
         latLngs.add(new LatLng(21.006772, 105.806568));
         latLngs.add(new LatLng(21.013823, 105.813005));
         latLngs.add(new LatLng(21.022476, 105.819142));
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(Object event) {
-
     }
 
     DateDialog dateDialog;
@@ -202,7 +204,6 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
                 startDate = startDate_;
                 endDate = endDate_;
                 doLoadData();
-                EventBus.getDefault().post(new ChangeDateEvent(startDate, endDate));
             }
         });
         dateDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {

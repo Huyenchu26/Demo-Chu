@@ -1,10 +1,13 @@
 package mq.com.chuohapps.ui.home;
 
 
+import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -125,9 +128,17 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         imageRight.setVisibility(View.VISIBLE);
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void setupAdapter() {
         adapter = new VehicleAdapter();
         recyclerViewVehicle.setAdapter(adapter);
+            recyclerViewVehicle.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+                    doLoadData();
+                }
+            });
 //        recyclerViewVehicle.set
         adapter.setItemListener(new VehicleAdapter.ItemListener() {
             @Override

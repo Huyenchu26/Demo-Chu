@@ -4,6 +4,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
+import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.xbase.BaseContract;
 import mq.com.chuohapps.ui.xbase.BasePresenter;
 import mq.com.chuohapps.ui.xbase.BaseView;
@@ -17,7 +18,7 @@ public class MapsConstract extends BaseContract{
     interface View extends BaseView {
         void onStartGetListLocation();
 
-        void onGetListLocationSuccess(List<LatLng> latLngs);
+        void onGetListLocationSuccess(List<Vehicle> latLngs);
 
         void onGetListLocationError(String message);
 
