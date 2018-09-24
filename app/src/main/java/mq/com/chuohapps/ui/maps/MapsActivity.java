@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -14,8 +15,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -30,6 +33,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.socket.client.On;
 import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.OnClickListener;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
@@ -69,15 +73,15 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     String endDate = null;
     List<LatLng> latLngs = new ArrayList<>();
 
-    SupportMapFragment mapFragment;
     @Override
     protected void setupViews() {
         setupDate();
         setupHeader();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
+        mapFragment.getMapAsync(this);
     }
 
     private void setupDate() {
@@ -117,24 +121,27 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        fakeData();
 
-        while (latLngs != null && latLngs.size() > 0) {
-//        if (latLngs != null && latLngs.size() > 0) {
+//        while (latLngs != null && latLngs.size() > 0) {
+        if (latLngs != null && latLngs.size() > 0) {
             MarkerOptions marker = new MarkerOptions();
             PolylineOptions polylineOptions = new PolylineOptions();
             for (int i = 0; i < latLngs.size(); i++) {
                 polylineOptions.add(latLngs.get(i));
                 marker.position(latLngs.get(i));
+
+                marker.position(latLngs.get(i)).draggable(true);
+                mMap.addMarker(marker);
             }
             LatLng location = latLngs.get(0);
+
+
 //        CameraUpdate zoom = CameraUpdateFactory.zoomTo(20);
 //        mMap.animateCamera(zoom);
 //        mMap.addMarker(new MarkerOptions().position(location).title("This imei in here"));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
 
-
-            marker.position(location).draggable(true);
-            mMap.addMarker(marker);
 
             CameraPosition camera = new CameraPosition.Builder()
                     .target(location)
@@ -150,7 +157,6 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 13));
         }
     }
-
 
     @Override
     public void onStartGetListLocation() {
@@ -168,7 +174,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
             this.latLngs.add(latLng);
         }
 
-        mapFragment.getMapAsync(this);
+
         showMessage(startDate + " - " + endDate);
     }
 
@@ -179,7 +185,13 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     }
 
     private void doLoadData() {
-        getPresenter().getListLocation(imei, startDate, endDate);
+//        getPresenter().getListLocation(imei, startDate, endDate);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                fakeData();
+//            }
+//        }, 5000);
 //        fakeData();
     }
 
