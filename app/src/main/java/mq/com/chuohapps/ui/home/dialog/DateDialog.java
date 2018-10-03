@@ -1,5 +1,6 @@
 package mq.com.chuohapps.ui.home.dialog;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +14,7 @@ import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.DatePickerDialog;
 import mq.com.chuohapps.customview.MyAlertDialog;
 import mq.com.chuohapps.utils.data.DateUtils;
+import mq.com.chuohapps.utils.functions.MessageUtils;
 import mq.com.chuohapps.utils.views.KeyboardUtils;
 
 public class DateDialog extends MyAlertDialog {
@@ -81,7 +83,11 @@ public class DateDialog extends MyAlertDialog {
     public void buttonSearchClicked() {
         if (onChooseListener != null)
             try {
-                onChooseListener.onDone(editStartTime.getText().toString(), editEndTime.getText().toString());
+                String startDate = editStartTime.getText().toString().trim();
+                String endDate = editEndTime.getText().toString().trim();
+                if (startDate.length() > 0 && endDate.length() > 0)
+                    onChooseListener.onDone(startDate, endDate);
+                else return;
             } catch (NumberFormatException ignored) {
             }
         onChooseListener = null;
