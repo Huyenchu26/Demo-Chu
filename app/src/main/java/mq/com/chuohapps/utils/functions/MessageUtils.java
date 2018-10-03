@@ -42,7 +42,7 @@ public final class MessageUtils {
                 .setWarningColor(context.getResources().getColor(R.color.messageWarning))
                 .setInfoColor(context.getResources().getColor(R.color.messageWarning))
                 .setTextColor(context.getResources().getColor(R.color.messageText))
-                .setTextSize(ViewUtils.dpToPx(16))
+                .setTextSize(ViewUtils.dpToPx(6))
                 .apply();
     }
 
@@ -119,8 +119,8 @@ public final class MessageUtils {
 //            toasty = Toasty.warning(activity, String.valueOf(message), String.valueOf(message).length() > 7 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT, true);
 //        }
         toasty = Toasty.custom(activity, String.valueOf(message), null,
-                activity.getResources().getColor(colorResource), String.valueOf(message).length() > 7 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT, false, true);
-        toasty.setGravity(Gravity.TOP, 0, ViewUtils.dpToPx(8));
+                activity.getResources().getColor(colorResource), Toast.LENGTH_SHORT, false, true);
+        toasty.setGravity(Gravity.TOP, 0, 0);
         toasty.show();
     }
 
