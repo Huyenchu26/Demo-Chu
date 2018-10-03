@@ -22,7 +22,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import mq.com.chuohapps.R;
+import mq.com.chuohapps.customview.LoadMoreRecyclerView;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
+import mq.com.chuohapps.lib.swiperefresh.AppRefresher;
+import mq.com.chuohapps.lib.swiperefresh.Refresher;
 import mq.com.chuohapps.ui.history.Trunk.adapter.TrunkAdapter;
 import mq.com.chuohapps.ui.history.event.ChangeDateEvent;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
@@ -31,11 +34,12 @@ import mq.com.chuohapps.utils.HistoryUtil;
 public class TrunkFragment extends BaseFragment<TrunkContract.Presenter> implements TrunkContract.View {
 
     @BindView(R.id.recyclerViewTrunk)
-    RecyclerView recyclerViewTrunk;
+    LoadMoreRecyclerView recyclerViewTrunk;
 
     List<Vehicle> vehicleList = new ArrayList<>();
 
     TrunkAdapter trunkAdapter;
+    private Refresher refresher = new AppRefresher();
 
     public static TrunkFragment newInstance(List<Vehicle> vehicleList) {
         return new TrunkFragment().setDate(vehicleList);
@@ -76,8 +80,6 @@ public class TrunkFragment extends BaseFragment<TrunkContract.Presenter> impleme
 
         parseVehicleToTrunkItem(vehicleList);
 
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerViewTrunk.setLayoutManager(mLayoutManager);
         recyclerViewTrunk.setAdapter(trunkAdapter);
     }
 
@@ -89,23 +91,44 @@ public class TrunkFragment extends BaseFragment<TrunkContract.Presenter> impleme
         }
         trunkAdapter.clearData();
         trunkAdapter.addData(itemTrunks);
-        logError("parseVehicleToTrunkItem");
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        bindRefresh();
         EventBus.getDefault().register(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        refresher.release();
         EventBus.getDefault().unregister(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onMessageEvent(ChangeDateEvent event) {
         parseVehicleToTrunkItem(event.vehicleList);
+    }
+
+    private void bindRefresh() {
+        refresher.setup(getView(), R.id.swipeRefresh);
+        refresher.onBeginRefresh(new Runnable() {
+            @Override
+            public void run() {
+                doRefresh();
+            }
+        });
+    }
+
+    private void doRefresh() {
+        if (recyclerViewTrunk.isLoading()) {
+            return;
+        } else {
+            trunkAdapter.clearData();
+            recyclerViewTrunk.refreshLoadMore();
+            parseVehicleToTrunkItem(vehicleList);
+        }
     }
 }

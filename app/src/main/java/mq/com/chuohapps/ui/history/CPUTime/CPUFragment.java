@@ -21,7 +21,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import mq.com.chuohapps.R;
+import mq.com.chuohapps.customview.LoadMoreRecyclerView;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
+import mq.com.chuohapps.lib.swiperefresh.AppRefresher;
+import mq.com.chuohapps.lib.swiperefresh.Refresher;
 import mq.com.chuohapps.ui.history.CPUTime.adapter.CPUtimeAdapter;
 import mq.com.chuohapps.ui.history.event.ChangeDateEvent;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
@@ -34,13 +37,12 @@ import mq.com.chuohapps.utils.HistoryUtil;
 public class CPUFragment extends BaseFragment<CPUContract.Presenter> implements CPUContract.View {
 
     @BindView(R.id.listViewCPUtime)
-    RecyclerView listViewCPUtime;
+    LoadMoreRecyclerView listViewCPUtime;
 
     View view;
     CPUtimeAdapter adapter;
     List<Vehicle> vehicleList = new ArrayList<>();
-
-    Unbinder unbinder;
+    private Refresher refresher = new AppRefresher();
 
     public static CPUFragment newInstance(List<Vehicle> vehicleList) {
         return new CPUFragment().setDate(vehicleList);
@@ -79,8 +81,6 @@ public class CPUFragment extends BaseFragment<CPUContract.Presenter> implements 
     private void setupAdapter() {
         adapter = new CPUtimeAdapter();
         parseVehicleToCPUTime(vehicleList);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        listViewCPUtime.setLayoutManager(mLayoutManager);
         listViewCPUtime.setAdapter(adapter);
     }
 
@@ -94,17 +94,39 @@ public class CPUFragment extends BaseFragment<CPUContract.Presenter> implements 
     @Override
     public void onStart() {
         super.onStart();
+        bindRefresh();
         EventBus.getDefault().register(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        refresher.release();
         EventBus.getDefault().unregister(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onMessageEvent(ChangeDateEvent event) {
         parseVehicleToCPUTime(event.vehicleList);
+    }
+
+    private void bindRefresh() {
+        refresher.setup(getView(), R.id.swipeRefresh);
+        refresher.onBeginRefresh(new Runnable() {
+            @Override
+            public void run() {
+                doRefresh();
+            }
+        });
+    }
+
+    private void doRefresh() {
+        if (listViewCPUtime.isLoading()) {
+            return;
+        } else {
+            adapter.clearData();
+            listViewCPUtime.refreshLoadMore();
+            parseVehicleToCPUTime(vehicleList);
+        }
     }
 }

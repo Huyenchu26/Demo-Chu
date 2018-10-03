@@ -5,10 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <mq.com.chuohapps.customview.LoadMoreRecyclerView
             android:id="@+id/listViewCPUtime"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/txtCPUtime"/>
+            android:layout_below="@+id/txtCPUtime" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

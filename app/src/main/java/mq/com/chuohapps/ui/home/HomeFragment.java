@@ -20,6 +20,8 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import mq.com.chuohapps.customview.TextChangedListener;
+import mq.com.chuohapps.lib.swiperefresh.AppRefresher;
+import mq.com.chuohapps.lib.swiperefresh.Refresher;
 import mq.com.chuohapps.ui.maps.MapsActivity;
 import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.LoadMoreRecyclerView;
@@ -81,43 +83,6 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
 
     private void doLoadData() {
         getPresenter().getVehicle();
-//        fakeData();
-    }
-
-    private void fakeData() {
-        Vehicle vehicle1 = new Vehicle(new Vehicle.Data("192345234656321", "26-06-1996", "120", "120",
-                "1", "0", "1", "1", "1", "1", "0", "1", "1",
-                "12", "ffffffffff010100035b7189ffffffff010100035b8894ffffffffff01010003ab7129ffffffffff01" +
-                "0100035be694ffffffffff010100035b7129ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff810100035bc" +
-                "c94ffffffffff01010003597129ffffffffff010100066d3194ffffffffff01010003", "1", "1", "1", "123"));
-        Vehicle vehicle2 = new Vehicle(new Vehicle.Data("18234489756321", "26-06-1996", "120", "120",
-                "1", "0", "1", "1", "1", "1", "0", "1", "1",
-                "12", "ff020180035b7129ffffffffff010100035bcc94ffffffff000100035b7129ffffffffff010100035b71" +
-                "29ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff010100035bcccaffffffffff010100035bb129ffffffff" +
-                "ff010100035bcc94ffffffffff010100035b7129ffffffffff010100035bcc94ff", "1", "1", "1", "1102"));
-        Vehicle vehicle3 = new Vehicle(new Vehicle.Data("12346544563921", "26-06-1996", "120", "120",
-                "1", "0", "1", "1", "1", "1", "0", "1", "1",
-                "12", "ffffffffff010100035b7189ffffffff010100035b8894ffffffffff01010003ab7129ffffffffff01" +
-                "0100035be694ffffffffff010100035b7129ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff810100035bc" +
-                "c94ffffffffff01010003597129ffffffffff010100066d3194ffffffffff01010003", "1", "1", "1", "178"));
-        Vehicle vehicle4 = new Vehicle(new Vehicle.Data("12349512316321", "26-06-1996", "120", "120",
-                "1", "0", "1", "1", "1", "1", "0", "1", "1",
-                "12", "ffffffffff010100035b7129ffffffffff010100035bcc94ffffffffff010100035b7129ffffffffff010" +
-                "100022b7bcaffffffffff010100b39ecaffffffffff010100035bcc94ffffffffff010100035b71f9ffffffffff010100035bcc94f" +
-                "fffffffff010100035b7129ffffffffff810100035bcc94ffffffffff01010003", "1", "1", "1", "1983"));
-
-        vehicles.add(vehicle1);
-        vehicles.add(vehicle2);
-        vehicles.add(vehicle1);
-        vehicles.add(vehicle3);
-        vehicles.add(vehicle1);
-        vehicles.add(vehicle4);
-        vehicles.add(vehicle2);
-        vehicles.add(vehicle3);
-        vehicles.add(vehicle1);
-        vehicles.add(vehicle4);
-        vehicles.add(vehicle2);
-        adapter.addData(vehicles);
     }
 
     private void init() {
@@ -128,9 +93,10 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         imageRight.setVisibility(View.VISIBLE);
     }
 
+    private Refresher refresher = new AppRefresher();
     private void setupAdapter() {
         adapter = new VehicleAdapter();
-//        recyclerViewVehicle.set
+//        recyclerViewVehicle.setOnS
         adapter.setItemListener(new VehicleAdapter.ItemListener() {
             @Override
             public void onRetryClick() {
@@ -181,6 +147,18 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     @Override
     public void onStartGetVehicle() {
 //        showLoading();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        bindRefresh();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        refresher.release();
     }
 
     @Override
@@ -263,5 +241,25 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             }
         };
         timer.schedule(doAsynchronousTask, 0, 30000); //execute in every 50000 ms
+    }
+
+    private void bindRefresh() {
+        refresher.setup(getView(), R.id.swipeRefresh);
+        refresher.onBeginRefresh(new Runnable() {
+            @Override
+            public void run() {
+                doRefresh();
+            }
+        });
+    }
+
+    private void doRefresh() {
+        if (recyclerViewVehicle.isLoading()) {
+            return;
+        } else {
+            adapter.clearData();
+            recyclerViewVehicle.refreshLoadMore();
+            doLoadData();
+        }
     }
 }

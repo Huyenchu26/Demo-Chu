@@ -200,7 +200,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     int count = 0;
     private void doLoadData() {
         count++;
-        getPresenter().getListLocation(imei, startDate, endDate);
+        getPresenter().getListLocation(imei.substring(1), startDate, endDate);
     }
 
     private void fakeData() {

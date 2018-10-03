@@ -53,10 +53,16 @@
 
     <View style="@style/LineDivideVertical" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewTrunk"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never" />
+        android:layout_height="match_parent">
+
+        <mq.com.chuohapps.customview.LoadMoreRecyclerView
+            android:id="@+id/recyclerViewTrunk"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>
