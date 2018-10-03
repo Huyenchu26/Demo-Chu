@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -46,7 +47,8 @@ import mq.com.chuohapps.utils.AppUtils;
 import mq.com.chuohapps.utils.data.DateUtils;
 import mq.com.chuohapps.utils.functions.MessageUtils;
 
-public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implements OnMapReadyCallback, MapsConstract.View {
+public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implements OnMapReadyCallback,
+        MapsConstract.View, GoogleMap.OnMapLoadedCallback {
 
     private GoogleMap mMap;
     @BindView(R.id.textTitle)
@@ -73,12 +75,17 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     String endDate = null;
     List<LatLng> latLngs = new ArrayList<>();
 
+    SupportMapFragment mapFragment;
     @Override
     protected void setupViews() {
         setupDate();
         setupHeader();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        initMaps();
+    }
+
+    private void initMaps() {
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
         mapFragment.getMapAsync(this);
@@ -121,41 +128,46 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        fakeData();
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        updateMaps();
+    }
 
-//        while (latLngs != null && latLngs.size() > 0) {
-        if (latLngs != null && latLngs.size() > 0) {
-            MarkerOptions marker = new MarkerOptions();
+    boolean checkLoadMaps = false;
+    @Override
+    public void onMapLoaded() {
+        checkLoadMaps = true;
+        updateMaps();
+    }
+
+    private void updateMaps() {
+        if (checkLoadMaps = true) {
+            mMap.clear();
             PolylineOptions polylineOptions = new PolylineOptions();
-            for (int i = 0; i < latLngs.size(); i++) {
-                polylineOptions.add(latLngs.get(i));
-                marker.position(latLngs.get(i));
+            if (latLngs != null && latLngs.size() > 0) {
+                for (int i = 0; i < latLngs.size(); i++) {
+                    polylineOptions.add(latLngs.get(i));
+                }
+                MarkerOptions marker = new MarkerOptions();
+                LatLng location = latLngs.get(0);
+                marker.position(location);
 
-                marker.position(latLngs.get(i)).draggable(true);
+                marker.position(location).draggable(true);
                 mMap.addMarker(marker);
+                CameraPosition camera = new CameraPosition.Builder()
+                        .target(location)
+                        .zoom(18)  //limite ->21
+                        .bearing(0) // 0 - 365
+                        .tilt(45) // limite ->90
+                        .build();
+
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera));
+
+                polylineOptions.width(5).color(getResources().getColor(R.color.colorAccent)).geodesic(true);
+                mMap.addPolyline(polylineOptions);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 13));
             }
-            LatLng location = latLngs.get(0);
-
-
-//        CameraUpdate zoom = CameraUpdateFactory.zoomTo(20);
-//        mMap.animateCamera(zoom);
-//        mMap.addMarker(new MarkerOptions().position(location).title("This imei in here"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
-
-
-            CameraPosition camera = new CameraPosition.Builder()
-                    .target(location)
-                    .zoom(18)  //limite ->21
-                    .bearing(0) // 0 - 365
-                    .tilt(45) // limite ->90
-                    .build();
-
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera));
-
-            polylineOptions.width(5).color(getResources().getColor(R.color.colorAccent)).geodesic(true);
-            mMap.addPolyline(polylineOptions);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 13));
         }
+
     }
 
     @Override
@@ -166,15 +178,16 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     @Override
     public void onGetListLocationSuccess(List<Vehicle> latLngs) {
         hideLoading();
+        this.latLngs.clear();
         if (latLngs == null || latLngs.size() == 0) return;
         for (int i = 0; i < latLngs.size(); i++) {
             LatLng latLng = new LatLng(Double.valueOf(latLngs.get(i).data.getLatitude()),
                     Double.valueOf(latLngs.get(i).data.getLongitude()));
-//            this.latLngs.clear();
             this.latLngs.add(latLng);
         }
-
-
+//        if (count == 1) fakeData();
+//        else fakeData2();
+        updateMaps();
         showMessage(startDate + " - " + endDate);
     }
 
@@ -184,15 +197,10 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
         showMessage(message, MessageUtils.ERROR_CODE);
     }
 
+    int count = 0;
     private void doLoadData() {
-//        getPresenter().getListLocation(imei, startDate, endDate);
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                fakeData();
-//            }
-//        }, 5000);
-//        fakeData();
+        count++;
+        getPresenter().getListLocation(imei, startDate, endDate);
     }
 
     private void fakeData() {
@@ -201,6 +209,11 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
         latLngs.add(new LatLng(21.006772, 105.806568));
         latLngs.add(new LatLng(21.013823, 105.813005));
         latLngs.add(new LatLng(21.022476, 105.819142));
+    }
+
+    private void fakeData2() {
+        latLngs.add(new LatLng(21.000488, 105.798337));
+        latLngs.add(new LatLng(21.003807, 105.802491));
     }
 
     DateDialog dateDialog;

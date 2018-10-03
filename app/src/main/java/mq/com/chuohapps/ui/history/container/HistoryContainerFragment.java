@@ -35,6 +35,7 @@ import mq.com.chuohapps.ui.home.dialog.DateDialog;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
 import mq.com.chuohapps.utils.AppLogger;
 import mq.com.chuohapps.utils.data.DateUtils;
+import mq.com.chuohapps.utils.functions.MessageUtils;
 
 public class HistoryContainerFragment extends BaseFragment<HistoryContainerContract.Presenter>
         implements HistoryContainerContract.View {
@@ -198,7 +199,7 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
 
     @Override
     public void onStartGetHistory() {
-//        showLoading();
+        showLoading();
     }
 
     @Override
@@ -206,12 +207,15 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
         hideLoading();
         this.vehicleList.clear();
         this.vehicleList.addAll(vehicleList);
+        logError("vehicle list: " + vehicleList.size());
+        showMessage("Success!");
         EventBus.getDefault().post(new ChangeDateEvent(startDate, endDate, this.vehicleList));
     }
 
     @Override
     public void getHistoryError(String message) {
         hideLoading();
+        showMessage(message, MessageUtils.ERROR_CODE);
     }
 
     DateDialog dateDialog;
