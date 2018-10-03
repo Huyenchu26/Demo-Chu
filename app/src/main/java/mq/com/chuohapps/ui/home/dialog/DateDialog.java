@@ -102,9 +102,9 @@ public class DateDialog extends MyAlertDialog {
             public void onDateSet(Calendar calendar) {
                 date = calendar;
                 if (choose == 1)
-                    editStartTime.setText(DateUtils.dateToString(date.getTime()));
+                    editStartTime.setText(DateUtils.dateToStringSent(date.getTime()));
                 else if (choose == 2)
-                    editEndTime.setText(DateUtils.dateToString(date.getTime()));
+                    editEndTime.setText(DateUtils.dateToStringSent(date.getTime()));
                 else return;
             }
 

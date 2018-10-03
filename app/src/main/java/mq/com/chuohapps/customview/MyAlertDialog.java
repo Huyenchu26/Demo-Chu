@@ -41,7 +41,7 @@ public abstract class MyAlertDialog extends AlertDialog {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         try {
             getWindow().setLayout(
-                    getContext().getResources().getDisplayMetrics().widthPixels / 100 * 70,
+                    getContext().getResources().getDisplayMetrics().widthPixels / 100 * 85,
                     WindowManager.LayoutParams.WRAP_CONTENT);
 
         } catch (Exception ignored) {
