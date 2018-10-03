@@ -1,6 +1,7 @@
 package mq.com.chuohapps.ui.history.Trunk;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,9 +25,10 @@ import mq.com.chuohapps.R;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.history.Trunk.adapter.TrunkAdapter;
 import mq.com.chuohapps.ui.history.event.ChangeDateEvent;
+import mq.com.chuohapps.ui.xbase.BaseFragment;
 import mq.com.chuohapps.utils.HistoryUtil;
 
-public class TrunkFragment extends Fragment {
+public class TrunkFragment extends BaseFragment<TrunkContract.Presenter> implements TrunkContract.View {
 
     @BindView(R.id.recyclerViewTrunk)
     RecyclerView recyclerViewTrunk;
@@ -48,18 +50,28 @@ public class TrunkFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_history_trunk, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        setupAdapter();
-        return view;
+    protected int provideLayout() {
+        return R.layout.fragment_history_trunk;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected Class<TrunkContract.Presenter> providePresenter() {
+        return TrunkContract.Presenter.class;
+    }
+
+    @Override
+    protected void setupNavigationTitle() {
+
+    }
+
+    @Override
+    protected void setupViews(@NonNull View view) {
+        setupAdapter();
+    }
+
+    @Override
+    protected void beginFlow(@NonNull View view) {
+
     }
 
     private void setupAdapter() {
@@ -80,13 +92,7 @@ public class TrunkFragment extends Fragment {
         }
         trunkAdapter.clearData();
         trunkAdapter.addData(itemTrunks);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-        unbinder = null;
+        logError("parseVehicleToTrunkItem");
     }
 
     @Override

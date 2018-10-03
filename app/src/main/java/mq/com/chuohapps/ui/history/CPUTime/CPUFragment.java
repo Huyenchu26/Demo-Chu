@@ -1,6 +1,7 @@
 package mq.com.chuohapps.ui.history.CPUTime;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,13 +24,14 @@ import mq.com.chuohapps.R;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.history.CPUTime.adapter.CPUtimeAdapter;
 import mq.com.chuohapps.ui.history.event.ChangeDateEvent;
+import mq.com.chuohapps.ui.xbase.BaseFragment;
 import mq.com.chuohapps.utils.HistoryUtil;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CPUFragment extends Fragment {
+public class CPUFragment extends BaseFragment<CPUContract.Presenter> implements CPUContract.View {
 
     @BindView(R.id.listViewCPUtime)
     RecyclerView listViewCPUtime;
@@ -49,14 +51,29 @@ public class CPUFragment extends Fragment {
         return this;
     }
 
+    @Override
+    protected int provideLayout() {
+        return R.layout.fragment_history_cpu;
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_history_cpu, container, false);
-        unbinder = ButterKnife.bind(this, view);
+    protected Class<CPUContract.Presenter> providePresenter() {
+        return CPUContract.Presenter.class;
+    }
+
+    @Override
+    protected void setupNavigationTitle() {
+
+    }
+
+    @Override
+    protected void setupViews(@NonNull View view) {
         setupAdapter();
-        return view;
+    }
+
+    @Override
+    protected void beginFlow(@NonNull View view) {
+
     }
 
     private void setupAdapter() {
@@ -71,13 +88,7 @@ public class CPUFragment extends Fragment {
         List<Vehicle> vehicles = HistoryUtil.getListRestartCPU(vehicleList);
         adapter.clearData();
         adapter.addData(vehicles);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-        unbinder = null;
+        logError("parseVehicleToCPUTime");
     }
 
     @Override
