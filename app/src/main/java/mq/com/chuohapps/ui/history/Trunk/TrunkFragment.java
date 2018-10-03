@@ -34,11 +34,8 @@ public class TrunkFragment extends BaseFragment<TrunkContract.Presenter> impleme
     RecyclerView recyclerViewTrunk;
 
     List<Vehicle> vehicleList = new ArrayList<>();
-    String imei;
 
     TrunkAdapter trunkAdapter;
-    private View view;
-    Unbinder unbinder;
 
     public static TrunkFragment newInstance(List<Vehicle> vehicleList) {
         return new TrunkFragment().setDate(vehicleList);
