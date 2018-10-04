@@ -181,12 +181,13 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
         this.latLngs.clear();
         if (latLngs == null || latLngs.size() == 0) return;
         for (int i = 0; i < latLngs.size(); i++) {
-            LatLng latLng = new LatLng(Double.valueOf(latLngs.get(i).data.getLatitude()),
-                    Double.valueOf(latLngs.get(i).data.getLongitude()));
-            this.latLngs.add(latLng);
+            double lati = Double.valueOf(latLngs.get(i).data.getLatitude());
+            double longi = Double.valueOf(latLngs.get(i).data.getLongitude());
+            LatLng latLng = new LatLng(lati, longi);
+            if (!(lati == 0 && longi == 0))
+                this.latLngs.add(latLng);
+            logError(latLng.latitude + " - " + latLng.longitude);
         }
-//        if (count == 1) fakeData();
-//        else fakeData2();
         updateMaps();
         showMessage(startDate + " - " + endDate);
     }
@@ -198,22 +199,10 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     }
 
     int count = 0;
+
     private void doLoadData() {
         count++;
         getPresenter().getListLocation(imei.substring(1), startDate, endDate);
-    }
-
-    private void fakeData() {
-        latLngs.add(new LatLng(21.000488, 105.798337));
-        latLngs.add(new LatLng(21.003807, 105.802491));
-        latLngs.add(new LatLng(21.006772, 105.806568));
-        latLngs.add(new LatLng(21.013823, 105.813005));
-        latLngs.add(new LatLng(21.022476, 105.819142));
-    }
-
-    private void fakeData2() {
-        latLngs.add(new LatLng(21.000488, 105.798337));
-        latLngs.add(new LatLng(21.003807, 105.802491));
     }
 
     DateDialog dateDialog;
