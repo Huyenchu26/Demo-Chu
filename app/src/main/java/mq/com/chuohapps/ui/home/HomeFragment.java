@@ -35,6 +35,7 @@ import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.history.container.HistoryContainerFragment;
 import mq.com.chuohapps.ui.home.adapter.VehicleAdapter;
 import mq.com.chuohapps.ui.home.dialog.RFIDDialog;
+import mq.com.chuohapps.ui.maps.MapsActivityLocation;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
 import mq.com.chuohapps.utils.AppLogger;
 
@@ -125,9 +126,12 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             }
 
             @Override
-            public void onImageLocationClick(String imei) {
-                Intent intent = new Intent(myActivity(), MapsActivity.class);
+            public void onImageLocationClick(String imei, String longi, String lati) {
+                Intent intent = new Intent(myActivity(), MapsActivityLocation.class);
                 intent.putExtra("imei", imei);
+                intent.putExtra("longi", longi);
+                intent.putExtra("lati", lati);
+                logError(longi + " - " + lati);
                 startActivity(intent);
             }
 

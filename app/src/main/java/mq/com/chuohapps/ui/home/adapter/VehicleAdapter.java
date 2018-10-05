@@ -44,7 +44,7 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
     }
 
     public interface ItemListener extends BaseAdapter.BaseItemListener{
-        void onImageLocationClick(String imei);
+        void onImageLocationClick(String imei, String longi, String lati);
 
         void onOpenDialogRfid(List<String> rfid);
 
@@ -117,7 +117,9 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
                 @Override
                 public void onDelayedClick(View v) {
                     if (itemListener != null)
-                        itemListener.onImageLocationClick(vehicleData.getImei());
+                        itemListener.onImageLocationClick(vehicleData.getImei(),
+                                vehicleData.getLongitude(),
+                                vehicleData.getLatitude());
                 }
             });
 
