@@ -3,7 +3,9 @@ package mq.com.chuohapps.utils;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GetRFID {
     private static boolean isTag(char s1, char s2, char s3) {
@@ -82,6 +84,10 @@ public class GetRFID {
                 rfid.add(String.valueOf(NumberUtil.hexToDecimal(str.substring(0, 6))));
             }
         }
+        Set<String> hashSet = new HashSet<>();
+        hashSet.addAll(rfid);
+        rfid.clear();
+        rfid.addAll(hashSet);
         return rfid;
     }
 
