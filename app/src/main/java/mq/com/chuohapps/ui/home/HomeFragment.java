@@ -8,10 +8,15 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +52,10 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     ImageView imageSearchClearText;
     @BindView(R.id.imageRight)
     ImageView imageRight;
-
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
 
     VehicleAdapter adapter;
     List<Vehicle> vehiclesSearch = new ArrayList<>();
@@ -91,6 +99,20 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         imageBack.setOnClickListener(null);
         relativeSearchLayout.setVisibility(View.VISIBLE);
         imageRight.setVisibility(View.VISIBLE);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.setChecked(true);
+                drawerLayout.closeDrawers();
+                return true;
+            }
+        });
+        imageBack.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onDelayedClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
     }
 
     private Refresher refresher = new AppRefresher();
