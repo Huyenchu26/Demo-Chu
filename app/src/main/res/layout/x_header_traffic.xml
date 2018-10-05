@@ -97,6 +97,7 @@
             android:src="@drawable/bg_traffic_dark"
             android:layout_gravity="center"/>
         <TextView
+            android:id="@+id/txtGPS"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:layout_height="wrap_content"

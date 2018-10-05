@@ -8,6 +8,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -31,7 +33,7 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         if (position > lastPosition) {
             AppLogger.error("set animation");
             Animation animation = new AlphaAnimation(R.anim.splash_in, R.anim.splash_out);
-            if(position < 4)
+            if (position < 4)
                 animation.setStartOffset(position * 200);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
@@ -43,7 +45,7 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         return new ItemViewHolder(createView(parent, R.layout.item_vehicle_child));
     }
 
-    public interface ItemListener extends BaseAdapter.BaseItemListener{
+    public interface ItemListener extends BaseAdapter.BaseItemListener {
         void onImageLocationClick(String imei, String longi, String lati);
 
         void onOpenDialogRfid(List<String> rfid);
@@ -74,6 +76,8 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         TextView txtFirmWare;
         @BindView(R.id.txtCPUtime)
         TextView txtCPUtime;
+        @BindView(R.id.txtLocation)
+        TextView txtLocation;
         @BindView(R.id.imgRunning)
         ImageView imgRunning;
 
@@ -87,13 +91,14 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         ImageView imgStatus;
         @BindView(R.id.imgEngine)
         ImageView imgEngine;
+        @BindView(R.id.txtGPS)
+        TextView textGPS;
 
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-
 
 
         protected void bindData(int position) {
@@ -136,6 +141,7 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
             });
             txtFirmWare.setText(" Firmware: " + vehicleData.getFirmware());
             txtCPUtime.setText(" CPU time: " + vehicleData.getCpuTime());
+            txtLocation.setText(" Latitude: " + vehicleData.getLatitude() + " - Longitude: " + vehicleData.getLongitude());
 
             setTrafficLight(vehicleData);
             setAnimation(itemView, position);
@@ -145,9 +151,7 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
             if (vehicle.getSos().equals("1"))
                 imgSOS.setImageResource(R.drawable.bg_traffic_light);
             else imgSOS.setImageResource(R.drawable.bg_traffic_dark);
-            if (vehicle.getGps().equals("1"))
-                imgGPS.setImageResource(R.drawable.bg_traffic_light);
-            else imgGPS.setImageResource(R.drawable.bg_traffic_dark);
+            imgGPS.setImageResource(R.drawable.bg_traffic_light);
             if (vehicle.getEngine().equals("1"))
                 imgEngine.setImageResource(R.drawable.bg_traffic_light);
             else imgEngine.setImageResource(R.drawable.bg_traffic_dark);
@@ -157,6 +161,7 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
             if (vehicle.getStatus().equals("1"))
                 imgStatus.setImageResource(R.drawable.bg_traffic_light);
             else imgStatus.setImageResource(R.drawable.bg_traffic_dark);
+            textGPS.setText(vehicle.getPosStatus() != null ? vehicle.getPosStatus() : "--");
         }
     }
 }

@@ -31,23 +31,12 @@
             android:textColor="@color/colorPrimary"
             android:textSize="12sp" />
 
-        <ImageView
-            android:id="@+id/imgLocation"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_below="@+id/txtDateTime"
-            android:layout_alignParentRight="true"
-            android:layout_margin="8dp"
-            android:src="@mipmap/icon_location" />
-
         <TextView
             android:id="@+id/txtFirmWare"
             android:layout_below="@+id/txtDateTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:layout_toLeftOf="@+id/imgLocation"
-            android:layout_toStartOf="@+id/imgLocation"
+            android:layout_margin="5dp"
             android:drawableLeft="@mipmap/ic_item_bill_id"
             android:text="  Động cơ:"
             android:textColor="@color/colorPrimary"
@@ -58,15 +47,14 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/txtFirmWare"
-            android:layout_toLeftOf="@+id/imgLocation"
-            android:background="@color/colorTextSecondary" />
+            android:background="@color/default_bg_color" />
 
         <TextView
             android:id="@+id/txtCPUtime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtFirmWare"
-            android:layout_margin="6dp"
+            android:layout_margin="5dp"
             android:layout_marginRight="2dp"
             android:drawableLeft="@mipmap/ic_item_bill_id"
             android:text="  Mở két: "
@@ -79,14 +67,14 @@
             android:layout_height="1dp"
             android:layout_below="@+id/txtCPUtime"
             android:layout_toLeftOf="@+id/imgRunning"
-            android:background="@color/colorTextSecondary" />
+            android:background="@color/default_bg_color" />
 
         <TextView
             android:id="@+id/positionStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtCPUtime"
-            android:layout_margin="6dp"
+            android:layout_margin="5dp"
             android:layout_marginRight="2dp"
             android:layout_toLeftOf="@+id/imgRunning"
             android:drawableLeft="@mipmap/ic_item_bill_id"
@@ -100,7 +88,7 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/imgLocation"
+            android:layout_above="@+id/imgLocation"
             android:layout_margin="8dp"
             android:src="@mipmap/icon_running" />
 
@@ -108,14 +96,45 @@
             android:id="@+id/viewEnd"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_toLeftOf="@+id/imgRunning"
             android:layout_below="@+id/positionStatus"
-            android:background="@color/colorTextSecondary" />
+            android:background="@color/default_bg_color" />
+
+        <TextView
+            android:id="@+id/txtLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/viewEnd"
+            android:layout_margin="5dp"
+            android:layout_marginRight="2dp"
+            android:layout_toLeftOf="@+id/imgRunning"
+            android:drawableLeft="@mipmap/ic_item_bill_id"
+            android:text="  Longi:  - Lati: "
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imgLocation"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_above="@+id/viewEnd2"
+            android:layout_alignParentRight="true"
+            android:layout_margin="8dp"
+            android:src="@mipmap/icon_location" />
+
+        <View
+            android:id="@+id/viewEnd2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/txtLocation"
+            android:background="@color/default_bg_color" />
 
         <include
             android:id="@+id/toolbarHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/viewEnd"
+            android:layout_below="@+id/viewEnd2"
             layout="@layout/x_header_traffic" />
 
     </RelativeLayout>
