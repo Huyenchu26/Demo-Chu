@@ -4,18 +4,18 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_check_white_48dp"
-            android:title="Tháng 8" />
+            android:title="Current" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_check_white_48dp"
-            android:title="Tháng 9" />
+            android:title="History" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_check_white_48dp"
-            android:title="Tháng 10" />
+            android:title="Direction" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_check_white_48dp"
-            android:title="Tháng 11" />
+            android:title="Current month" />
     </group>
 </menu>
