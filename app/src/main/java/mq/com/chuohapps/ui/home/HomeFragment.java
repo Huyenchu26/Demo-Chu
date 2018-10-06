@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toolbar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -60,6 +61,10 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
 
     VehicleAdapter adapter;
     List<Vehicle> vehiclesSearch = new ArrayList<>();
+
+    // TODO: 10/7/2018 option to choise: 0: currrent tab, 1: history, 2: direction
+    private int option = 0;
+    private int curMonth = Calendar.getInstance().getTime().getMonth();
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -105,6 +110,12 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 item.setChecked(true);
                 drawerLayout.closeDrawers();
+                switch (item.getItemId()) {
+                    case 1: option = 1; break;
+                    case 2: option = 2; break;
+                    case 3: option = 3; break;
+                    default:option = 0; break;
+                }
                 return true;
             }
         });
@@ -117,6 +128,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     }
 
     private Refresher refresher = new AppRefresher();
+
     private void setupAdapter() {
         adapter = new VehicleAdapter();
 //        recyclerViewVehicle.setOnS
@@ -142,7 +154,16 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
 
             @Override
             public void onItemListener(Vehicle.Data vehicle) {
-                goToScreen(HistoryContainerFragment.newInstance(vehicle.getImei()));
+                if (option == 1 || option == 0) {
+                    goToScreen(HistoryContainerFragment.newInstance(vehicle.getImei(), curMonth));
+                } else if (option == 2) {
+                    Intent intent = new Intent(myActivity(), MapsActivity.class);
+                    intent.putExtra("imei", vehicle.getImei());
+                    startActivity(intent);
+                } else if (option == 3) {
+                    // TODO: 10/7/2018 set data for curDate in here
+
+                }
             }
         });
         recyclerViewVehicle.setAdapter(adapter);

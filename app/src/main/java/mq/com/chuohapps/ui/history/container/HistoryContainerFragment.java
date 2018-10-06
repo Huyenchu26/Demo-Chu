@@ -62,13 +62,15 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
     String imei;
     String startDate = null;
     String endDate = null;
+    private int curMonth = Calendar.getInstance().getTime().getMonth();
 
-    public static HistoryContainerFragment newInstance(String imei) {
-        return new HistoryContainerFragment().setImei(imei);
+    public static HistoryContainerFragment newInstance(String imei, int curMonth) {
+        return new HistoryContainerFragment().setImei(imei, curMonth);
     }
 
-    public HistoryContainerFragment setImei(String imei) {
+    public HistoryContainerFragment setImei(String imei, int curMonth) {
         this.imei = imei;
+        this.curMonth = curMonth;
         return this;
     }
 

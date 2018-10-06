@@ -8,9 +8,6 @@ import android.widget.DatePicker;
 
 import java.util.Calendar;
 
-/**
- * Created by nguyen.dang.tho on 2/28/2018.
- */
 
 public class DatePickerDialog {
     android.app.DatePickerDialog datePickerDialog = null;
