@@ -100,21 +100,19 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         enableHeader(getString(R.string.title_vehicle));
         imageBack.setImageResource(R.mipmap.ic_option);
         relativeSearchLayout.setVisibility(View.VISIBLE);
-        imageRight.setVisibility(View.VISIBLE);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 item.setChecked(true);
                 drawerLayout.closeDrawers();
-                String id = String.valueOf(item.getItemId());
-                switch (id.charAt(id.length() - 1)) {
-                    case 1:
+                switch (item.getItemId()) {
+                    case R.id.nav_history:
                         option = 1;
                         break;
-                    case 2:
+                    case R.id.nav_direction:
                         option = 2;
                         break;
-                    case 3:
+                    case R.id.nav_month:
                         option = 3;
                         break;
                     default:
@@ -134,7 +132,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         imageRight.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
-                showFilterDialog();
+//                showFilterDialog();
             }
         });
     }
@@ -163,6 +161,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         adapter.setItemListener(new VehicleAdapter.ItemListener() {
             @Override
             public void onRetryClick() {
+
             }
 
             @Override
