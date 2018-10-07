@@ -41,6 +41,8 @@ public class CPUtimeAdapter extends BaseAdapter<CPUtimeAdapter.ItemViewHolder, C
         ImageView imgStatus;
         @BindView(R.id.imgEngine)
         ImageView imgEngine;
+        @BindView(R.id.txtGPS)
+        TextView txtGPS;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -65,9 +67,7 @@ public class CPUtimeAdapter extends BaseAdapter<CPUtimeAdapter.ItemViewHolder, C
             if (vehicle.getSos().equals("1"))
                 imgSOS.setImageResource(R.drawable.bg_traffic_light);
             else imgSOS.setImageResource(R.drawable.bg_traffic_dark);
-            if (vehicle.getGps().equals("1"))
-                imgGPS.setImageResource(R.drawable.bg_traffic_light);
-            else imgGPS.setImageResource(R.drawable.bg_traffic_dark);
+            imgGPS.setImageResource(R.drawable.bg_traffic_light);
             if (vehicle.getEngine().equals("1"))
                 imgEngine.setImageResource(R.drawable.bg_traffic_light);
             else imgEngine.setImageResource(R.drawable.bg_traffic_dark);
@@ -77,6 +77,7 @@ public class CPUtimeAdapter extends BaseAdapter<CPUtimeAdapter.ItemViewHolder, C
             if (vehicle.getStatus().equals("1"))
                 imgStatus.setImageResource(R.drawable.bg_traffic_light);
             else imgStatus.setImageResource(R.drawable.bg_traffic_dark);
+            txtGPS.setText(vehicle.getPosStatus() != null ? vehicle.getPosStatus() : "--");
         }
     }
 }
