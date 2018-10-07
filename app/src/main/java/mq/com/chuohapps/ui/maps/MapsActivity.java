@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.maps.android.SphericalUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -142,6 +143,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     private void updateMaps() {
         if (checkLoadMaps = true) {
             mMap.clear();
+            Double HeadingRotation = SphericalUtil.computeHeading(LatLng from, LatLng to)
             PolylineOptions polylineOptions = new PolylineOptions();
             if (latLngs != null && latLngs.size() > 0) {
                 for (int i = 0; i < latLngs.size(); i++) {
