@@ -1,6 +1,7 @@
 package mq.com.chuohapps.utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
@@ -69,14 +70,15 @@ public class HistoryUtil {
         Vehicle.Data vehicleStart = vehicle1.data;
         Vehicle.Data vehicleEnd = vehicle2.data;
 
-        itemTrunk.setTimeLine(vehicleStart.getDateTime());
+        itemTrunk.setTimeLine(DateUtils.convertServerDateToUserTimeZone(vehicleStart.getDateTime()));
 
         int frontCam = Integer.parseInt(vehicleEnd.getFrontCam()) - Integer.parseInt(vehicleStart.getFrontCam());
         itemTrunk.setFrontCam(frontCam);
         int backCam = Integer.parseInt(vehicleEnd.getBackCam()) - Integer.parseInt(vehicleStart.getBackCam());
         itemTrunk.setBackCam(backCam);
-        long time = (DateUtils.stringToDate(vehicleEnd.getDateTime()).getTime()
-                - DateUtils.stringToDate(vehicleStart.getDateTime()).getTime()) / 1000;
+        Date date1 = DateUtils.stringToDate(DateUtils.convertServerDateToUserTimeZone(vehicleEnd.getDateTime()));
+        Date date2 = DateUtils.stringToDate(DateUtils.convertServerDateToUserTimeZone(vehicleStart.getDateTime()));
+        long time = (date1.getTime() - date2.getTime()) / 1000;
         itemTrunk.setTime(time);
 
         return itemTrunk;

@@ -9,6 +9,7 @@ import butterknife.BindView;
 import mq.com.chuohapps.R;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.xbase.BaseAdapter;
+import mq.com.chuohapps.utils.data.DateUtils;
 
 public class CPUtimeAdapter extends BaseAdapter<CPUtimeAdapter.ItemViewHolder, CPUtimeAdapter.ItemListener, Vehicle> {
 
@@ -59,7 +60,7 @@ public class CPUtimeAdapter extends BaseAdapter<CPUtimeAdapter.ItemViewHolder, C
             isBindData = true;
 
             final Vehicle.Data vehicle = data.get(position).data;
-            textView.setText(vehicle.getDateTime());
+            textView.setText(DateUtils.convertServerDateToUserTimeZone(vehicle.getDateTime()));
             setTrafficLight(vehicle);
         }
 

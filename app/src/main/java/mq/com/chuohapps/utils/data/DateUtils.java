@@ -6,12 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import mq.com.chuohapps.AppConfigs;
-
-/**
- * Created by nguyen.dang.tho on 9/8/2017.
- */
 
 public class DateUtils {
 
@@ -133,5 +130,21 @@ public class DateUtils {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static String convertServerDateToUserTimeZone(String serverDate) {
+        String ourdate;
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT_SENT, Locale.UK);
+            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date value = formatter.parse(serverDate);
+            TimeZone timeZone = TimeZone.getTimeZone("Asia/Ho_Chi_Minh");
+            SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT_SENT, Locale.UK); //this format changeable
+            dateFormatter.setTimeZone(timeZone);
+            ourdate = dateFormatter.format(value);
+        } catch (Exception e) {
+            ourdate = "0000-00-00 00:00:00";
+        }
+        return ourdate;
     }
 }

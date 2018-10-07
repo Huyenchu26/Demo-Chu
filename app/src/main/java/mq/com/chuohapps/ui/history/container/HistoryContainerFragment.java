@@ -117,7 +117,7 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
     private void setupDate() {
         Date dateCurrent = Calendar.getInstance().getTime();
         long DAY_IN_MS = 1000 * 60 * 60 * 24;
-        startDate = DateUtils.dateToStringSent(new Date(dateCurrent.getTime() - (3 * DAY_IN_MS)));
+        startDate = DateUtils.dateToStringSent(new Date(dateCurrent.getTime() - (DAY_IN_MS)));
         endDate = DateUtils.dateToStringSent(dateCurrent);
         doLoadData();
     }

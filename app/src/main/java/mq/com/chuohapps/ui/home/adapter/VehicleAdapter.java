@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.stetho.common.LogUtil;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.xbase.BaseAdapter;
 import mq.com.chuohapps.utils.AppLogger;
 import mq.com.chuohapps.utils.GetRFID;
+import mq.com.chuohapps.utils.data.DateUtils;
 
 /**
  * Created by Admin on 29/3/2018.
@@ -116,7 +118,7 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
                 }
             });
             txtImei.setText(vehicleData.getImei());
-            txtDatetime.setText(vehicleData.getDateTime());
+            txtDatetime.setText(DateUtils.convertServerDateToUserTimeZone(vehicleData.getDateTime()));
             positionStatus.setText(" Trạng thái định vị: " + vehicleData.getPosStatus());
             imgLocation.setOnClickListener(new OnClickListener() {
                 @Override
