@@ -1,13 +1,10 @@
 package mq.com.chuohapps.ui.home;
 
 
-import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,7 +13,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,6 +21,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
+import mq.com.chuohapps.customview.FilterDialog;
 import mq.com.chuohapps.customview.TextChangedListener;
 import mq.com.chuohapps.lib.swiperefresh.AppRefresher;
 import mq.com.chuohapps.lib.swiperefresh.Refresher;
@@ -102,7 +99,6 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     private void init() {
         enableHeader(getString(R.string.title_vehicle));
         imageBack.setImageResource(R.mipmap.ic_option);
-        imageBack.setOnClickListener(null);
         relativeSearchLayout.setVisibility(View.VISIBLE);
         imageRight.setVisibility(View.VISIBLE);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -110,12 +106,22 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 item.setChecked(true);
                 drawerLayout.closeDrawers();
-                switch (item.getItemId()) {
-                    case 1: option = 1; break;
-                    case 2: option = 2; break;
-                    case 3: option = 3; break;
-                    default:option = 0; break;
+                String id = String.valueOf(item.getItemId());
+                switch (id.charAt(id.length() - 1)) {
+                    case 1:
+                        option = 1;
+                        break;
+                    case 2:
+                        option = 2;
+                        break;
+                    case 3:
+                        option = 3;
+                        break;
+                    default:
+                        option = 0;
+                        break;
                 }
+                logError("option: " + option);
                 return true;
             }
         });
@@ -125,6 +131,28 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
+        imageRight.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onDelayedClick(View v) {
+                showFilterDialog();
+            }
+        });
+    }
+
+    FilterDialog filterDialog;
+    private void showFilterDialog() {
+        logError("show filter dialog");
+        if (filterDialog != null && filterDialog.isShowing()) return;
+        filterDialog = new FilterDialog(myActivity());
+        filterDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                filterDialog.release();
+            }
+        });
+        filterDialog.setCanceledOnTouchOutside(true);
+        filterDialog.show();
+        logError("show show");
     }
 
     private Refresher refresher = new AppRefresher();

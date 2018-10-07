@@ -7,9 +7,6 @@ import android.view.WindowManager;
 
 import butterknife.ButterKnife;
 
-/**
- * Created by nguyen.dang.tho on 2/28/2018.
- */
 
 public abstract class MyAlertDialog extends AlertDialog {
     private OnBackPressListener backPressListener;
