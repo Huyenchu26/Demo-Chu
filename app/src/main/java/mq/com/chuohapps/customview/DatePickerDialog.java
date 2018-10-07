@@ -81,4 +81,11 @@ public class DatePickerDialog {
 
         void onDismiss();
     }
+
+    public void setMaxDate() {
+        if (datePickerDialog != null) {
+            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-5000);
+        }
+    }
 }

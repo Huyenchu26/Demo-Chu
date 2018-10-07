@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.lang.reflect.Field;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -13,6 +15,7 @@ import butterknife.OnClick;
 import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.DatePickerDialog;
 import mq.com.chuohapps.customview.MyAlertDialog;
+import mq.com.chuohapps.utils.AppLogger;
 import mq.com.chuohapps.utils.data.DateUtils;
 import mq.com.chuohapps.utils.functions.MessageUtils;
 import mq.com.chuohapps.utils.views.KeyboardUtils;
@@ -120,6 +123,33 @@ public class DateDialog extends MyAlertDialog {
                 choose = 0;
             }
         });
+//        datePickerDialog.setMaxDate();
+//        try {
+//            Field[] datePickerDialogFields = datePickerDialog.getClass().getDeclaredFields();
+//            for (Field datePickerDialogField : datePickerDialogFields) {
+//                if (datePickerDialogField.getName().equals("mDatePicker")) {
+//
+//                    datePickerDialogField.setAccessible(true);
+//                    DatePicker datePicker = (DatePicker) datePickerDialogField
+//                            .get(datePickerDialog);
+//                    Field datePickerFields[] = datePickerDialogField.getType()
+//                            .getDeclaredFields();
+//                    for (Field datePickerField : datePickerFields) {
+//                        if ("mYearPicker".equals(datePickerField.getName())
+//                                || "mYearSpinner".equals(datePickerField.getName())
+//                                || "mMonthPicker".equals(datePickerField.getName())
+//                                || "mMonthSpinner".equals(datePickerField.getName())) {
+//                            datePickerField.setAccessible(true);
+//                            Object dayPicker = new Object();
+//                            dayPicker = datePickerField.get(datePicker);
+//                            ((View) dayPicker).setVisibility(View.GONE);
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
         datePickerDialog.show();
     }
 
