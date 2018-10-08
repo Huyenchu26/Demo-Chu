@@ -92,9 +92,9 @@ public class VehicleSortDate implements Comparable<Vehicle>{
 
     @Override
     public int compareTo(@NonNull Vehicle vehicle) {
-        if (DateUtils.getSecond(this.data.dateTime) < DateUtils.getSecond(vehicle.data.dateTime))
+        if (DateUtils.getSecond(this.data.dateTime) < DateUtils.getSecond(vehicle.dateTime))
             return -1;
-        else if (DateUtils.getSecond(this.data.dateTime) == DateUtils.getSecond(vehicle.data.dateTime))
+        else if (DateUtils.getSecond(this.data.dateTime) == DateUtils.getSecond(vehicle.dateTime))
             return 0;
         else return 1;
     }

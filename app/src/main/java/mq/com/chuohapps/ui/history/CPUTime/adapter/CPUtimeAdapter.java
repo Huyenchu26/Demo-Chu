@@ -59,12 +59,12 @@ public class CPUtimeAdapter extends BaseAdapter<CPUtimeAdapter.ItemViewHolder, C
             needUpdate = false;
             isBindData = true;
 
-            final Vehicle.Data vehicle = data.get(position).data;
+            final Vehicle vehicle = data.get(position);
             textView.setText(DateUtils.convertServerDateToUserTimeZone(vehicle.dateTime));
             setTrafficLight(vehicle);
         }
 
-        private void setTrafficLight(Vehicle.Data vehicle) {
+        private void setTrafficLight(Vehicle vehicle) {
             if (vehicle.sos.equals("1"))
                 imgSOS.setImageResource(R.drawable.bg_traffic_light);
             else imgSOS.setImageResource(R.drawable.bg_traffic_dark);

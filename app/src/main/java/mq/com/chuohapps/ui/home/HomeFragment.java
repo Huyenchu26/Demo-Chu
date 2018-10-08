@@ -42,6 +42,7 @@ import mq.com.chuohapps.ui.maps.MapsActivityLocation;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
 import mq.com.chuohapps.utils.AppLogger;
 import mq.com.chuohapps.utils.data.DateUtils;
+import mq.com.chuohapps.utils.functions.MessageUtils;
 
 public class HomeFragment extends BaseFragment<HomeContract.Presenter> implements HomeContract.View {
 
@@ -143,7 +144,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                 optionSize.setTextColor(getResources().getColor(R.color.colorFacebook));
                 sortOption2++;
                 Collections.sort(vehicles, Vehicle.VehicleSize);
-                if (sortOption1%2 == 0)
+                if (sortOption2%2 == 0)
                     Collections.reverse(vehicles);
                 adapter.clearData();
                 adapter.addData(vehicles);
@@ -222,7 +223,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             }
 
             @Override
-            public void onItemListener(Vehicle.Data vehicle) {
+            public void onItemListener(Vehicle vehicle) {
                 if (option == 1 || option == 0) {
                     goToScreen(HistoryContainerFragment.newInstance(vehicle.imei, curMonth));
                 } else if (option == 2) {
@@ -281,11 +282,12 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     public void onGetVehicleSuccess(List<Vehicle> vehicle) {
         hideLoading();
         vehicles.addAll(vehicle);
+        logError("do onGetVehicleSuccess");
 
         String str = editSearchQuery.getText().toString().trim();
         if (str.length() > 0) {
             for (Vehicle vehiclee : vehicles) {
-                if (vehiclee.data.imei.contains(str)) {
+                if (vehiclee.imei.contains(str)) {
                     vehiclesSearch.add(vehiclee);
                 }
             }
@@ -299,7 +301,8 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     @Override
     public void onGetVehicleError(String message) {
         hideLoading();
-        showMessage(message);
+        showMessage(message, MessageUtils.ERROR_CODE);
+        logError("do onGetVehicleError");
     }
 
     private void setupSearch() {
@@ -315,7 +318,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                 // TODO: 9/21/2018 search imei
                 clearData();
                 for (Vehicle vehicle : vehicles) {
-                    if (vehicle.data.imei.contains(textChanged)) {
+                    if (vehicle.imei.contains(textChanged)) {
                         vehiclesSearch.add(vehicle);
                     }
                 }

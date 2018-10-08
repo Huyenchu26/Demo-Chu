@@ -48,7 +48,7 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
 
         void onOpenDialogRfid(List<String> rfid);
 
-        void onItemListener(Vehicle.Data vehicle);
+        void onItemListener(Vehicle vehicle);
     }
 
     class ItemViewHolder extends BaseAdapter.BaseItemViewHolder {
@@ -106,7 +106,7 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
             isBindData = true;
 
             final Vehicle vehicle = data.get(position);
-            final Vehicle.Data vehicleData = vehicle.data;
+            final Vehicle vehicleData = vehicle;
 //            itemView.setOnClickListener(new OnClickListener() {
 //                @Override
 //                public void onDelayedClick(View v) {
@@ -147,7 +147,9 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
                 @Override
                 public void onDelayedClick(View v) {
                     if (itemListener != null)
-                        itemListener.onOpenDialogRfid(GetRFID.getRFID(vehicleData.rfidList));
+                        if (vehicleData.rfidList == null) return;
+                        else
+                            itemListener.onOpenDialogRfid(GetRFID.getRFID(vehicleData.rfidList));
                 }
             });
             try {
@@ -156,13 +158,14 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
                 txtLocation.setText(" Location: " + vehicleData.latitude + " - " + vehicleData.longitude);
                 txtCam.setText(" Camera image: " + vehicleData.frontCam + " - " + vehicleData.backCam);
                 txtSize.setText(vehicleData.size + " KB");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
 
             setTrafficLight(vehicleData);
             setAnimation(itemView, position);
         }
 
-        private void setTrafficLight(Vehicle.Data vehicle) {
+        private void setTrafficLight(Vehicle vehicle) {
             if (vehicle.sos.equals("1"))
                 imgSOS.setImageResource(R.drawable.bg_traffic_light);
             else imgSOS.setImageResource(R.drawable.bg_traffic_dark);

@@ -15,9 +15,9 @@ public class HistoryUtil {
         List<Vehicle> vehiclesTrunk = new ArrayList<>();
         if (vehicles != null) {
             for (int i = 0; i < vehicles.size() - 1; i++) {
-                if (vehicles.get(i).data.trunk.equals("0") && vehicles.get(i + 1).data.trunk.equals("1")) {
+                if (vehicles.get(i).trunk.equals("0") && vehicles.get(i + 1).trunk.equals("1")) {
                     vehiclesTrunk.add(vehicles.get(i + 1));
-                } else if (vehicles.get(i).data.trunk.equals("1") && vehicles.get(i + 1).data.trunk.equals("0")){
+                } else if (vehicles.get(i).trunk.equals("1") && vehicles.get(i + 1).trunk.equals("0")){
                     vehiclesTrunk.add(vehicles.get(i));
                 }
             }
@@ -67,8 +67,8 @@ public class HistoryUtil {
     public static ItemTrunk getItemTrunk(Vehicle vehicle1, Vehicle vehicle2) {
         ItemTrunk itemTrunk = new ItemTrunk();
 
-        Vehicle.Data vehicleStart = vehicle1.data;
-        Vehicle.Data vehicleEnd = vehicle2.data;
+        Vehicle vehicleStart = vehicle1;
+        Vehicle vehicleEnd = vehicle2;
 
         itemTrunk.setTimeLine(DateUtils.convertServerDateToUserTimeZone(vehicleStart.dateTime));
 
@@ -90,8 +90,8 @@ public class HistoryUtil {
         List<Vehicle> vehiclesCPU = new ArrayList<>();
         if (vehicles != null) {
             for (int i = 1; i < vehicles.size(); i++) {
-                if (Integer.parseInt(vehicles.get(i).data.cpuTime) <
-                        Integer.parseInt(vehicles.get(i - 1).data.cpuTime)) {
+                if (Integer.parseInt(vehicles.get(i).cpuTime) <
+                        Integer.parseInt(vehicles.get(i - 1).cpuTime)) {
                     vehiclesCPU.add(vehicles.get(i));
                 }
             }
