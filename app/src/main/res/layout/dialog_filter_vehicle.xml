@@ -8,7 +8,6 @@
         style="@style/textSort"
         android:layout_marginBottom="@dimen/_6sdp"
         android:layout_marginTop="@dimen/_8sdp"
-        android:text="Sort by"
         android:textSize="24dp"
         android:textStyle="bold" />
 
@@ -17,9 +16,9 @@
         android:layout_marginTop="4dp" />
 
     <TextView
-        android:id="@+id/optionSize"
+        android:id="@+id/optionImei"
         style="@style/textSort"
-        android:text="Size" />
+        android:text="Imei" />
 
     <View
         style="@style/LineDivideVerticalDark"
@@ -35,9 +34,9 @@
         android:layout_marginTop="4dp" />
 
     <TextView
-        android:id="@+id/option"
+        android:id="@+id/optionSize"
         style="@style/textSort"
-        android:text="Weight" />
+        android:text="Size" />
 
     <View
         style="@style/LineDivideVerticalDark"

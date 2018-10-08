@@ -22,6 +22,7 @@ public class DateUtils {
     private static final String DATE_FORMAT_CARD = "MM/yy";
     private static final String DATE_FORMAT_JP = "yyyy年MM月dd日";
     private static final String DATE_FORMAT_FULL_JP = "HH:mm yyyy年MM月dd日";
+
     private DateUtils() {
     }
 
@@ -146,5 +147,12 @@ public class DateUtils {
             ourdate = "0000-00-00 00:00:00";
         }
         return ourdate;
+    }
+
+    public static long getSecond(String date) {
+        long millis = 0;
+        if (date != null)
+            millis = stringToDate(date).getTime();
+        return millis;
     }
 }

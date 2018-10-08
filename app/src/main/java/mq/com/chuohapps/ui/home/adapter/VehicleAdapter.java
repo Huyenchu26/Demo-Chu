@@ -76,6 +76,8 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         TextView txtCPUtime;
         @BindView(R.id.txtLocation)
         TextView txtLocation;
+        @BindView(R.id.txtCam)
+        TextView txtCam;
         @BindView(R.id.imgRunning)
         ImageView imgRunning;
 
@@ -137,9 +139,12 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
                         itemListener.onOpenDialogRfid(GetRFID.getRFID(vehicleData.rfidList));
                 }
             });
-            txtFirmWare.setText(" Firmware: " + vehicleData.firmware);
-            txtCPUtime.setText(" CPU time: " + vehicleData.cpuTime);
-            txtLocation.setText(" Latitude: " + vehicleData.latitude + " - Longitude: " + vehicleData.longitude);
+            try {
+                txtFirmWare.setText(" Firmware: " + vehicleData.firmware);
+                txtCPUtime.setText(" CPU time: " + vehicleData.cpuTime);
+                txtLocation.setText(" Location: " + vehicleData.latitude + " - " + vehicleData.longitude);
+                txtCam.setText(" Camera image: " + vehicleData.frontCam + " - " + vehicleData.backCam);
+            } catch (Exception e) { }
 
             setTrafficLight(vehicleData);
             setAnimation(itemView, position);

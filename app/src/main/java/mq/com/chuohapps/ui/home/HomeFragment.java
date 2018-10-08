@@ -22,8 +22,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
-import mq.com.chuohapps.customview.FilterDialog;
+import mq.com.chuohapps.customview.SortDialog;
 import mq.com.chuohapps.customview.TextChangedListener;
+import mq.com.chuohapps.data.helpers.network.response.VehicleSortDate;
 import mq.com.chuohapps.lib.swiperefresh.AppRefresher;
 import mq.com.chuohapps.lib.swiperefresh.Refresher;
 import mq.com.chuohapps.ui.maps.MapsActivity;
@@ -120,7 +121,6 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                         option = 0;
                         break;
                 }
-                logError("option: " + option);
                 return true;
             }
         });
@@ -133,15 +133,29 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         imageRight.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
-                showFilterDialog();
+                showSortDialog();
             }
         });
     }
 
-    FilterDialog filterDialog;
-    private void showFilterDialog() {
+    private int sortOption = 0;
+    private int sortOption0 = 0, sortOption1 = 0, sortOption2 = 0;
+    SortDialog filterDialog;
+    private void showSortDialog() {
         if (filterDialog != null && filterDialog.isShowing()) return;
-        filterDialog = new FilterDialog(myActivity());
+        filterDialog = new SortDialog(myActivity(), sortOption);
+        filterDialog.setOnChooseListener(new SortDialog.OnChooseListener() {
+            @Override
+            public void onDone(int option) {
+                sortOption = option;
+                switch (option) {
+                    case 0: sortOption0++; break;
+                    case 1: sortOption1++; break;
+                    case 2: sortOption2++; break;
+                }
+                doRefresh();
+            }
+        });
         filterDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
@@ -240,6 +254,19 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         vehicles.clear();
         vehicles.addAll(vehicle);
         adapter.clearData();
+        switch (sortOption) {
+            case 0:
+                Collections.sort(vehicles);
+                if (sortOption0%2 == 0)
+                    Collections.reverse(vehicles);
+                adapter.addData(vehicles);
+                break;
+            case 1:
+//                List<VehicleSortDate> vehicleSortDates = new ArrayList<>();
+//                vehicleSortDates.addAll((VehicleSortDate) vehicles)
+                break;
+            case 2: break;
+        }
         Collections.sort(vehicles);
         adapter.addData(vehicles);
         AppLogger.error("isSuccessful: " + vehicle);
