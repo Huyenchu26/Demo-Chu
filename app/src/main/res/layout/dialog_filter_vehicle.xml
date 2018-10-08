@@ -5,13 +5,21 @@
     android:orientation="vertical">
 
     <TextView
+        style="@style/textSort"
+        android:layout_marginBottom="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:text="Sort by"
+        android:textSize="24dp"
+        android:textStyle="bold" />
+
+    <View
+        style="@style/LineDivideVerticalDark"
+        android:layout_marginTop="4dp" />
+
+    <TextView
         android:id="@+id/optionSize"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Size"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="18dp" />
+        style="@style/textSort"
+        android:text="Size" />
 
     <View
         style="@style/LineDivideVerticalDark"
@@ -19,12 +27,8 @@
 
     <TextView
         android:id="@+id/optionDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Date"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="18dp" />
+        style="@style/textSort"
+        android:text="Date" />
 
     <View
         style="@style/LineDivideVerticalDark"
@@ -32,12 +36,8 @@
 
     <TextView
         android:id="@+id/option"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Size"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="18dp" />
+        style="@style/textSort"
+        android:text="Weight" />
 
     <View
         style="@style/LineDivideVerticalDark"

@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -132,14 +133,13 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         imageRight.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
-//                showFilterDialog();
+                showFilterDialog();
             }
         });
     }
 
     FilterDialog filterDialog;
     private void showFilterDialog() {
-        logError("show filter dialog");
         if (filterDialog != null && filterDialog.isShowing()) return;
         filterDialog = new FilterDialog(myActivity());
         filterDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -150,7 +150,6 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         });
         filterDialog.setCanceledOnTouchOutside(true);
         filterDialog.show();
-        logError("show show");
     }
 
     private Refresher refresher = new AppRefresher();
@@ -182,10 +181,10 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             @Override
             public void onItemListener(Vehicle.Data vehicle) {
                 if (option == 1 || option == 0) {
-                    goToScreen(HistoryContainerFragment.newInstance(vehicle.getImei(), curMonth));
+                    goToScreen(HistoryContainerFragment.newInstance(vehicle.imei, curMonth));
                 } else if (option == 2) {
                     Intent intent = new Intent(myActivity(), MapsActivity.class);
-                    intent.putExtra("imei", vehicle.getImei());
+                    intent.putExtra("imei", vehicle.imei);
                     startActivity(intent);
                 } else if (option == 3) {
                     // TODO: 10/7/2018 set data for curDate in here
@@ -241,6 +240,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         vehicles.clear();
         vehicles.addAll(vehicle);
         adapter.clearData();
+        Collections.sort(vehicles);
         adapter.addData(vehicles);
         AppLogger.error("isSuccessful: " + vehicle);
     }
@@ -252,19 +252,6 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     }
 
     private void setupSearch() {
-        setHeaderRightButton(R.mipmap.ic_search_black, new OnClickListener() {
-            @Override
-            public void onDelayedClick(View v) {
-                String strSearch = editSearchQuery.getText().toString().trim();
-                clearData();
-                for (Vehicle vehicle : vehicles) {
-                    if (vehicle.data.getImei().contains(strSearch)) {
-                        vehiclesSearch.add(vehicle);
-                    }
-                }
-                adapter.addData(vehiclesSearch);
-            }
-        });
         imageSearchClearText.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
@@ -277,11 +264,12 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                 // TODO: 9/21/2018 search imei
                 clearData();
                 for (Vehicle vehicle : vehicles) {
-                    if (vehicle.data.getImei().contains(textChanged)) {
+                    if (vehicle.data.imei.contains(textChanged)) {
                         vehiclesSearch.add(vehicle);
                     }
                 }
                 adapter.addData(vehiclesSearch);
+//                adapter.getFilter().filter(textChanged);
             }
         });
     }

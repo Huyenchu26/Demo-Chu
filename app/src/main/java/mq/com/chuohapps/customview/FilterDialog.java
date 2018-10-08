@@ -44,7 +44,7 @@ public class FilterDialog extends MyAlertDialog {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         try {
             getWindow().setLayout(
-                    getContext().getResources().getDisplayMetrics().widthPixels / 100 * 50,
+                    getContext().getResources().getDisplayMetrics().widthPixels / 100 * 30,
                     WindowManager.LayoutParams.WRAP_CONTENT);
             getWindow().getAttributes().gravity = Gravity.TOP | Gravity.RIGHT;
         } catch (Exception ignored) {

@@ -33,32 +33,6 @@ public class Vehicle implements Comparable<Vehicle>{
 
     public static class Data {
 
-        public Data(String imei, String dateTime, String longitude, String latitude,
-                    String reserve0, String reserve1, String reserve2, String sos,
-                    String trunk, String engine, String status, String gps, String frontCam,
-                    String backCam, String rfidList, String reserve3, String posStatus,
-                    String firmware, String cpuTime) {
-            this.imei = imei;
-            this.dateTime = dateTime;
-            this.longitude = longitude;
-            this.latitude = latitude;
-            this.reserve0 = reserve0;
-            this.reserve1 = reserve1;
-            this.reserve2 = reserve2;
-            this.sos = sos;
-            this.trunk = trunk;
-            this.engine = engine;
-            this.status = status;
-            this.gps = gps;
-            this.frontCam = frontCam;
-            this.backCam = backCam;
-            this.rfidList = rfidList;
-            this.reserve3 = reserve3;
-            this.posStatus = posStatus;
-            this.firmware = firmware;
-            this.cpuTime = cpuTime;
-        }
-
         @SerializedName("imei")
         @Expose
         public String imei;
@@ -121,9 +95,9 @@ public class Vehicle implements Comparable<Vehicle>{
     @Override
     public int compareTo(@NonNull Vehicle vehicle) {
         if (Double.valueOf(this.data.imei) > Double.valueOf(vehicle.data.imei))
-            return 1;
+            return -1;
         else if (Double.valueOf(this.data.imei) == Double.valueOf(vehicle.data.imei))
             return 0;
-        else return -1;
+        else return 1;
     }
 }
