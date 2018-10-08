@@ -6,6 +6,7 @@
 
     <TextView
         style="@style/textSort"
+        android:text="Sort by"
         android:layout_marginBottom="@dimen/_6sdp"
         android:layout_marginTop="@dimen/_8sdp"
         android:textSize="24dp"

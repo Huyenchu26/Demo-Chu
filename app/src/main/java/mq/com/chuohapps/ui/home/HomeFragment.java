@@ -14,7 +14,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
@@ -38,6 +40,7 @@ import mq.com.chuohapps.ui.home.dialog.RFIDDialog;
 import mq.com.chuohapps.ui.maps.MapsActivityLocation;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
 import mq.com.chuohapps.utils.AppLogger;
+import mq.com.chuohapps.utils.data.DateUtils;
 
 public class HomeFragment extends BaseFragment<HomeContract.Presenter> implements HomeContract.View {
 
@@ -149,11 +152,40 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             public void onDone(int option) {
                 sortOption = option;
                 switch (option) {
-                    case 0: sortOption0++; break;
-                    case 1: sortOption1++; break;
+                    case 0: sortOption0++;
+                        Collections.sort(vehicles, Vehicle.VehicleImei);
+                        if (sortOption0%2 == 0)
+                            Collections.reverse(vehicles);
+                        adapter.clearData();
+                        adapter.addData(vehicles);
+                        break;
+                    case 1: sortOption1++;
+                        Collections.sort(vehicles, Vehicle.VehicleDate);
+                        if (sortOption1%2 == 0)
+                            Collections.reverse(vehicles);
+                        adapter.clearData();
+                        adapter.addData(vehicles);
+                        break;
                     case 2: sortOption2++; break;
                 }
-                doRefresh();
+
+//                switch (sortOption) {
+//                    case 0:
+//                        Collections.sort(vehicles, Vehicle.VehicleImei);
+//                        if (sortOption0%2 == 0)
+//                            Collections.reverse(vehicles);
+//                        adapter.addData(vehicles);
+//                        break;
+//                    case 1:
+//                        Collections.sort(vehicles, Vehicle.VehicleDate);
+//                        if (sortOption1%2 == 0)
+//                            Collections.reverse(vehicles);
+//                        adapter.addData(vehicles);
+//                        break;
+//                    case 2: break;
+//                }
+
+//                doRefresh();
             }
         });
         filterDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -170,7 +202,6 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
 
     private void setupAdapter() {
         adapter = new VehicleAdapter();
-//        recyclerViewVehicle.setOnS
         adapter.setItemListener(new VehicleAdapter.ItemListener() {
             @Override
             public void onRetryClick() {
@@ -254,20 +285,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         vehicles.clear();
         vehicles.addAll(vehicle);
         adapter.clearData();
-        switch (sortOption) {
-            case 0:
-                Collections.sort(vehicles);
-                if (sortOption0%2 == 0)
-                    Collections.reverse(vehicles);
-                adapter.addData(vehicles);
-                break;
-            case 1:
-//                List<VehicleSortDate> vehicleSortDates = new ArrayList<>();
-//                vehicleSortDates.addAll((VehicleSortDate) vehicles)
-                break;
-            case 2: break;
-        }
-        Collections.sort(vehicles);
+        Collections.sort(vehicles, Vehicle.VehicleImei);
         adapter.addData(vehicles);
         AppLogger.error("isSuccessful: " + vehicle);
     }

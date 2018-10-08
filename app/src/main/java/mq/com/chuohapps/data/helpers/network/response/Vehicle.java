@@ -5,11 +5,11 @@ import android.support.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Vehicle implements Comparable<Vehicle>{
+import java.util.Comparator;
 
-    public Vehicle(Data data) {
-        this.data = data;
-    }
+import mq.com.chuohapps.utils.data.DateUtils;
+
+public class Vehicle{
 
     @SerializedName("timestamp_recv")
     @Expose
@@ -92,12 +92,26 @@ public class Vehicle implements Comparable<Vehicle>{
         public String cpuTime;
     }
 
-    @Override
-    public int compareTo(@NonNull Vehicle vehicle) {
-        if (Double.valueOf(this.data.imei) > Double.valueOf(vehicle.data.imei))
-            return -1;
-        else if (Double.valueOf(this.data.imei) == Double.valueOf(vehicle.data.imei))
-            return 0;
-        else return 1;
-    }
+    public static Comparator<Vehicle> VehicleImei = new Comparator<Vehicle>() {
+        @Override
+        public int compare(Vehicle vehicle, Vehicle t1) {
+            if (Double.valueOf(t1.data.imei) > Double.valueOf(vehicle.data.imei))
+                return -1;
+            else if (Double.valueOf(t1.data.imei) == Double.valueOf(vehicle.data.imei))
+                return 0;
+            else return 1;
+        }
+    };
+
+    public static Comparator<Vehicle> VehicleDate = new Comparator<Vehicle>() {
+        @Override
+        public int compare(Vehicle vehicle, Vehicle t1) {
+            if (DateUtils.getSecond(t1.data.dateTime) < DateUtils.getSecond(vehicle.data.dateTime))
+                return -1;
+            else if (DateUtils.getSecond(t1.data.dateTime) == DateUtils.getSecond(vehicle.data.dateTime))
+                return 0;
+            else return 1;
+        }
+    };
+
 }
