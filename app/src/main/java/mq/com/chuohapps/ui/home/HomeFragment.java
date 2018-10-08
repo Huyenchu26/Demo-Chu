@@ -192,9 +192,23 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         imageRight.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
-
+                if (editSearchQuery.getText() != null)
+                    showKeyboard(editSearchQuery);
+                else {
+                    doSearch(editSearchQuery.getText().toString().trim());
+                }
             }
         });
+    }
+
+    private void doSearch(String textChanged) {
+        clearData();
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.imei.contains(textChanged)) {
+                vehiclesSearch.add(vehicle);
+            }
+        }
+        adapter.addData(vehiclesSearch);
     }
 
     private Refresher refresher = new AppRefresher();
@@ -286,12 +300,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
 
         String str = editSearchQuery.getText().toString().trim();
         if (str.length() > 0) {
-            for (Vehicle vehiclee : vehicles) {
-                if (vehiclee.imei.contains(str)) {
-                    vehiclesSearch.add(vehiclee);
-                }
-            }
-            adapter.addData(vehiclesSearch);
+            doSearch(str);
         } else {
             Collections.sort(vehicles, Vehicle.VehicleImei);
             adapter.addData(vehicles);
@@ -316,13 +325,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             @Override
             public void onTextChanged(String textChanged) {
                 // TODO: 9/21/2018 search imei
-                clearData();
-                for (Vehicle vehicle : vehicles) {
-                    if (vehicle.imei.contains(textChanged)) {
-                        vehiclesSearch.add(vehicle);
-                    }
-                }
-                adapter.addData(vehiclesSearch);
+                doSearch(textChanged);
 //                adapter.getFilter().filter(textChanged);
             }
         });
