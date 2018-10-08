@@ -68,8 +68,6 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         TextView txtDatetime;
         @BindView(R.id.imgLocation)
         ImageView imgLocation;
-        @BindView(R.id.positionStatus)
-        TextView positionStatus;
         @BindView(R.id.txtFirmWare)
         TextView txtFirmWare;
         @BindView(R.id.txtCPUtime)
@@ -94,12 +92,10 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         @BindView(R.id.txtGPS)
         TextView textGPS;
 
-
         public ItemViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-
 
         protected void bindData(int position) {
             super.bindData(position);
@@ -109,15 +105,28 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
 
             final Vehicle vehicle = data.get(position);
             final Vehicle.Data vehicleData = vehicle.data;
-            itemView.setOnClickListener(new OnClickListener() {
+//            itemView.setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onDelayedClick(View v) {
+//                    itemListener.onItemListener(vehicleData);
+//                }
+//            });
+            txtImei.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onDelayedClick(View v) {
-                    itemListener.onItemListener(vehicleData);
+                    if (itemListener != null)
+                        itemListener.onItemListener(vehicleData);
+                }
+            });
+            txtDatetime.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onDelayedClick(View v) {
+                    if (itemListener != null)
+                        itemListener.onItemListener(vehicleData);
                 }
             });
             txtImei.setText(vehicleData.imei);
             txtDatetime.setText(DateUtils.convertServerDateToUserTimeZone(vehicleData.dateTime));
-            positionStatus.setText(" Trạng thái định vị: " + vehicleData.status);
             imgLocation.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onDelayedClick(View v) {

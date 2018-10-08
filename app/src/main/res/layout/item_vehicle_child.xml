@@ -12,7 +12,7 @@
         <TextView
             android:id="@+id/txtImei"
             style="@style/textNomal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="IMEI car"
             android:textColor="@color/colorAccentPressedLight"
@@ -22,7 +22,7 @@
 
         <TextView
             android:id="@+id/txtDateTime"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/txtImei"
@@ -70,7 +70,7 @@
             android:background="@color/default_bg_color" />
 
         <TextView
-            android:id="@+id/positionStatus"
+            android:id="@+id/txtCam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtCPUtime"
@@ -97,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_toLeftOf="@+id/imgRunning"
-            android:layout_below="@+id/positionStatus"
+            android:layout_below="@+id/txtCam"
             android:background="@color/default_bg_color" />
 
         <TextView
@@ -130,32 +130,11 @@
             android:layout_below="@+id/txtLocation"
             android:background="@color/default_bg_color" />
 
-        <TextView
-            android:id="@+id/txtCam"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/viewEnd2"
-            android:layout_margin="5dp"
-            android:layout_marginRight="2dp"
-            android:layout_toLeftOf="@+id/imgRunning"
-            android:drawableLeft="@mipmap/ic_item_bill_id"
-            android:text="  camera image: "
-            android:textColor="@color/colorPrimary"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <View
-            android:id="@+id/viewEnd3"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/txtCam"
-            android:background="@color/default_bg_color" />
-
         <include
             android:id="@+id/toolbarHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/viewEnd3"
+            android:layout_below="@+id/viewEnd2"
             layout="@layout/x_header_traffic" />
 
     </RelativeLayout>

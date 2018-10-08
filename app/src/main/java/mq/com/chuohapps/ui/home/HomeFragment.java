@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -61,6 +62,13 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
+    @BindView(R.id.optionImei)
+    TextView optionImei;
+    @BindView(R.id.optionSize)
+    TextView optionSize;
+    @BindView(R.id.optionDate)
+    TextView optionDate;
+
     VehicleAdapter adapter;
     List<Vehicle> vehiclesSearch = new ArrayList<>();
 
@@ -93,8 +101,40 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         setHeaderTextColor(R.color.colorTextWhiteSecond);
         setupAdapter();
         doLoadData();
-//        callAsynchronousTask();
         setupSearch();
+        setupSort();
+    }
+
+    private int sortOption0 = 0, sortOption1 = 0, sortOption2 = 0;
+    private void setupSort() {
+        optionImei.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onDelayedClick(View v) {
+                sortOption0++;
+                Collections.sort(vehicles, Vehicle.VehicleImei);
+                if (sortOption0%2 == 0)
+                    Collections.reverse(vehicles);
+                adapter.clearData();
+                adapter.addData(vehicles);
+            }
+        });
+        optionDate.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onDelayedClick(View v) {
+                sortOption1++;
+                Collections.sort(vehicles, Vehicle.VehicleDate);
+                if (sortOption1%2 == 1)
+                    Collections.reverse(vehicles);
+                adapter.clearData();
+                adapter.addData(vehicles);
+            }
+        });
+        optionSize.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onDelayedClick(View v) {
+
+            }
+        });
     }
 
     private void doLoadData() {
@@ -136,66 +176,9 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         imageRight.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
-                showSortDialog();
+
             }
         });
-    }
-
-    private int sortOption = 0;
-    private int sortOption0 = 0, sortOption1 = 0, sortOption2 = 0;
-    SortDialog filterDialog;
-    private void showSortDialog() {
-        if (filterDialog != null && filterDialog.isShowing()) return;
-        filterDialog = new SortDialog(myActivity(), sortOption);
-        filterDialog.setOnChooseListener(new SortDialog.OnChooseListener() {
-            @Override
-            public void onDone(int option) {
-                sortOption = option;
-                switch (option) {
-                    case 0: sortOption0++;
-                        Collections.sort(vehicles, Vehicle.VehicleImei);
-                        if (sortOption0%2 == 0)
-                            Collections.reverse(vehicles);
-                        adapter.clearData();
-                        adapter.addData(vehicles);
-                        break;
-                    case 1: sortOption1++;
-                        Collections.sort(vehicles, Vehicle.VehicleDate);
-                        if (sortOption1%2 == 0)
-                            Collections.reverse(vehicles);
-                        adapter.clearData();
-                        adapter.addData(vehicles);
-                        break;
-                    case 2: sortOption2++; break;
-                }
-
-//                switch (sortOption) {
-//                    case 0:
-//                        Collections.sort(vehicles, Vehicle.VehicleImei);
-//                        if (sortOption0%2 == 0)
-//                            Collections.reverse(vehicles);
-//                        adapter.addData(vehicles);
-//                        break;
-//                    case 1:
-//                        Collections.sort(vehicles, Vehicle.VehicleDate);
-//                        if (sortOption1%2 == 0)
-//                            Collections.reverse(vehicles);
-//                        adapter.addData(vehicles);
-//                        break;
-//                    case 2: break;
-//                }
-
-//                doRefresh();
-            }
-        });
-        filterDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialogInterface) {
-                filterDialog.release();
-            }
-        });
-        filterDialog.setCanceledOnTouchOutside(true);
-        filterDialog.show();
     }
 
     private Refresher refresher = new AppRefresher();
@@ -282,12 +265,20 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     @Override
     public void onGetVehicleSuccess(List<Vehicle> vehicle) {
         hideLoading();
-        vehicles.clear();
         vehicles.addAll(vehicle);
-        adapter.clearData();
-        Collections.sort(vehicles, Vehicle.VehicleImei);
-        adapter.addData(vehicles);
-        AppLogger.error("isSuccessful: " + vehicle);
+
+        String str = editSearchQuery.getText().toString().trim();
+        if (str.length() > 0) {
+            for (Vehicle vehiclee : vehicles) {
+                if (vehiclee.data.imei.contains(str)) {
+                    vehiclesSearch.add(vehiclee);
+                }
+            }
+            adapter.addData(vehiclesSearch);
+        } else {
+            Collections.sort(vehicles, Vehicle.VehicleImei);
+            adapter.addData(vehicles);
+        }
     }
 
     @Override
@@ -324,31 +315,10 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         adapter.clearData();
     }
 
-
     List<Vehicle> vehicles = new ArrayList<>();
 
 //7:cờ SOS (0: không có, 1: có SOS), 8: cờ mở cửa két xe (0: đóng/1 : mở),
 // 9:cờ động cơ (bật/tắt), 10: cờ dừng đỗ, 11: cờ GPS (0: có, 1:mất GPS)
-
-    public void callAsynchronousTask() {
-        final Handler handler = new Handler();
-        Timer timer = new Timer();
-        TimerTask doAsynchronousTask = new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    public void run() {
-                        try {
-                            doLoadData();
-                        } catch (Exception e) {
-                            // TODO Auto-generated catch block
-                        }
-                    }
-                });
-            }
-        };
-        timer.schedule(doAsynchronousTask, 0, 30000); //execute in every 50000 ms
-    }
 
     private void bindRefresh() {
         refresher.setup(getView(), R.id.swipeRefresh);
@@ -365,6 +335,8 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             return;
         } else {
             adapter.clearData();
+            vehiclesSearch.clear();
+            vehicles.clear();
             recyclerViewVehicle.refreshLoadMore();
             doLoadData();
         }
