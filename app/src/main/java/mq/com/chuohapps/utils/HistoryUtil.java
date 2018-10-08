@@ -15,9 +15,9 @@ public class HistoryUtil {
         List<Vehicle> vehiclesTrunk = new ArrayList<>();
         if (vehicles != null) {
             for (int i = 0; i < vehicles.size() - 1; i++) {
-                if (vehicles.get(i).data.getTrunk().equals("0") && vehicles.get(i + 1).data.getTrunk().equals("1")) {
+                if (vehicles.get(i).data.trunk.equals("0") && vehicles.get(i + 1).data.trunk.equals("1")) {
                     vehiclesTrunk.add(vehicles.get(i + 1));
-                } else if (vehicles.get(i).data.getTrunk().equals("1") && vehicles.get(i + 1).data.getTrunk().equals("0")){
+                } else if (vehicles.get(i).data.trunk.equals("1") && vehicles.get(i + 1).data.trunk.equals("0")){
                     vehiclesTrunk.add(vehicles.get(i));
                 }
             }
@@ -70,14 +70,14 @@ public class HistoryUtil {
         Vehicle.Data vehicleStart = vehicle1.data;
         Vehicle.Data vehicleEnd = vehicle2.data;
 
-        itemTrunk.setTimeLine(DateUtils.convertServerDateToUserTimeZone(vehicleStart.getDateTime()));
+        itemTrunk.setTimeLine(DateUtils.convertServerDateToUserTimeZone(vehicleStart.dateTime));
 
-        int frontCam = Integer.parseInt(vehicleEnd.getFrontCam()) - Integer.parseInt(vehicleStart.getFrontCam());
+        int frontCam = Integer.parseInt(vehicleEnd.frontCam) - Integer.parseInt(vehicleStart.frontCam);
         itemTrunk.setFrontCam(frontCam);
-        int backCam = Integer.parseInt(vehicleEnd.getBackCam()) - Integer.parseInt(vehicleStart.getBackCam());
+        int backCam = Integer.parseInt(vehicleEnd.backCam) - Integer.parseInt(vehicleStart.backCam);
         itemTrunk.setBackCam(backCam);
-        Date date1 = DateUtils.stringToDate(DateUtils.convertServerDateToUserTimeZone(vehicleEnd.getDateTime()));
-        Date date2 = DateUtils.stringToDate(DateUtils.convertServerDateToUserTimeZone(vehicleStart.getDateTime()));
+        Date date1 = DateUtils.stringToDate(DateUtils.convertServerDateToUserTimeZone(vehicleEnd.dateTime));
+        Date date2 = DateUtils.stringToDate(DateUtils.convertServerDateToUserTimeZone(vehicleStart.dateTime));
         long time = (date1.getTime() - date2.getTime()) / 1000;
         itemTrunk.setTime(time);
 
@@ -90,8 +90,8 @@ public class HistoryUtil {
         List<Vehicle> vehiclesCPU = new ArrayList<>();
         if (vehicles != null) {
             for (int i = 1; i < vehicles.size(); i++) {
-                if (Integer.parseInt(vehicles.get(i).data.getCpuTime()) <
-                        Integer.parseInt(vehicles.get(i - 1).data.getCpuTime())) {
+                if (Integer.parseInt(vehicles.get(i).data.cpuTime) <
+                        Integer.parseInt(vehicles.get(i - 1).data.cpuTime)) {
                     vehiclesCPU.add(vehicles.get(i));
                 }
             }

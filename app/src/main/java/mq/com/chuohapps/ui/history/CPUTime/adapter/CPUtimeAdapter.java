@@ -60,25 +60,25 @@ public class CPUtimeAdapter extends BaseAdapter<CPUtimeAdapter.ItemViewHolder, C
             isBindData = true;
 
             final Vehicle.Data vehicle = data.get(position).data;
-            textView.setText(DateUtils.convertServerDateToUserTimeZone(vehicle.getDateTime()));
+            textView.setText(DateUtils.convertServerDateToUserTimeZone(vehicle.dateTime));
             setTrafficLight(vehicle);
         }
 
         private void setTrafficLight(Vehicle.Data vehicle) {
-            if (vehicle.getSos().equals("1"))
+            if (vehicle.sos.equals("1"))
                 imgSOS.setImageResource(R.drawable.bg_traffic_light);
             else imgSOS.setImageResource(R.drawable.bg_traffic_dark);
             imgGPS.setImageResource(R.drawable.bg_traffic_light);
-            if (vehicle.getEngine().equals("1"))
+            if (vehicle.engine.equals("1"))
                 imgEngine.setImageResource(R.drawable.bg_traffic_light);
             else imgEngine.setImageResource(R.drawable.bg_traffic_dark);
-            if (vehicle.getTrunk().equals("1"))
+            if (vehicle.trunk.equals("1"))
                 imgTrunk.setImageResource(R.drawable.bg_traffic_light);
             else imgTrunk.setImageResource(R.drawable.bg_traffic_dark);
-            if (vehicle.getStatus().equals("1"))
+            if (vehicle.status.equals("1"))
                 imgStatus.setImageResource(R.drawable.bg_traffic_light);
             else imgStatus.setImageResource(R.drawable.bg_traffic_dark);
-            txtGPS.setText(vehicle.getPosStatus() != null ? vehicle.getPosStatus() : "--");
+            txtGPS.setText(vehicle.posStatus != null ? vehicle.posStatus : "--");
         }
     }
 }

@@ -143,7 +143,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     private void updateMaps() {
         if (checkLoadMaps = true) {
             mMap.clear();
-            Double HeadingRotation = SphericalUtil.computeHeading(LatLng from, LatLng to)
+//            Double HeadingRotation = SphericalUtil.computeHeading(LatLng from, LatLng to)
             PolylineOptions polylineOptions = new PolylineOptions();
             if (latLngs != null && latLngs.size() > 0) {
                 for (int i = 0; i < latLngs.size(); i++) {
@@ -183,8 +183,8 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
         this.latLngs.clear();
         if (latLngs == null || latLngs.size() == 0) return;
         for (int i = 0; i < latLngs.size(); i++) {
-            double lati = Double.valueOf(latLngs.get(i).data.getLatitude());
-            double longi = Double.valueOf(latLngs.get(i).data.getLongitude());
+            double lati = Double.valueOf(latLngs.get(i).data.latitude);
+            double longi = Double.valueOf(latLngs.get(i).data.longitude);
             LatLng latLng = new LatLng(lati, longi);
             if (!(lati == 0 && longi == 0))
                 this.latLngs.add(latLng);

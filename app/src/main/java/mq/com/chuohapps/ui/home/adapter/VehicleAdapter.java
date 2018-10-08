@@ -4,12 +4,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.facebook.stetho.common.LogUtil;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -117,20 +113,20 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
                     itemListener.onItemListener(vehicleData);
                 }
             });
-            txtImei.setText(vehicleData.getImei());
-            txtDatetime.setText(DateUtils.convertServerDateToUserTimeZone(vehicleData.getDateTime()));
-            positionStatus.setText(" Trạng thái định vị: " + vehicleData.getPosStatus());
+            txtImei.setText(vehicleData.imei);
+            txtDatetime.setText(DateUtils.convertServerDateToUserTimeZone(vehicleData.dateTime));
+            positionStatus.setText(" Trạng thái định vị: " + vehicleData.status);
             imgLocation.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onDelayedClick(View v) {
                     if (itemListener != null)
-                        itemListener.onImageLocationClick(vehicleData.getImei(),
-                                vehicleData.getLongitude(),
-                                vehicleData.getLatitude());
+                        itemListener.onImageLocationClick(vehicleData.imei,
+                                vehicleData.longitude,
+                                vehicleData.latitude);
                 }
             });
 
-            if (vehicleData.getStatus().equals("1"))
+            if (vehicleData.status.equals("1"))
                 imgRunning.setImageResource(R.mipmap.icon_running);
             else
                 imgRunning.setImageResource(R.mipmap.icon_stop);
@@ -138,32 +134,33 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
                 @Override
                 public void onDelayedClick(View v) {
                     if (itemListener != null)
-                        itemListener.onOpenDialogRfid(GetRFID.getRFID(vehicleData.getRfidList()));
+                        itemListener.onOpenDialogRfid(GetRFID.getRFID(vehicleData.rfidList));
                 }
             });
-            txtFirmWare.setText(" Firmware: " + vehicleData.getFirmware());
-            txtCPUtime.setText(" CPU time: " + vehicleData.getCpuTime());
-            txtLocation.setText(" Latitude: " + vehicleData.getLatitude() + " - Longitude: " + vehicleData.getLongitude());
+            txtFirmWare.setText(" Firmware: " + vehicleData.firmware);
+            txtCPUtime.setText(" CPU time: " + vehicleData.cpuTime);
+            txtLocation.setText(" Latitude: " + vehicleData.latitude + " - Longitude: " + vehicleData.longitude);
 
             setTrafficLight(vehicleData);
             setAnimation(itemView, position);
         }
 
         private void setTrafficLight(Vehicle.Data vehicle) {
-            if (vehicle.getSos().equals("1"))
+            if (vehicle.sos.equals("1"))
                 imgSOS.setImageResource(R.drawable.bg_traffic_light);
             else imgSOS.setImageResource(R.drawable.bg_traffic_dark);
             imgGPS.setImageResource(R.drawable.bg_traffic_light);
-            if (vehicle.getEngine().equals("1"))
+            if (vehicle.engine.equals("1"))
                 imgEngine.setImageResource(R.drawable.bg_traffic_light);
             else imgEngine.setImageResource(R.drawable.bg_traffic_dark);
-            if (vehicle.getTrunk().equals("1"))
+            if (vehicle.trunk.equals("1"))
                 imgTrunk.setImageResource(R.drawable.bg_traffic_light);
             else imgTrunk.setImageResource(R.drawable.bg_traffic_dark);
-            if (vehicle.getStatus().equals("1"))
+            if (vehicle.status.equals("1"))
                 imgStatus.setImageResource(R.drawable.bg_traffic_light);
             else imgStatus.setImageResource(R.drawable.bg_traffic_dark);
-            textGPS.setText(vehicle.getPosStatus() != null ? vehicle.getPosStatus() : "--");
+            textGPS.setText(vehicle.posStatus != null ? vehicle.posStatus : "--");
         }
     }
+
 }

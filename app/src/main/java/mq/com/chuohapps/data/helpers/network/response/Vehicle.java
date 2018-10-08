@@ -1,9 +1,11 @@
 package mq.com.chuohapps.data.helpers.network.response;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Vehicle{
+public class Vehicle implements Comparable<Vehicle>{
 
     public Vehicle(Data data) {
         this.data = data;
@@ -20,38 +22,13 @@ public class Vehicle{
 
         @SerializedName("ukn_dtl_1")
         @Expose
-        private String uknDtl1;
+        public String uknDtl1;
         @SerializedName("rec_timestamp")
         @Expose
-        private String recTimestamp;
+        public String recTimestamp;
         @SerializedName("ukn_dtl_2")
         @Expose
-        private String uknDtl2;
-
-        public String getUknDtl1() {
-            return uknDtl1;
-        }
-
-        public void setUknDtl1(String uknDtl1) {
-            this.uknDtl1 = uknDtl1;
-        }
-
-        public String getRecTimestamp() {
-            return recTimestamp;
-        }
-
-        public void setRecTimestamp(String recTimestamp) {
-            this.recTimestamp = recTimestamp;
-        }
-
-        public String getUknDtl2() {
-            return uknDtl2;
-        }
-
-        public void setUknDtl2(String uknDtl2) {
-            this.uknDtl2 = uknDtl2;
-        }
-
+        public String uknDtl2;
     }
 
     public static class Data {
@@ -84,214 +61,69 @@ public class Vehicle{
 
         @SerializedName("imei")
         @Expose
-        private String imei;
+        public String imei;
         @SerializedName("date_time")
         @Expose
-        private String dateTime;
+        public String dateTime;
         @SerializedName("longitude")
         @Expose
-        private String longitude;
+        public String longitude;
         @SerializedName("latitude")
         @Expose
-        private String latitude;
+        public String latitude;
         @SerializedName("reserve_0")
         @Expose
-        private String reserve0;
+        public String reserve0;
         @SerializedName("reserve_1")
         @Expose
-        private String reserve1;
+        public String reserve1;
         @SerializedName("reserve_2")
         @Expose
-        private String reserve2;
+        public String reserve2;
         @SerializedName("sos")
         @Expose
-        private String sos;
+        public String sos;
         @SerializedName("trunk")
         @Expose
-        private String trunk;
+        public String trunk;
         @SerializedName("engine")
         @Expose
-        private String engine;
+        public String engine;
         @SerializedName("status")
         @Expose
-        private String status;
+        public String status;
         @SerializedName("gps")
         @Expose
-        private String gps;
+        public String gps;
         @SerializedName("front_cam")
         @Expose
-        private String frontCam;
+        public String frontCam;
         @SerializedName("back_cam")
         @Expose
-        private String backCam;
+        public String backCam;
         @SerializedName("rfid_list")
         @Expose
-        private String rfidList;
+        public String rfidList;
         @SerializedName("reserve_3")
         @Expose
-        private String reserve3;
+        public String reserve3;
         @SerializedName("pos_status")
         @Expose
-        private String posStatus;
+        public String posStatus;
         @SerializedName("firmware")
         @Expose
-        private String firmware;
+        public String firmware;
         @SerializedName("cpu_time")
         @Expose
-        private String cpuTime;
-
-        public String getImei() {
-            return imei;
-        }
-
-        public void setImei(String imei) {
-            this.imei = imei;
-        }
-
-        public String getDateTime() {
-            return dateTime;
-        }
-
-        public void setDateTime(String dateTime) {
-            this.dateTime = dateTime;
-        }
-
-        public String getLongitude() {
-            return longitude;
-        }
-
-        public void setLongitude(String longitude) {
-            this.longitude = longitude;
-        }
-
-        public String getLatitude() {
-            return latitude;
-        }
-
-        public void setLatitude(String latitude) {
-            this.latitude = latitude;
-        }
-
-        public String getReserve0() {
-            return reserve0;
-        }
-
-        public void setReserve0(String reserve0) {
-            this.reserve0 = reserve0;
-        }
-
-        public String getReserve1() {
-            return reserve1;
-        }
-
-        public void setReserve1(String reserve1) {
-            this.reserve1 = reserve1;
-        }
-
-        public String getReserve2() {
-            return reserve2;
-        }
-
-        public void setReserve2(String reserve2) {
-            this.reserve2 = reserve2;
-        }
-
-        public String getSos() {
-            return sos;
-        }
-
-        public void setSos(String sos) {
-            this.sos = sos;
-        }
-
-        public String getTrunk() {
-            return trunk;
-        }
-
-        public void setTrunk(String trunk) {
-            this.trunk = trunk;
-        }
-
-        public String getEngine() {
-            return engine;
-        }
-
-        public void setEngine(String engine) {
-            this.engine = engine;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public void setStatus(String status) {
-            this.status = status;
-        }
-
-        public String getGps() {
-            return gps;
-        }
-
-        public void setGps(String gps) {
-            this.gps = gps;
-        }
-
-        public String getFrontCam() {
-            return frontCam;
-        }
-
-        public void setFrontCam(String frontCam) {
-            this.frontCam = frontCam;
-        }
-
-        public String getBackCam() {
-            return backCam;
-        }
-
-        public void setBackCam(String backCam) {
-            this.backCam = backCam;
-        }
-
-        public String getRfidList() {
-            return rfidList;
-        }
-
-        public void setRfidList(String rfidList) {
-            this.rfidList = rfidList;
-        }
-
-        public String getReserve3() {
-            return reserve3;
-        }
-
-        public void setReserve3(String reserve3) {
-            this.reserve3 = reserve3;
-        }
-
-        public String getPosStatus() {
-            return posStatus;
-        }
-
-        public void setPosStatus(String posStatus) {
-            this.posStatus = posStatus;
-        }
-
-        public String getFirmware() {
-            return firmware;
-        }
-
-        public void setFirmware(String firmware) {
-            this.firmware = firmware;
-        }
-
-        public String getCpuTime() {
-            return cpuTime;
-        }
-
-        public void setCpuTime(String cpuTime) {
-            this.cpuTime = cpuTime;
-        }
-
+        public String cpuTime;
     }
 
+    @Override
+    public int compareTo(@NonNull Vehicle vehicle) {
+        if (Double.valueOf(this.data.imei) > Double.valueOf(vehicle.data.imei))
+            return 1;
+        else if (Double.valueOf(this.data.imei) == Double.valueOf(vehicle.data.imei))
+            return 0;
+        else return -1;
+    }
 }
