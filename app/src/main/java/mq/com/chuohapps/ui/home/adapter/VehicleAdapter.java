@@ -78,6 +78,8 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         TextView txtCam;
         @BindView(R.id.imgRunning)
         ImageView imgRunning;
+        @BindView(R.id.txtSize)
+        TextView txtSize;
 
         @BindView(R.id.imgTrunk)
         ImageView imgTrunk;
@@ -153,6 +155,7 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
                 txtCPUtime.setText(" CPU time: " + vehicleData.cpuTime);
                 txtLocation.setText(" Location: " + vehicleData.latitude + " - " + vehicleData.longitude);
                 txtCam.setText(" Camera image: " + vehicleData.frontCam + " - " + vehicleData.backCam);
+                txtSize.setText(vehicleData.size + " KB");
             } catch (Exception e) { }
 
             setTrafficLight(vehicleData);

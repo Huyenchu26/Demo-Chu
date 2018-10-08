@@ -90,6 +90,12 @@ public class Vehicle{
         @SerializedName("cpu_time")
         @Expose
         public String cpuTime;
+        @SerializedName("size")
+        @Expose
+        public String size;
+        @SerializedName("line_all")
+        @Expose
+        public String lineAll;
     }
 
     public static Comparator<Vehicle> VehicleImei = new Comparator<Vehicle>() {
@@ -109,6 +115,17 @@ public class Vehicle{
             if (DateUtils.getSecond(t1.data.dateTime) < DateUtils.getSecond(vehicle.data.dateTime))
                 return -1;
             else if (DateUtils.getSecond(t1.data.dateTime) == DateUtils.getSecond(vehicle.data.dateTime))
+                return 0;
+            else return 1;
+        }
+    };
+
+    public static Comparator<Vehicle> VehicleSize = new Comparator<Vehicle>() {
+        @Override
+        public int compare(Vehicle vehicle, Vehicle t1) {
+            if (Long.valueOf(t1.data.size) < Long.valueOf(vehicle.data.size))
+                return -1;
+            else if (Long.valueOf(t1.data.size) == Long.valueOf(vehicle.data.size))
                 return 0;
             else return 1;
         }

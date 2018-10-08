@@ -15,8 +15,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="IMEI car"
+            android:layout_toLeftOf="@+id/txtSize"
             android:textColor="@color/colorAccentPressedLight"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtSize"
+            style="@style/textNomal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IMEI car"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/colorAccentPressedLight" />
 
         <View style="@style/viewVertical" />
 
@@ -46,6 +56,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_toLeftOf="@+id/imgRunning"
             android:layout_below="@+id/txtFirmWare"
             android:background="@color/default_bg_color" />
 
@@ -66,7 +77,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/txtCPUtime"
-            android:layout_toLeftOf="@+id/imgRunning"
             android:background="@color/default_bg_color" />
 
         <TextView
@@ -89,7 +99,9 @@
             android:layout_height="28dp"
             android:layout_alignParentRight="true"
             android:layout_above="@+id/imgLocation"
-            android:layout_margin="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="@dimen/_18sdp"
             android:src="@mipmap/icon_running" />
 
         <View

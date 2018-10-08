@@ -110,6 +110,9 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         optionImei.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
+                optionImei.setTextColor(getResources().getColor(R.color.colorFacebook));
+                optionDate.setTextColor(getResources().getColor(R.color.colorTextPrimary));
+                optionSize.setTextColor(getResources().getColor(R.color.colorTextPrimary));
                 sortOption0++;
                 Collections.sort(vehicles, Vehicle.VehicleImei);
                 if (sortOption0%2 == 0)
@@ -121,6 +124,9 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         optionDate.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
+                optionImei.setTextColor(getResources().getColor(R.color.colorTextPrimary));
+                optionDate.setTextColor(getResources().getColor(R.color.colorFacebook));
+                optionSize.setTextColor(getResources().getColor(R.color.colorTextPrimary));
                 sortOption1++;
                 Collections.sort(vehicles, Vehicle.VehicleDate);
                 if (sortOption1%2 == 1)
@@ -132,7 +138,15 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         optionSize.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
-
+                optionImei.setTextColor(getResources().getColor(R.color.colorTextPrimary));
+                optionDate.setTextColor(getResources().getColor(R.color.colorTextPrimary));
+                optionSize.setTextColor(getResources().getColor(R.color.colorFacebook));
+                sortOption2++;
+                Collections.sort(vehicles, Vehicle.VehicleSize);
+                if (sortOption1%2 == 0)
+                    Collections.reverse(vehicles);
+                adapter.clearData();
+                adapter.addData(vehicles);
             }
         });
     }
@@ -167,6 +181,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                 return true;
             }
         });
+        optionImei.setTextColor(getResources().getColor(R.color.colorFacebook));
         imageBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
