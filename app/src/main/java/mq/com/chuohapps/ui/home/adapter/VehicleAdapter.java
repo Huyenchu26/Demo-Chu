@@ -80,6 +80,8 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         ImageView imgRunning;
         @BindView(R.id.txtSize)
         TextView txtSize;
+        @BindView(R.id.txtDateTimeBegin)
+        TextView txtDateTimeBegin;
 
         @BindView(R.id.imgTrunk)
         ImageView imgTrunk;
@@ -156,6 +158,7 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
                 txtLocation.setText(" Location: " + vehicleData.latitude + " - " + vehicleData.longitude);
                 txtCam.setText(" Camera image: " + vehicleData.frontCam + " - " + vehicleData.backCam);
                 txtSize.setText(Long.valueOf(vehicleData.size)/1024 + " KB");
+                txtDateTimeBegin.setText(vehicleData.firstTime + "");
             } catch (Exception e) {
             }
 

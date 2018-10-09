@@ -74,6 +74,10 @@ public class Vehicle {
     @SerializedName("line_all")
     @Expose
     public String lineAll;
+    @SerializedName("firstTime")
+    @Expose
+    public String firstTime;
+
 
     public static Comparator<Vehicle> VehicleImei = new Comparator<Vehicle>() {
         @Override

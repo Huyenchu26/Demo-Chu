@@ -49,6 +49,7 @@
             android:layout_below="@+id/txtSize"
             android:layout_alignParentRight="true"
             android:text="23/3/2018 15:26:06"
+            android:layout_marginRight="@dimen/_6sdp"
             android:textColor="@color/colorStatusError"
             android:textSize="12sp" />
 
