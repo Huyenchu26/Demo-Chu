@@ -36,9 +36,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/txtImei"
+            android:layout_toLeftOf="@+id/txtDateTimeBegin"
             android:layout_marginLeft="12dp"
             android:text="23/3/2018 15:26:06"
             android:textColor="@color/colorPrimary"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/txtDateTimeBegin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtSize"
+            android:layout_alignParentRight="true"
+            android:text="23/3/2018 15:26:06"
+            android:textColor="@color/colorStatusError"
             android:textSize="12sp" />
 
         <TextView

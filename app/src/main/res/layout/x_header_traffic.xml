@@ -81,7 +81,7 @@
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             style="@style/textTraffic"
-            android:text="Status"/>
+            android:text="Stopping"/>
 
     </LinearLayout>
 

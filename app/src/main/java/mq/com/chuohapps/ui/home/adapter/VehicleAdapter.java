@@ -146,10 +146,8 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
             imgRunning.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onDelayedClick(View v) {
-                    if (itemListener != null)
-                        if (vehicleData.rfidList == null) return;
-                        else
-                            itemListener.onOpenDialogRfid(GetRFID.getRFID(vehicleData.rfidList));
+                    if (itemListener != null && vehicleData.rfidList != null)
+                        itemListener.onOpenDialogRfid(GetRFID.getRFID(vehicleData.rfidList));
                 }
             });
             try {
