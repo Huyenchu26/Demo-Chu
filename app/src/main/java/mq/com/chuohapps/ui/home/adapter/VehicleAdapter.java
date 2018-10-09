@@ -17,6 +17,7 @@ import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.xbase.BaseAdapter;
 import mq.com.chuohapps.utils.AppLogger;
 import mq.com.chuohapps.utils.GetRFID;
+import mq.com.chuohapps.utils.data.DataFormatUtils;
 import mq.com.chuohapps.utils.data.DateUtils;
 
 /**
@@ -82,6 +83,8 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         TextView txtSize;
         @BindView(R.id.txtDateTimeBegin)
         TextView txtDateTimeBegin;
+        @BindView(R.id.txtFullLine)
+        TextView txtFullLine;
 
         @BindView(R.id.imgTrunk)
         ImageView imgTrunk;
@@ -149,19 +152,24 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
                 @Override
                 public void onDelayedClick(View v) {
                     if (itemListener != null && vehicleData.rfidList != null)
-                        itemListener.onOpenDialogRfid(GetRFID.getRFID(vehicleData.rfidList));
+                        itemListener.onOpenDialogRfid(GetRFID.getRFID(DataFormatUtils.getString(vehicleData.rfidList)));
                 }
             });
             try {
-                txtFirmWare.setText(" Firmware: " + vehicleData.firmware);
-                txtCPUtime.setText(" CPU time: " + vehicleData.cpuTime);
-                txtLocation.setText(" Location: " + vehicleData.latitude + " - " + vehicleData.longitude);
-                txtCam.setText(" Camera image: " + vehicleData.frontCam + " - " + vehicleData.backCam);
-                txtSize.setText(Long.valueOf(vehicleData.size)/1024 + " KB");
-                txtDateTimeBegin.setText(vehicleData.firstTime + "");
+                txtFirmWare.setText(" Firmware: " + DataFormatUtils.getString(vehicleData.firmware));
+                txtCPUtime.setText(" CPU time: " + DataFormatUtils.getString(vehicleData.cpuTime));
+                txtLocation.setText(" Location: " + DataFormatUtils.getString(vehicleData.latitude)
+                        + " - " + DataFormatUtils.getString(vehicleData.longitude));
+                txtCam.setText(" Camera image: " + DataFormatUtils.getString(vehicleData.frontCam)
+                        + " - " + DataFormatUtils.getString(vehicleData.backCam));
+                txtSize.setText(Long.valueOf(DataFormatUtils.getString(vehicleData.size)) / 1024 + " KB");
+                txtDateTimeBegin.setText(DataFormatUtils.getString(vehicleData.firstTime) + "");
+                txtFullLine.setText(DataFormatUtils.getString(vehicleData.lineAll));
             } catch (Exception e) {
             }
 
+            if (data.size() == 1) txtFullLine.setVisibility(View.VISIBLE);
+            else txtFullLine.setVisibility(View.GONE);
             setTrafficLight(vehicleData);
             setAnimation(itemView, position);
         }

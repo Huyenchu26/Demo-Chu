@@ -11,7 +11,7 @@ public final class AppConfigs {
     public static final int REQUEST_CODE_PERMISSION = 999;
     public static final String EMPTY = "";
     public static final String SPACE = " ";
-    public static final String NULL_STRING = "[ --- ]";
+    public static final String NULL_STRING = " - ";
 
     public static final String LOG_TAG = "HC-Tag";
 

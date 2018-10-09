@@ -92,7 +92,7 @@ public class HistoryUtil {
             for (int i = 1; i < vehicles.size(); i++) {
                 if (Integer.parseInt(vehicles.get(i).cpuTime) <
                         Integer.parseInt(vehicles.get(i - 1).cpuTime)) {
-                    vehiclesCPU.add(vehicles.get(i));
+                    vehiclesCPU.add(vehicles.get(i-1));
                 }
             }
         }
