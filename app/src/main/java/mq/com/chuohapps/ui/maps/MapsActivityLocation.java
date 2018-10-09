@@ -144,7 +144,7 @@ public class MapsActivityLocation extends BaseActivity<MapsConstract.Presenter> 
                 .build();
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 13));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
     }
 
     @Override
