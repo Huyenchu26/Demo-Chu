@@ -106,50 +106,66 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         setupSort();
     }
 
+    private int sortOption = 0;
     private int sortOption0 = 0, sortOption1 = 0, sortOption2 = 0;
     private void setupSort() {
         optionImei.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
-                optionImei.setTextColor(getResources().getColor(R.color.colorFacebook));
-                optionDate.setTextColor(getResources().getColor(R.color.colorTextPrimary));
-                optionSize.setTextColor(getResources().getColor(R.color.colorTextPrimary));
                 sortOption0++;
-                Collections.sort(vehicles, Vehicle.VehicleImei);
-                if (sortOption0%2 == 0)
-                    Collections.reverse(vehicles);
-                adapter.clearData();
-                adapter.addData(vehicles);
+                sortImei();
             }
         });
         optionDate.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
-                optionImei.setTextColor(getResources().getColor(R.color.colorTextPrimary));
-                optionDate.setTextColor(getResources().getColor(R.color.colorFacebook));
-                optionSize.setTextColor(getResources().getColor(R.color.colorTextPrimary));
                 sortOption1++;
-                Collections.sort(vehicles, Vehicle.VehicleDate);
-                if (sortOption1%2 == 1)
-                    Collections.reverse(vehicles);
-                adapter.clearData();
-                adapter.addData(vehicles);
+                sortDate();
             }
         });
         optionSize.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
-                optionImei.setTextColor(getResources().getColor(R.color.colorTextPrimary));
-                optionDate.setTextColor(getResources().getColor(R.color.colorTextPrimary));
-                optionSize.setTextColor(getResources().getColor(R.color.colorFacebook));
                 sortOption2++;
-                Collections.sort(vehicles, Vehicle.VehicleSize);
-                if (sortOption2%2 == 0)
-                    Collections.reverse(vehicles);
-                adapter.clearData();
-                adapter.addData(vehicles);
+                sortSize();
             }
         });
+    }
+
+    private void sortSize() {
+        sortOption = 2;
+        optionImei.setTextColor(getResources().getColor(R.color.colorTextPrimary));
+        optionDate.setTextColor(getResources().getColor(R.color.colorTextPrimary));
+        optionSize.setTextColor(getResources().getColor(R.color.colorFacebook));
+        Collections.sort(vehicles, Vehicle.VehicleSize);
+        if (sortOption2 % 2 == 0)
+            Collections.reverse(vehicles);
+        adapter.clearData();
+        adapter.addData(vehicles);
+    }
+
+    private void sortDate() {
+        sortOption = 1;
+        optionImei.setTextColor(getResources().getColor(R.color.colorTextPrimary));
+        optionDate.setTextColor(getResources().getColor(R.color.colorFacebook));
+        optionSize.setTextColor(getResources().getColor(R.color.colorTextPrimary));
+        Collections.sort(vehicles, Vehicle.VehicleDate);
+        if (sortOption1%2 == 1)
+            Collections.reverse(vehicles);
+        adapter.clearData();
+        adapter.addData(vehicles);
+    }
+
+    private void sortImei() {
+        sortOption = 0;
+        optionImei.setTextColor(getResources().getColor(R.color.colorFacebook));
+        optionDate.setTextColor(getResources().getColor(R.color.colorTextPrimary));
+        optionSize.setTextColor(getResources().getColor(R.color.colorTextPrimary));
+        Collections.sort(vehicles, Vehicle.VehicleImei);
+        if (sortOption0%2 == 0)
+            Collections.reverse(vehicles);
+        adapter.clearData();
+        adapter.addData(vehicles);
     }
 
     private void doLoadData() {
@@ -302,8 +318,14 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         if (str.length() > 0) {
             doSearch(str);
         } else {
-            Collections.sort(vehicles, Vehicle.VehicleImei);
-            adapter.addData(vehicles);
+            switch (sortOption) {
+                case 0: sortImei(); break;
+                case 1: sortDate(); break;
+                case 2: sortSize(); break;
+                default: sortImei(); break;
+            }
+//            Collections.sort(vehicles, Vehicle.VehicleImei);
+//            adapter.addData(vehicles);
         }
     }
 

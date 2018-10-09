@@ -157,7 +157,7 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
                 txtCPUtime.setText(" CPU time: " + vehicleData.cpuTime);
                 txtLocation.setText(" Location: " + vehicleData.latitude + " - " + vehicleData.longitude);
                 txtCam.setText(" Camera image: " + vehicleData.frontCam + " - " + vehicleData.backCam);
-                txtSize.setText(vehicleData.size + " KB");
+                txtSize.setText(Long.valueOf(vehicleData.size)/1024 + " KB");
             } catch (Exception e) {
             }
 
