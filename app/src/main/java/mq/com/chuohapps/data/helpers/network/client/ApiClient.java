@@ -2,6 +2,8 @@ package mq.com.chuohapps.data.helpers.network.client;
 
 import java.util.List;
 
+import mq.com.chuohapps.data.helpers.network.response.GetImeiSavedResponse;
+import mq.com.chuohapps.data.helpers.network.response.SaveImeiResponse;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -21,5 +23,12 @@ public interface ApiClient {
     Call<List<Vehicle>> loadHistory(@Query("imei") String imei,
                               @Query("startDate") String startDate,
                               @Query("endDate") String endDate);
+
+    @GET("SaveImei")
+    Call<SaveImeiResponse> saveImei(@Query("imei") String imei,
+                                    @Query("numberCar") String numberCar);
+
+    @GET("SaveImei")
+    Call<GetImeiSavedResponse> getImeiSaved();
 
 }
