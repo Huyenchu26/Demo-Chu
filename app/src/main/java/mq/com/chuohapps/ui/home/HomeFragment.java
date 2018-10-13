@@ -1,6 +1,5 @@
 package mq.com.chuohapps.ui.home;
 
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
@@ -25,11 +24,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
-import mq.com.chuohapps.customview.SortDialog;
 import mq.com.chuohapps.customview.TextChangedListener;
-import mq.com.chuohapps.data.helpers.network.response.VehicleSortDate;
+import mq.com.chuohapps.data.helpers.network.response.SaveImeiResponse;
 import mq.com.chuohapps.lib.swiperefresh.AppRefresher;
 import mq.com.chuohapps.lib.swiperefresh.Refresher;
+import mq.com.chuohapps.ui.home.dialog.UpdateNumberCarDialog;
 import mq.com.chuohapps.ui.maps.MapsActivity;
 import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.LoadMoreRecyclerView;
@@ -108,6 +107,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
 
     private int sortOption = 0;
     private int sortOption0 = 0, sortOption1 = 0, sortOption2 = 0;
+
     private void setupSort() {
         optionImei.setOnClickListener(new OnClickListener() {
             @Override
@@ -150,7 +150,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         optionDate.setTextColor(getResources().getColor(R.color.colorFacebook));
         optionSize.setTextColor(getResources().getColor(R.color.colorTextPrimary));
         Collections.sort(vehicles, Vehicle.VehicleDate);
-        if (sortOption1%2 == 1)
+        if (sortOption1 % 2 == 1)
             Collections.reverse(vehicles);
         adapter.clearData();
         adapter.addData(vehicles);
@@ -162,7 +162,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         optionDate.setTextColor(getResources().getColor(R.color.colorTextPrimary));
         optionSize.setTextColor(getResources().getColor(R.color.colorTextPrimary));
         Collections.sort(vehicles, Vehicle.VehicleImei);
-        if (sortOption0%2 == 0)
+        if (sortOption0 % 2 == 0)
             Collections.reverse(vehicles);
         adapter.clearData();
         adapter.addData(vehicles);
@@ -265,8 +265,35 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
 
                 }
             }
+
+            @Override
+            public void onItemLongClick(String imei) {
+                openDialogNumberCar(imei);
+                imeiIndex = imei;
+            }
         });
         recyclerViewVehicle.setAdapter(adapter);
+    }
+
+    String imeiIndex = "";
+    UpdateNumberCarDialog updateDataDialog;
+
+    private void openDialogNumberCar(final String imei) {
+        updateDataDialog = new UpdateNumberCarDialog(myActivity());
+        updateDataDialog.setOnChooseListener(new UpdateNumberCarDialog.OnChooseListener() {
+            @Override
+            public void onDone(String query) {
+                getPresenter().saveImei(imei, query);
+            }
+        });
+        updateDataDialog.setCanceledOnTouchOutside(true);
+        updateDataDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                updateDataDialog.release();
+            }
+        });
+        updateDataDialog.show();
     }
 
     RFIDDialog rfidDialog;
@@ -319,10 +346,18 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             doSearch(str);
         } else {
             switch (sortOption) {
-                case 0: sortImei(); break;
-                case 1: sortDate(); break;
-                case 2: sortSize(); break;
-                default: sortImei(); break;
+                case 0:
+                    sortImei();
+                    break;
+                case 1:
+                    sortDate();
+                    break;
+                case 2:
+                    sortSize();
+                    break;
+                default:
+                    sortImei();
+                    break;
             }
 //            Collections.sort(vehicles, Vehicle.VehicleImei);
 //            adapter.addData(vehicles);
@@ -383,5 +418,29 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             recyclerViewVehicle.refreshLoadMore();
             doLoadData();
         }
+    }
+
+    // TODO: 10/13/2018 save imei car
+
+    @Override
+    public void onStartSaveImei() {
+        showLoading();
+    }
+
+    @Override
+    public void onSaveImeiSuccess(SaveImeiResponse response) {
+        hideLoading();
+        for (int i = 0; i < vehiclesSearch.size(); i++) {
+            if (imeiIndex.equals(vehiclesSearch.get(i).imei))
+                vehiclesSearch.remove(i);
+        }
+        adapter.notifyDataSetChanged();
+        MessageUtils.show(myActivity(), "success!", MessageUtils.SUCCESS_CODE);
+    }
+
+    @Override
+    public void onSaveImeiFailed(String message) {
+        hideLoading();
+        MessageUtils.show(myActivity(), message, MessageUtils.ERROR_CODE);
     }
 }

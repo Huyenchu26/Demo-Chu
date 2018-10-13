@@ -3,6 +3,7 @@ package mq.com.chuohapps.ui.home;
 import java.util.List;
 
 import mq.com.chuohapps.data.DataCallBack;
+import mq.com.chuohapps.data.helpers.network.response.SaveImeiResponse;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.data.usecases.UseCaseGetVehicle;
 import mq.com.chuohapps.ui.xbase.BaseAppPresenter;
@@ -14,7 +15,6 @@ public class HomePresenter extends BaseAppPresenter<HomeContract.View, UseCaseGe
 
     @Override
     public void getVehicle() {
-        AppLogger.error("HomePresenter: ");
         if (getView() != null)
             getView().onStartGetVehicle();
         getUseCase().getVehicle(handleCallBack(new DataCallBack<List<Vehicle>>() {
@@ -28,6 +28,24 @@ public class HomePresenter extends BaseAppPresenter<HomeContract.View, UseCaseGe
             public void onError(Throwable throwable, String message) {
                 super.onError(throwable, message);
                 getView().onGetVehicleError(message);
+            }
+        }));
+    }
+
+    @Override
+    public void saveImei(String imei, String numberCar) {
+        if (getView() != null)
+            getView().onStartSaveImei();
+        getUseCase().saveImei(imei, numberCar, handleCallBack(new DataCallBack<SaveImeiResponse>() {
+            @Override
+            public void onSuccess(SaveImeiResponse response, String message) {
+                getView().onSaveImeiSuccess(response);
+            }
+
+            @Override
+            public void onError(Throwable throwable, String message) {
+                super.onError(throwable, message);
+                getView().onSaveImeiFailed(message);
             }
         }));
     }

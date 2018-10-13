@@ -50,6 +50,8 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         void onOpenDialogRfid(List<String> rfid);
 
         void onItemListener(Vehicle vehicle);
+
+        void onItemLongClick(String imei);
     }
 
     class ItemViewHolder extends BaseAdapter.BaseItemViewHolder {
@@ -102,6 +104,14 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         public ItemViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if (itemListener != null)
+                        itemListener.onItemLongClick(data.get(getAdapterPosition()).imei);
+                    return false;
+                }
+            });
         }
 
         protected void bindData(int position) {

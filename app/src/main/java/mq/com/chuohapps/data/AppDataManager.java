@@ -6,6 +6,7 @@ import java.util.List;
 
 import mq.com.chuohapps.data.helpers.local.PreferencesHelper;
 import mq.com.chuohapps.data.helpers.network.ApiHelper;
+import mq.com.chuohapps.data.helpers.network.response.SaveImeiResponse;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.data.usecases.BaseUseCase;
 import mq.com.chuohapps.data.usecases.UseCaseGetListLocation;
@@ -36,5 +37,10 @@ public class AppDataManager extends BaseDataManager implements
     @Override
     public void getListLocation(String imei, String startDate, String endDate, @NonNull DataCallBack<List<Vehicle>> callBack) {
         apiHelper.getHistory(imei, startDate, endDate, handleCallBack(callBack));
+    }
+
+    @Override
+    public void saveImei(String imei, String numberCar, @NonNull DataCallBack<SaveImeiResponse> callBack) {
+        apiHelper.saveImei(imei, numberCar, handleCallBack(callBack));
     }
 }
