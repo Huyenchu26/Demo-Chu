@@ -65,11 +65,11 @@ public class SOSAdapter extends BaseAdapter<SOSAdapter.ItemViewHolder, SOSAdapte
             final Vehicle vehicle = data.get(position);
             try {
                 textView.setText(DateUtils.convertServerDateToUserTimeZone(vehicle.dateTime));
-                txtCamera.setText("Front: " + vehicle.frontCam + " - Back" + vehicle.backCam);
+                txtCamera.setText("Front: " + vehicle.frontCam + " -  Back: " + vehicle.backCam);
+                setTrafficLight(vehicle);
             } catch (Exception e) {
                 AppLogger.error(e.getMessage());
             }
-            setTrafficLight(vehicle);
         }
 
         private void setTrafficLight(Vehicle vehicle) {

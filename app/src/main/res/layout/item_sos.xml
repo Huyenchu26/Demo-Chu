@@ -1,35 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/txt"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        style="@style/textNomal"/>
-
-    <TextView
+        style="@style/textNomal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtCamera"
-        android:textSize="@dimen/_14sdp"
+        android:text="26-06-1966556"
         android:textColor="@color/colorPrimary"
-        style="@style/textNomal"/>
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtCamera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="12dp"
+        android:text="Front: 456 - Back: 456"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.4dp"
         android:background="@color/colorTextSecondary" />
+
     <include
         android:id="@+id/toolbarHeader"
+        layout="@layout/x_header_traffic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/viewEnd"
-        layout="@layout/x_header_traffic" />
+        android:layout_below="@+id/viewEnd" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
