@@ -1,32 +1,19 @@
 package mq.com.chuohapps.ui.maps;
 
-import android.app.Fragment;
 import android.content.DialogInterface;
-import android.location.Location;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.maps.android.SphericalUtil;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,9 +29,6 @@ import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.history.event.ChangeDateEvent;
 import mq.com.chuohapps.ui.home.dialog.DateDialog;
 import mq.com.chuohapps.ui.xbase.BaseActivity;
-import mq.com.chuohapps.ui.xbase.BaseFragment;
-import mq.com.chuohapps.ui.xbase.container.ContainerActivity;
-import mq.com.chuohapps.utils.AppUtils;
 import mq.com.chuohapps.utils.data.DateUtils;
 import mq.com.chuohapps.utils.functions.MessageUtils;
 
@@ -215,10 +199,10 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
         dateDialog.setCanceledOnTouchOutside(true);
         dateDialog.setOnChooseListener(new DateDialog.OnChooseListener() {
             @Override
-            public void onDone(String startDate_, String endDate_) {
+            public void onDone(String startDate_) {
                 // TODO: 4/19/2018 some thing with dates
-                startDate = startDate_;
-                endDate = endDate_;
+                startDate = startDate_ + " 00:00:00";
+                endDate = startDate_ + " 23:59:59";
                 doLoadData();
             }
         });

@@ -173,7 +173,7 @@ public class MapsActivityLocation extends BaseActivity<MapsConstract.Presenter> 
         dateDialog.setCanceledOnTouchOutside(true);
         dateDialog.setOnChooseListener(new DateDialog.OnChooseListener() {
             @Override
-            public void onDone(String startDate_, String endDate_) {
+            public void onDone(String startDate_) {
                 // TODO: 4/19/2018 some thing with dates
                 doLoadData();
             }

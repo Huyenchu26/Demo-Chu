@@ -175,10 +175,10 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
         dateDialog.setCanceledOnTouchOutside(true);
         dateDialog.setOnChooseListener(new DateDialog.OnChooseListener() {
             @Override
-            public void onDone(String startDate_, String endDate_) {
+            public void onDone(String startDate_) {
                 // TODO: 4/19/2018 some thing with dates
-                startDate = startDate_;
-                endDate = endDate_;
+                startDate = startDate_ + " 00:00:00";
+                endDate = startDate_ + " 23:59:59";
                 doLoadData();
             }
         });

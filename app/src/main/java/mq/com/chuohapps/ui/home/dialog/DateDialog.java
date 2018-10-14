@@ -24,13 +24,9 @@ public class DateDialog extends MyAlertDialog {
 
     @BindView(R.id.editStartTime)
     EditText editStartTime;
-    @BindView(R.id.editEndTime)
-    EditText editEndTime;
     @BindView(R.id.container)
     View container;
 
-
-    private Calendar date = null;
     private OnChooseListener onChooseListener;
 
     public DateDialog(Context context) {
@@ -42,8 +38,6 @@ public class DateDialog extends MyAlertDialog {
         return R.layout.dialog_select_time;
     }
 
-    private int choose = 0;
-
     @Override
     protected void setupViews() {
         container.setOnTouchListener(new View.OnTouchListener() {
@@ -54,19 +48,10 @@ public class DateDialog extends MyAlertDialog {
             }
         });
         editStartTime.setFocusable(false);
-        editEndTime.setFocusable(false);
         editStartTime.setOnClickListener(new mq.com.chuohapps.customview.OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
                 openDatePicker();
-                choose = 1;
-            }
-        });
-        editEndTime.setOnClickListener(new mq.com.chuohapps.customview.OnClickListener() {
-            @Override
-            public void onDelayedClick(View v) {
-                openDatePicker();
-                choose = 2;
             }
         });
     }
@@ -79,7 +64,6 @@ public class DateDialog extends MyAlertDialog {
     public void release() {
         super.release();
         onChooseListener = null;
-        date = null;
     }
 
     @OnClick(R.id.buttonSearchOrder)
@@ -87,9 +71,8 @@ public class DateDialog extends MyAlertDialog {
         if (onChooseListener != null)
             try {
                 String startDate = editStartTime.getText().toString().trim();
-                String endDate = editEndTime.getText().toString().trim();
-                if (startDate.length() > 0 && endDate.length() > 0)
-                    onChooseListener.onDone(startDate, endDate);
+                if (startDate.length() > 0)
+                    onChooseListener.onDone(startDate);
                 else return;
             } catch (NumberFormatException ignored) {
             }
@@ -99,28 +82,22 @@ public class DateDialog extends MyAlertDialog {
 
     private void openDatePicker() {
         DatePickerDialog datePickerDialog =
-                new DatePickerDialog(getContext(), date, "Cancel");
+                new DatePickerDialog(getContext(), Calendar.getInstance(), "Cancel");
         datePickerDialog.setListener(new DatePickerDialog.Listener() {
             @Override
             public void onDateSet(Calendar calendar) {
-                date = calendar;
-                if (choose == 1)
-                    editStartTime.setText(DateUtils.dateToStringSent(date.getTime()));
-                else if (choose == 2)
-                    editEndTime.setText(DateUtils.dateToStringSent(date.getTime()));
-                else return;
+                editStartTime.setText(DateUtils.dateToStringShort(calendar.getTime()));
+                return;
             }
 
             @Override
             public void onCancelClick() {
                 editStartTime.setText(null);
-                choose = 0;
             }
 
             @Override
             public void onDismiss() {
                 release();
-                choose = 0;
             }
         });
 //        datePickerDialog.setMaxDate();
@@ -154,6 +131,6 @@ public class DateDialog extends MyAlertDialog {
     }
 
     public interface OnChooseListener {
-        void onDone(String startDate, String endDate);
+        void onDone(String startDate);
     }
 }

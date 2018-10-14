@@ -13,6 +13,7 @@ import mq.com.chuohapps.AppConfigs;
 public class DateUtils {
 
     private static final String DATE_FORMAT_SENT = "yyyy/MM/dd HH:mm:ss";
+    private static final String DATE_FORMAT_SHORT = "yyyy/MM/dd";
     private static final String DATE_FORMAT = "dd/MM/yyyy";
     private static final String DATE_FORMAT_SIMPLE = "MM/yyyy";
     private static final String DATE_FORMAT_FULL = "HH:mm dd/MM/yyyy";
@@ -35,6 +36,10 @@ public class DateUtils {
 
     public static String dateToString(Date date) {
         return new SimpleDateFormat(DATE_FORMAT).format(date);
+    }
+
+    public static String dateToStringShort(Date date) {
+        return new SimpleDateFormat(DATE_FORMAT_SHORT).format(date);
     }
 
     public static String dateToStringSent(Date date) {

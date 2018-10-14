@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mq.com.chuohapps.AppConfigs;
 import mq.com.chuohapps.R;
+import mq.com.chuohapps.utils.functions.MessageUtils;
 import mq.com.chuohapps.utils.views.KeyboardUtils;
 
 public class UpdateNumberCarDialog extends AlertDialog {
@@ -64,11 +65,14 @@ public class UpdateNumberCarDialog extends AlertDialog {
         if (backPressListener != null)
             backPressListener.onBackPress();
     }
-
+    String str = "";
     @OnClick(R.id.buttonUpdate)
     public void onButtonUpdateClicked() {
-        if (onChooseListener != null)
-            onChooseListener.onDone(textUpdate.getText().toString());
+        if (onChooseListener != null) {
+            str = textUpdate.getText().toString().trim();
+            if (str.length() > 0)
+                onChooseListener.onDone(str);
+        }
         onChooseListener = null;
         dismiss();
     }

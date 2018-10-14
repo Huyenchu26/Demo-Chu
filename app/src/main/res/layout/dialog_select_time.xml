@@ -3,55 +3,39 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:focusableInTouchMode="true"
     android:background="@color/colorTextWhite"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:padding="16dp">
 
     <TextView
         android:id="@+id/txtSelectTrunk"
         style="@style/textNomalBold"
+        android:layout_marginTop="@dimen/_12sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtTrunk"
-        android:text="Select days:"
-        android:textColor="@color/colorPrimary"/>
+        android:text="From 00:00:00 to 23:59:59"
+        android:textColor="@color/colorPrimary" />
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/editStartTime"
+        style="@style/EditSingleLine"
+        android:layout_marginTop="@dimen/_24sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/editStartTime"
-            style="@style/EditSingleLine"
-            android:drawableRight="@mipmap/ic_show_down"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Start time"
-            android:imeOptions="actionDone"
-            android:textSize="15sp"/>
-
-        <EditText
-            android:id="@+id/editEndTime"
-            style="@style/EditSingleLine"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableRight="@mipmap/ic_show_down"
-            android:hint="End time"
-            android:imeOptions="actionDone"
-            android:layout_marginTop="16dp"
-            android:textSize="15sp" />
-    </LinearLayout>
+        android:drawableRight="@mipmap/ic_show_down"
+        android:hint="Select day"
+        android:imeOptions="actionDone"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/buttonSearchOrder"
+        style="@style/ButtonNormal"
         android:layout_width="wrap_content"
         android:layout_height="42dp"
         android:layout_gravity="center"
         android:layout_marginTop="24dp"
         android:text="Tìm kiếm"
-        style="@style/ButtonNormal"
         android:textSize="13dp" />
 </LinearLayout>
