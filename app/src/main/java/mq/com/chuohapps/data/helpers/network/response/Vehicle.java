@@ -11,6 +11,8 @@ import mq.com.chuohapps.utils.data.DateUtils;
 
 public class Vehicle {
 
+    public boolean isUpdate = false;
+
     @SerializedName("imei")
     @Expose
     public String imei;

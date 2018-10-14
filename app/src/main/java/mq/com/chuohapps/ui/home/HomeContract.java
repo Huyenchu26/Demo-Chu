@@ -2,6 +2,7 @@ package mq.com.chuohapps.ui.home;
 
 import java.util.List;
 
+import mq.com.chuohapps.data.helpers.network.response.GetImeiSavedResponse;
 import mq.com.chuohapps.data.helpers.network.response.SaveImeiResponse;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.xbase.BaseContract;
@@ -15,6 +16,8 @@ public class HomeContract extends BaseContract {
         void getVehicle();
 
         void saveImei(String imei, String numberCar);
+
+        void getSavedImei();
     }
 
     interface View extends BaseView {
@@ -29,5 +32,11 @@ public class HomeContract extends BaseContract {
         void onSaveImeiSuccess(SaveImeiResponse response);
 
         void onSaveImeiFailed(String message);
+
+        void onStartGetImei();
+
+        void onGetImeiSuccess(GetImeiSavedResponse response);
+
+        void onGetImeiFailed(String message);
     }
 }

@@ -46,6 +46,13 @@ public abstract class BaseAdapter<IVH extends BaseAdapter.BaseItemViewHolder, IL
 
     }
 
+    public void delItem(int index) {
+        if (data != null)
+            if (index < data.size())
+                this.data.remove(index);
+        notifyDataSetChanged();
+    }
+
     public void clearData() {
         data.clear();
         loadingOff(false);

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import mq.com.chuohapps.data.DataCallBack;
+import mq.com.chuohapps.data.helpers.network.response.GetImeiSavedResponse;
 import mq.com.chuohapps.data.helpers.network.response.SaveImeiResponse;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 
@@ -13,4 +14,6 @@ public interface UseCaseGetVehicle extends BaseUseCase{
 
     void saveImei(String imei, String numberCar,
                   @NonNull DataCallBack<SaveImeiResponse> callBack);
+
+    void getImei(@NonNull DataCallBack<GetImeiSavedResponse> callBack);
 }

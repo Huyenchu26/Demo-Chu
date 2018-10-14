@@ -6,6 +6,7 @@ import java.util.List;
 
 import mq.com.chuohapps.data.helpers.local.PreferencesHelper;
 import mq.com.chuohapps.data.helpers.network.ApiHelper;
+import mq.com.chuohapps.data.helpers.network.response.GetImeiSavedResponse;
 import mq.com.chuohapps.data.helpers.network.response.SaveImeiResponse;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.data.usecases.BaseUseCase;
@@ -42,5 +43,10 @@ public class AppDataManager extends BaseDataManager implements
     @Override
     public void saveImei(String imei, String numberCar, @NonNull DataCallBack<SaveImeiResponse> callBack) {
         apiHelper.saveImei(imei, numberCar, handleCallBack(callBack));
+    }
+
+    @Override
+    public void getImei(@NonNull DataCallBack<GetImeiSavedResponse> callBack) {
+        apiHelper.getSavedImei(handleCallBack(callBack));
     }
 }

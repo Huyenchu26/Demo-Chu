@@ -1,5 +1,6 @@
 package mq.com.chuohapps.ui.home.adapter;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -37,6 +38,19 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
+    }
+
+    public void updateItemDone(RecyclerView recyclerView, String imei) {
+        if (imei != null) {
+            for (Vehicle vehicle : data) {
+                if (vehicle.imei.equalsIgnoreCase(imei)) {
+                    vehicle.isUpdate = true;
+                    notifyDataSetChanged();
+                    break;
+                }
+            }
+        }
+        updateViewHolder(recyclerView, imei);
     }
 
     @Override
@@ -182,6 +196,9 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
             else txtFullLine.setVisibility(View.GONE);
             setTrafficLight(vehicleData);
             setAnimation(itemView, position);
+            if (vehicleData.isUpdate)
+                txtImei.setTextColor(itemView.getResources().getColor(R.color.colorStatusError));
+            else txtImei.setTextColor(itemView.getResources().getColor(R.color.colorAccentPressedLight));
         }
 
         private void setTrafficLight(Vehicle vehicle) {

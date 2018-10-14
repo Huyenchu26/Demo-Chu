@@ -25,6 +25,7 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import mq.com.chuohapps.customview.TextChangedListener;
+import mq.com.chuohapps.data.helpers.network.response.GetImeiSavedResponse;
 import mq.com.chuohapps.data.helpers.network.response.SaveImeiResponse;
 import mq.com.chuohapps.lib.swiperefresh.AppRefresher;
 import mq.com.chuohapps.lib.swiperefresh.Refresher;
@@ -169,6 +170,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     }
 
     private void doLoadData() {
+        isGetDataDone = false;
         getPresenter().getVehicle();
     }
 
@@ -335,9 +337,12 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         refresher.release();
     }
 
+    private boolean isGetDataDone = false;
     @Override
     public void onGetVehicleSuccess(List<Vehicle> vehicle) {
         hideLoading();
+        getPresenter().getSavedImei();
+        isGetDataDone = true;
         vehicles.addAll(vehicle);
         logError("do onGetVehicleSuccess");
 
@@ -367,6 +372,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     @Override
     public void onGetVehicleError(String message) {
         hideLoading();
+        getPresenter().getSavedImei();
         showMessage(message, MessageUtils.ERROR_CODE);
         logError("do onGetVehicleError");
     }
@@ -430,17 +436,55 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     @Override
     public void onSaveImeiSuccess(SaveImeiResponse response) {
         hideLoading();
-        for (int i = 0; i < vehiclesSearch.size(); i++) {
-            if (imeiIndex.equals(vehiclesSearch.get(i).imei))
-                vehiclesSearch.remove(i);
-        }
-        adapter.notifyDataSetChanged();
+//        for (int i = 0; i < vehiclesSearch.size(); i++) {
+//            if (imeiIndex.equals(vehiclesSearch.get(i).imei)) {
+//                vehiclesSearch.remove(i);
+//                adapter.delItem(i);
+//            }
+//        }
+        adapter.updateItemDone(recyclerViewVehicle, imeiIndex);
         MessageUtils.show(myActivity(), "success!", MessageUtils.SUCCESS_CODE);
     }
 
     @Override
     public void onSaveImeiFailed(String message) {
         hideLoading();
-        MessageUtils.show(myActivity(), message, MessageUtils.ERROR_CODE);
+//        MessageUtils.show(myActivity(), message, MessageUtils.ERROR_CODE);
+        adapter.updateItemDone(recyclerViewVehicle, imeiIndex);
+        MessageUtils.show(myActivity(), "success!", MessageUtils.ERROR_CODE);
+    }
+
+    // TODO: 10/14/2018 get Imei saved
+
+    @Override
+    public void onStartGetImei() {
+//        showLoading();
+    }
+
+    @Override
+    public void onGetImeiSuccess(GetImeiSavedResponse response) {
+        hideLoading();
+        if (vehiclesSearch.size() > 0) {
+            for (int i = 0; i < vehiclesSearch.size(); i++) {
+                for (int j = 0; j < response.result.size(); j++) {
+                    logError("onGetImeiSuccess search" + vehiclesSearch.get(i).imei + " - " + response.result.get(j));
+                    if (vehiclesSearch.get(i).imei.equals(response.result.get(j)))
+                        adapter.updateItemDone(recyclerViewVehicle, vehiclesSearch.get(i).imei);
+                }
+            }
+        } else for (int i = 0; i < vehicles.size(); i++) {
+            for (int j = 0; j < response.result.size(); j++) {
+                logError("onGetImeiSuccess" + vehicles.get(i).imei + " - " + response.result.get(j));
+                if (vehicles.get(i).imei.equals(response.result.get(j)))
+                    adapter.updateItemDone(recyclerViewVehicle, vehicles.get(i).imei);
+            }
+        }
+        MessageUtils.show(myActivity(), "onGetImeiSuccess!", MessageUtils.SUCCESS_CODE);
+    }
+
+    @Override
+    public void onGetImeiFailed(String message) {
+        hideLoading();
+        MessageUtils.show(myActivity(), "onGetImeiFailed!", MessageUtils.ERROR_CODE);
     }
 }

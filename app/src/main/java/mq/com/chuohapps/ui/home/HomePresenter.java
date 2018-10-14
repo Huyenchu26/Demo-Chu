@@ -3,6 +3,7 @@ package mq.com.chuohapps.ui.home;
 import java.util.List;
 
 import mq.com.chuohapps.data.DataCallBack;
+import mq.com.chuohapps.data.helpers.network.response.GetImeiSavedResponse;
 import mq.com.chuohapps.data.helpers.network.response.SaveImeiResponse;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.data.usecases.UseCaseGetVehicle;
@@ -46,6 +47,24 @@ public class HomePresenter extends BaseAppPresenter<HomeContract.View, UseCaseGe
             public void onError(Throwable throwable, String message) {
                 super.onError(throwable, message);
                 getView().onSaveImeiFailed(message);
+            }
+        }));
+    }
+
+    @Override
+    public void getSavedImei() {
+        if (getView() != null)
+            getView().onStartGetImei();
+        getUseCase().getImei(handleCallBack(new DataCallBack<GetImeiSavedResponse>() {
+            @Override
+            public void onSuccess(GetImeiSavedResponse response, String message) {
+                getView().onGetImeiSuccess(response);
+            }
+
+            @Override
+            public void onError(Throwable throwable, String message) {
+                super.onError(throwable, message);
+                getView().onGetImeiFailed(message);
             }
         }));
     }
