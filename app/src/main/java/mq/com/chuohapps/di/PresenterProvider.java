@@ -6,6 +6,8 @@ import mq.com.chuohapps.ui.history.Trunk.TrunkContract;
 import mq.com.chuohapps.ui.history.Trunk.TrunkPresenter;
 import mq.com.chuohapps.ui.history.container.HistoryContainerContract;
 import mq.com.chuohapps.ui.history.container.HistoryContainerPresenter;
+import mq.com.chuohapps.ui.history.sos.SOSContract;
+import mq.com.chuohapps.ui.history.sos.SOSPresenter;
 import mq.com.chuohapps.ui.home.HomeContract;
 import mq.com.chuohapps.ui.home.HomePresenter;
 import mq.com.chuohapps.ui.maps.MapsConstract;
@@ -32,6 +34,8 @@ public class PresenterProvider {
             return new CPUPresenter();
         } if (matched(classType, TrunkContract.Presenter.class)) {
             return new TrunkPresenter();
+        } if (matched(classType, SOSContract.Presenter.class)) {
+            return new SOSPresenter();
         }
 
         throw new IllegalArgumentException("Add [" + classType.getCanonicalName() + "]" + " to Presenter Provider!!!");

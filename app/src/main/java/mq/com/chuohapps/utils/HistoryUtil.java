@@ -99,4 +99,16 @@ public class HistoryUtil {
         return vehiclesCPU;
     }
 
+    public static List<Vehicle> getListSOS(List<Vehicle> vehicles) {
+        List<Vehicle> vehiclesSOS = new ArrayList<>();
+        if (vehicles != null) {
+            for (int i = 1; i < vehicles.size(); i++) {
+                if (vehicles.get(i).sos.equals(1)) {
+                    vehiclesSOS.add(vehicles.get(i));
+                }
+            }
+        }
+        return vehiclesSOS;
+    }
+
 }

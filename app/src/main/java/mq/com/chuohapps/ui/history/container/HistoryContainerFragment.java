@@ -31,6 +31,7 @@ import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.history.CPUTime.CPUFragment;
 import mq.com.chuohapps.ui.history.Trunk.TrunkFragment;
 import mq.com.chuohapps.ui.history.event.ChangeDateEvent;
+import mq.com.chuohapps.ui.history.sos.SOSfragment;
 import mq.com.chuohapps.ui.home.dialog.DateDialog;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
 import mq.com.chuohapps.utils.AppLogger;
@@ -40,7 +41,7 @@ import mq.com.chuohapps.utils.functions.MessageUtils;
 public class HistoryContainerFragment extends BaseFragment<HistoryContainerContract.Presenter>
         implements HistoryContainerContract.View {
 
-    private static int TAB_COUNT = 2;
+    private static int TAB_COUNT = 3;
 
     @BindView(R.id.tabOption)
     TabLayout tabOption;
@@ -213,6 +214,7 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
             adapter = new ViewPagerAdapter(getChildFragmentManager());
             adapter.addTab(getString(R.string.title_trunk));
             adapter.addTab(getString(R.string.title_cpu_time));
+            adapter.addTab(getString(R.string.title_sos));
             if (viewpagerOption != null)
                 viewpagerOption.setAdapter(adapter);
         }
@@ -230,7 +232,9 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
         public Fragment getItem(int position) {
             if (position == 0)
                 return TrunkFragment.newInstance(vehicleList);
-            else return CPUFragment.newInstance(vehicleList);
+            else if (position == 1)
+                return CPUFragment.newInstance(vehicleList);
+            else return SOSfragment.newInstance(vehicleList);
         }
 
         @Override

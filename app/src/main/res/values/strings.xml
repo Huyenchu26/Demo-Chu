@@ -16,4 +16,5 @@
     <string name="title_trunk">Trunk</string>
     <string name="title_cpu_time">CPUTime</string>
     <string name="title_vehicle">Vehicle</string>
+    <string name="title_sos">SOS</string>
 </resources>
