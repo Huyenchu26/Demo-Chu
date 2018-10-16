@@ -25,8 +25,11 @@ public class UpdateNumberCarDialog extends AlertDialog {
     private OnBackPressListener backPressListener;
     private OnChooseListener onChooseListener;
 
-    public UpdateNumberCarDialog(Context context) {
+    private String oldNumber;
+
+    public UpdateNumberCarDialog(Context context, String number) {
         super(context);
+        this.oldNumber = number;
     }
 
     @Override
@@ -35,6 +38,7 @@ public class UpdateNumberCarDialog extends AlertDialog {
         setContentView(R.layout.dialog_update_data);
         ButterKnife.bind(this);
 
+        textUpdate.setText(oldNumber);
         container.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {

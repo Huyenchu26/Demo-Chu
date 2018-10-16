@@ -13,6 +13,8 @@ public class Vehicle {
 
     public boolean isUpdate = false;
 
+    public String numberCar;
+
     @SerializedName("imei")
     @Expose
     public String imei;

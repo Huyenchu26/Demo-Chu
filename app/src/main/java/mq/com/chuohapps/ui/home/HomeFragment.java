@@ -269,23 +269,25 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             }
 
             @Override
-            public void onItemLongClick(String imei) {
-                openDialogNumberCar(imei);
+            public void onItemLongClick(String imei, String number) {
+                openDialogNumberCar(imei, number);
                 imeiIndex = imei;
             }
         });
         recyclerViewVehicle.setAdapter(adapter);
     }
 
-    String imeiIndex = "";
+    private String imeiIndex = "";
+    private String numberCar = "";
     UpdateNumberCarDialog updateDataDialog;
 
-    private void openDialogNumberCar(final String imei) {
-        updateDataDialog = new UpdateNumberCarDialog(myActivity());
+    private void openDialogNumberCar(final String imei, String number) {
+        updateDataDialog = new UpdateNumberCarDialog(myActivity(), number);
         updateDataDialog.setOnChooseListener(new UpdateNumberCarDialog.OnChooseListener() {
             @Override
             public void onDone(String query) {
                 getPresenter().saveImei(imei, query);
+                numberCar = query;
             }
         });
         updateDataDialog.setCanceledOnTouchOutside(true);
@@ -442,7 +444,8 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
 //                adapter.delItem(i);
 //            }
 //        }
-        adapter.updateItemDone(recyclerViewVehicle, imeiIndex);
+        adapter.updateItemDone(recyclerViewVehicle, imeiIndex, numberCar);
+        logError("number car: " + numberCar);
         MessageUtils.show(myActivity(), "success!", MessageUtils.SUCCESS_CODE);
     }
 
@@ -450,7 +453,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     public void onSaveImeiFailed(String message) {
         hideLoading();
 //        MessageUtils.show(myActivity(), message, MessageUtils.ERROR_CODE);
-        adapter.updateItemDone(recyclerViewVehicle, imeiIndex);
+        adapter.updateItemDone(recyclerViewVehicle, imeiIndex, numberCar);
         MessageUtils.show(myActivity(), "success!", MessageUtils.ERROR_CODE);
     }
 
@@ -469,14 +472,15 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                 for (int j = 0; j < response.result.size(); j++) {
                     logError("onGetImeiSuccess search" + vehiclesSearch.get(i).imei + " - " + response.result.get(j));
                     if (vehiclesSearch.get(i).imei.equals(response.result.get(j)))
-                        adapter.updateItemDone(recyclerViewVehicle, vehiclesSearch.get(i).imei);
+                        adapter.updateItemDone(recyclerViewVehicle,
+                                vehiclesSearch.get(i).imei, response.listnumber.get(j));
                 }
             }
         } else for (int i = 0; i < vehicles.size(); i++) {
             for (int j = 0; j < response.result.size(); j++) {
                 logError("onGetImeiSuccess" + vehicles.get(i).imei + " - " + response.result.get(j));
                 if (vehicles.get(i).imei.equals(response.result.get(j)))
-                    adapter.updateItemDone(recyclerViewVehicle, vehicles.get(i).imei);
+                    adapter.updateItemDone(recyclerViewVehicle, vehicles.get(i).imei, response.listnumber.get(j));
             }
         }
         MessageUtils.show(myActivity(), "onGetImeiSuccess!", MessageUtils.SUCCESS_CODE);

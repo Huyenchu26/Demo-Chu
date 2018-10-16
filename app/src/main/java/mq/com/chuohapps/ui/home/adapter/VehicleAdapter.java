@@ -40,11 +40,12 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         }
     }
 
-    public void updateItemDone(RecyclerView recyclerView, String imei) {
+    public void updateItemDone(RecyclerView recyclerView, String imei, String numberCar) {
         if (imei != null) {
             for (Vehicle vehicle : data) {
                 if (vehicle.imei.equalsIgnoreCase(imei)) {
                     vehicle.isUpdate = true;
+                    vehicle.numberCar = numberCar;
                     notifyDataSetChanged();
                     break;
                 }
@@ -65,7 +66,7 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
 
         void onItemListener(Vehicle vehicle);
 
-        void onItemLongClick(String imei);
+        void onItemLongClick(String imei, String numberCar);
     }
 
     class ItemViewHolder extends BaseAdapter.BaseItemViewHolder {
@@ -121,8 +122,10 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    if (itemListener != null)
-                        itemListener.onItemLongClick(data.get(getAdapterPosition()).imei);
+                    if (itemListener != null) {
+                        Vehicle vehicle = data.get(getAdapterPosition());
+                        itemListener.onItemLongClick(vehicle.imei, vehicle.numberCar);
+                    }
                     return false;
                 }
             });
@@ -156,7 +159,10 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
                         itemListener.onItemListener(vehicleData);
                 }
             });
-            txtImei.setText(vehicleData.imei);
+            if (vehicleData.numberCar == null)
+                txtImei.setText(vehicleData.imei);
+            else
+                txtImei.setText(vehicleData.imei + " - " + vehicleData.numberCar);
             txtDatetime.setText(DateUtils.convertServerDateToUserTimeZone(vehicleData.dateTime));
             imgLocation.setOnClickListener(new OnClickListener() {
                 @Override
@@ -198,7 +204,8 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
             setAnimation(itemView, position);
             if (vehicleData.isUpdate)
                 txtImei.setTextColor(itemView.getResources().getColor(R.color.colorStatusError));
-            else txtImei.setTextColor(itemView.getResources().getColor(R.color.colorAccentPressedLight));
+            else
+                txtImei.setTextColor(itemView.getResources().getColor(R.color.colorAccentPressedLight));
         }
 
         private void setTrafficLight(Vehicle vehicle) {

@@ -17,4 +17,8 @@ public class GetImeiSavedResponse {
     @SerializedName("result")
     @Expose
     public List<String> result;
+
+    @SerializedName("listnumber")
+    @Expose
+    public List<String> listnumber;
 }

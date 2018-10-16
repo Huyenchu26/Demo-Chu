@@ -9,7 +9,6 @@
         style="@style/textNomal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="26-06-1966556"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold" />
 
@@ -20,7 +19,6 @@
         android:layout_marginBottom="2dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="12dp"
-        android:text="Front: 456 - Back: 456"
         android:textColor="@color/colorPrimary"
         android:textSize="14sp" />
 
