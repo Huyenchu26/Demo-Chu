@@ -21,8 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorHeader"
-            android:gravity="bottom"
-            android:paddingTop="2dp">
+            android:gravity="bottom">
 
             <TextView
                 android:id="@+id/optionImei"

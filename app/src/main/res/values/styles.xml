@@ -361,6 +361,7 @@
         <item name="android:gravity">center</item>
         <item name="android:paddingBottom">4dp</item>
         <item name="android:paddingTop">4dp</item>
+        <item name="android:background">@drawable/button_home</item>
         <item name="android:textColor">@color/colorTextPrimary</item>
         <item name="android:textSize">18dp</item>
     </style>
