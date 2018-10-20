@@ -55,6 +55,12 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         updateViewHolder(recyclerView, imei);
     }
 
+    public Vehicle getFirstItem() {
+        if (data != null)
+            return data.get(0);
+        else return new Vehicle();
+    }
+
     @Override
     protected ItemViewHolder getCustomItemViewHolder(ViewGroup parent) {
         return new ItemViewHolder(createView(parent, R.layout.item_vehicle_child));

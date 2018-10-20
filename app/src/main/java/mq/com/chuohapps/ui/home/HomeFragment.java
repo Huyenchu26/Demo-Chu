@@ -188,7 +188,10 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                         option = 1;
                         break;
                     case R.id.nav_direction:
-                        option = 2;
+//                        option = 2;
+                        Intent intent = new Intent(myActivity(), MapsActivity.class);
+                        intent.putExtra("imei", adapter.getFirstItem().imei);
+                        startActivity(intent);
                         break;
                     case R.id.nav_month:
                         option = 3;
@@ -258,11 +261,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             public void onItemListener(Vehicle vehicle) {
                 if (option == 1 || option == 0) {
                     goToScreen(HistoryContainerFragment.newInstance(vehicle.imei, curMonth));
-                } else if (option == 2) {
-                    Intent intent = new Intent(myActivity(), MapsActivity.class);
-                    intent.putExtra("imei", vehicle.imei);
-                    startActivity(intent);
-                } else if (option == 3) {
+                } else {
                     // TODO: 10/7/2018 set data for curDate in here
 
                 }
