@@ -27,6 +27,11 @@ public class ApiHelper extends BaseApiHelper {
         getClient().loadHistory(imei, startDate, endDate).enqueue(handle(callBack));
     }
 
+    public void getLocation(String imei, String startDate, String endDate, boolean bool,
+                           @NonNull DataCallBack<List<String>> callBack) {
+        getClient().getLocation(imei, startDate, endDate, bool).enqueue(handle(callBack));
+    }
+
     public void saveImei(String imei, String numberCar,
                          @NonNull DataCallBack<SaveImeiResponse> callBack) {
         getClient().saveImei(imei, numberCar).enqueue(handle(callBack));

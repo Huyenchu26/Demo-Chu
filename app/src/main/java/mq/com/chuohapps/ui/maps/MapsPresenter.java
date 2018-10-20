@@ -12,12 +12,12 @@ import mq.com.chuohapps.ui.xbase.BaseAppPresenter;
 public class MapsPresenter extends BaseAppPresenter<MapsConstract.View, UseCaseGetListLocation>
         implements MapsConstract.Presenter<MapsConstract.View> {
     @Override
-    public void getListLocation(String imei, String startDate, String endDate) {
+    public void getListLocation(String imei, String startDate, String endDate, boolean bool) {
         if (getView() != null)
             getView().onStartGetListLocation();
-        getUseCase().getListLocation(imei, startDate, endDate, handleCallBack(new DataCallBack<List<Vehicle>>() {
+        getUseCase().getListLocation(imei, startDate, endDate, bool, handleCallBack(new DataCallBack<List<String>>() {
             @Override
-            public void onSuccess(List<Vehicle> response, String message) {
+            public void onSuccess(List<String> response, String message) {
                 getView().onGetListLocationSuccess(response);
             }
 

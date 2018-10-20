@@ -36,8 +36,9 @@ public class AppDataManager extends BaseDataManager implements
     }
 
     @Override
-    public void getListLocation(String imei, String startDate, String endDate, @NonNull DataCallBack<List<Vehicle>> callBack) {
-        apiHelper.getHistory(imei, startDate, endDate, handleCallBack(callBack));
+    public void getListLocation(String imei, String startDate, String endDate, boolean bool,
+                                @NonNull DataCallBack<List<String>> callBack) {
+        apiHelper.getLocation(imei, startDate, endDate, bool, handleCallBack(callBack));
     }
 
     @Override

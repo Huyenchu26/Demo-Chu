@@ -12,13 +12,13 @@ import mq.com.chuohapps.ui.xbase.BaseView;
 public class MapsConstract extends BaseContract{
 
     public interface Presenter<V extends View> extends BasePresenter<V> {
-        void getListLocation(String imei, String startDate, String endDate);
+        void getListLocation(String imei, String startDate, String endDate, boolean bool);
     }
 
     interface View extends BaseView {
         void onStartGetListLocation();
 
-        void onGetListLocationSuccess(List<Vehicle> latLngs);
+        void onGetListLocationSuccess(List<String> latLngs);
 
         void onGetListLocationError(String message);
 

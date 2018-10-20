@@ -24,6 +24,12 @@ public interface ApiClient {
                               @Query("startDate") String startDate,
                               @Query("endDate") String endDate);
 
+    @GET("ParseFile")
+    Call<List<String>> getLocation(@Query("imei") String imei,
+                                    @Query("startDate") String startDate,
+                                    @Query("endDate") String endDate,
+                                    @Query("bool") boolean bool);
+
     @GET("SaveImei")
     Call<SaveImeiResponse> saveImei(@Query("imei") String imei,
                                     @Query("numberCar") String numberCar);

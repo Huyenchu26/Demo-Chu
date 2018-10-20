@@ -61,6 +61,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     List<LatLng> latLngs = new ArrayList<>();
 
     SupportMapFragment mapFragment;
+
     @Override
     protected void setupViews() {
         setupDate();
@@ -118,6 +119,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     }
 
     boolean checkLoadMaps = false;
+
     @Override
     public void onMapLoaded() {
         checkLoadMaps = true;
@@ -162,17 +164,19 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     }
 
     @Override
-    public void onGetListLocationSuccess(List<Vehicle> latLngs) {
+    public void onGetListLocationSuccess(List<String> latLngs) {
         hideLoading();
         this.latLngs.clear();
         if (latLngs == null || latLngs.size() == 0) return;
         for (int i = 0; i < latLngs.size(); i++) {
-            double lati = Double.valueOf(latLngs.get(i).latitude);
-            double longi = Double.valueOf(latLngs.get(i).longitude);
-            LatLng latLng = new LatLng(lati, longi);
-            if (!(lati == 0 && longi == 0))
-                this.latLngs.add(latLng);
-            logError(latLng.latitude + " - " + latLng.longitude);
+            String[] spl = latLngs.get(i).split("-");
+            if (spl.length >= 2) {
+                double lati = Double.valueOf(spl[0]);
+                double longi = Double.valueOf(spl[0]);
+                LatLng latLng = new LatLng(lati, longi);
+                if (!(lati == 0 && longi == 0))
+                    this.latLngs.add(latLng);
+            }
         }
         updateMaps();
         showMessage(startDate + " - " + endDate);
@@ -188,7 +192,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
 
     private void doLoadData() {
         count++;
-        getPresenter().getListLocation(imei.substring(1), startDate, endDate);
+        getPresenter().getListLocation(imei.substring(1), startDate, endDate, true);
     }
 
     DateDialog dateDialog;
