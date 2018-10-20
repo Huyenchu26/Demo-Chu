@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -102,6 +103,8 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         TextView txtDateTimeBegin;
         @BindView(R.id.txtFullLine)
         TextView txtFullLine;
+        @BindView(R.id.linearName)
+        RelativeLayout linearName;
 
         @BindView(R.id.imgTrunk)
         ImageView imgTrunk;
@@ -139,20 +142,8 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
 
             final Vehicle vehicle = data.get(position);
             final Vehicle vehicleData = vehicle;
-//            itemView.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onDelayedClick(View v) {
-//                    itemListener.onItemListener(vehicleData);
-//                }
-//            });
-            txtImei.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onDelayedClick(View v) {
-                    if (itemListener != null)
-                        itemListener.onItemListener(vehicleData);
-                }
-            });
-            txtDatetime.setOnClickListener(new OnClickListener() {
+
+            linearName.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onDelayedClick(View v) {
                     if (itemListener != null)

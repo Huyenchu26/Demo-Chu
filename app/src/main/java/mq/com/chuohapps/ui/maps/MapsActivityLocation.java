@@ -153,7 +153,7 @@ public class MapsActivityLocation extends BaseActivity<MapsConstract.Presenter> 
     }
 
     @Override
-    public void onGetListLocationSuccess(List<Vehicle> latLngs) {
+    public void onGetListLocationSuccess(List<String> latLngs) {
         hideLoading();
     }
 
