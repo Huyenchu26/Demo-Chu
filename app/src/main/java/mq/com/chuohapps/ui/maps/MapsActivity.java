@@ -192,7 +192,8 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
 
     private void doLoadData() {
         count++;
-        getPresenter().getListLocation(imei.substring(1), startDate, endDate, true);
+        if (imei.length() > 1)
+            getPresenter().getListLocation(imei.substring(1), startDate, endDate, true);
     }
 
     DateDialog dateDialog;

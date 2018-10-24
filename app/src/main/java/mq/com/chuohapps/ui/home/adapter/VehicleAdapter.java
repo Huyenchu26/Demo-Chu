@@ -157,28 +157,27 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
                 }
             });
             if (vehicleData.numberCar == null)
-                txtImei.setText(vehicleData.imei);
+                txtImei.setText(DataFormatUtils.getString(vehicleData.imei));
             else
-                txtImei.setText(vehicleData.imei + " - " + vehicleData.numberCar);
+                txtImei.setText(DataFormatUtils.getString(vehicleData.imei) + " - " + vehicleData.numberCar);
             txtDatetime.setText(DateUtils.convertServerDateToUserTimeZone(vehicleData.dateTime));
             imgLocation.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onDelayedClick(View v) {
                     if (itemListener != null)
-                        itemListener.onImageLocationClick(vehicleData.imei,
-                                vehicleData.longitude,
-                                vehicleData.latitude);
+                        itemListener.onImageLocationClick(DataFormatUtils.getString(vehicleData.imei),
+                                vehicleData.longitude, vehicleData.latitude);
                 }
             });
 
-            if (vehicleData.status.equals("1"))
+            if (DataFormatUtils.getString(vehicleData.status).equals("1"))
                 imgRunning.setImageResource(R.mipmap.icon_running);
             else
                 imgRunning.setImageResource(R.mipmap.icon_stop);
             imgRunning.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onDelayedClick(View v) {
-                    if (itemListener != null && vehicleData.rfidList != null)
+                    if (itemListener != null && DataFormatUtils.getString(vehicleData.rfidList) != null)
                         itemListener.onOpenDialogRfid(GetRFID.getRFID(DataFormatUtils.getString(vehicleData.rfidList)));
                 }
             });
@@ -206,20 +205,21 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
         }
 
         private void setTrafficLight(Vehicle vehicle) {
-            if (vehicle.sos.equals("1"))
+            if (DataFormatUtils.getString(vehicle.sos).equals("1"))
                 imgSOS.setImageResource(R.drawable.bg_traffic_light);
             else imgSOS.setImageResource(R.drawable.bg_traffic_dark);
             imgGPS.setImageResource(R.drawable.bg_traffic_light);
-            if (vehicle.engine.equals("1"))
+            if (DataFormatUtils.getString(vehicle.engine).equals("1"))
                 imgEngine.setImageResource(R.drawable.bg_traffic_light);
             else imgEngine.setImageResource(R.drawable.bg_traffic_dark);
-            if (vehicle.trunk.equals("1"))
+            if (DataFormatUtils.getString(vehicle.trunk).equals("1"))
                 imgTrunk.setImageResource(R.drawable.bg_traffic_light);
             else imgTrunk.setImageResource(R.drawable.bg_traffic_dark);
-            if (vehicle.status.equals("1"))
+            if (DataFormatUtils.getString(vehicle.status).equals("1"))
                 imgStatus.setImageResource(R.drawable.bg_traffic_light);
             else imgStatus.setImageResource(R.drawable.bg_traffic_dark);
-            textGPS.setText(vehicle.posStatus != null ? vehicle.posStatus : "--");
+            textGPS.setText(DataFormatUtils.getString(vehicle.posStatus) != null ?
+                    DataFormatUtils.getString(vehicle.posStatus) : "--");
         }
     }
 

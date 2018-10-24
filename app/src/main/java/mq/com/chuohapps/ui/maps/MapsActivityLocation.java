@@ -132,19 +132,21 @@ public class MapsActivityLocation extends BaseActivity<MapsConstract.Presenter> 
 
     private void updateMaps() {
         logError(longitude + " - " + latitude);
-        LatLng location = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
-        MarkerOptions marker = new MarkerOptions();
-        marker.position(location).draggable(true);
-        mMap.addMarker(marker);
-        CameraPosition camera = new CameraPosition.Builder()
-                .target(location)
-                .zoom(18)  //limite ->21
-                .bearing(0) // 0 - 365
-                .tilt(45) // limite ->90
-                .build();
+        if (latitude != null && longitude != null) {
+            LatLng location = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
+            MarkerOptions marker = new MarkerOptions();
+            marker.position(location).draggable(true);
+            mMap.addMarker(marker);
+            CameraPosition camera = new CameraPosition.Builder()
+                    .target(location)
+                    .zoom(18)  //limite ->21
+                    .bearing(0) // 0 - 365
+                    .tilt(45) // limite ->90
+                    .build();
 
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+        }
     }
 
     @Override

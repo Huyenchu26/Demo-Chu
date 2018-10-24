@@ -124,7 +124,9 @@ public class HistoryContainerFragment extends BaseFragment<HistoryContainerContr
     }
 
     private void doLoadData() {
-        getPresenter().getHistory(imei.substring(1), startDate, endDate);
+        if (imei.length() > 0)
+            getPresenter().getHistory(imei.substring(1), startDate, endDate);
+        else return;
     }
 
     private void setupHeader() {
