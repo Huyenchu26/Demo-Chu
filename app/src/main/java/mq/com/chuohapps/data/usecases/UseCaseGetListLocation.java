@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import com.google.android.gms.maps.model.LatLng;
 import java.util.List;
 import mq.com.chuohapps.data.DataCallBack;
+import mq.com.chuohapps.data.helpers.network.response.GetLocationResponse;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 
 public interface UseCaseGetListLocation extends BaseUseCase {
@@ -11,5 +12,5 @@ public interface UseCaseGetListLocation extends BaseUseCase {
                     String startDate,
                     String endDate,
                     boolean bool,
-                    @NonNull DataCallBack<List<String>> callBack);
+                    @NonNull DataCallBack<GetLocationResponse> callBack);
 }

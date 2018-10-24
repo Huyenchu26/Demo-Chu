@@ -7,6 +7,7 @@ import java.util.List;
 import mq.com.chuohapps.data.DataCallBack;
 import mq.com.chuohapps.data.helpers.network.base.BaseApiHelper;
 import mq.com.chuohapps.data.helpers.network.response.GetImeiSavedResponse;
+import mq.com.chuohapps.data.helpers.network.response.GetLocationResponse;
 import mq.com.chuohapps.data.helpers.network.response.SaveImeiResponse;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import okhttp3.OkHttpClient;
@@ -28,7 +29,7 @@ public class ApiHelper extends BaseApiHelper {
     }
 
     public void getLocation(String imei, String startDate, String endDate, boolean bool,
-                           @NonNull DataCallBack<List<String>> callBack) {
+                           @NonNull DataCallBack<GetLocationResponse> callBack) {
         getClient().getLocation(imei, startDate, endDate, bool).enqueue(handle(callBack));
     }
 

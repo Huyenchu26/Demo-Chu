@@ -3,6 +3,7 @@ package mq.com.chuohapps.data.helpers.network.client;
 import java.util.List;
 
 import mq.com.chuohapps.data.helpers.network.response.GetImeiSavedResponse;
+import mq.com.chuohapps.data.helpers.network.response.GetLocationResponse;
 import mq.com.chuohapps.data.helpers.network.response.SaveImeiResponse;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import retrofit2.Call;
@@ -25,10 +26,10 @@ public interface ApiClient {
                               @Query("endDate") String endDate);
 
     @GET("ParseFile")
-    Call<List<String>> getLocation(@Query("imei") String imei,
-                                    @Query("startDate") String startDate,
-                                    @Query("endDate") String endDate,
-                                    @Query("bool") boolean bool);
+    Call<GetLocationResponse> getLocation(@Query("imei") String imei,
+                                          @Query("startDate") String startDate,
+                                          @Query("endDate") String endDate,
+                                          @Query("bool") boolean bool);
 
     @GET("SaveImei")
     Call<SaveImeiResponse> saveImei(@Query("imei") String imei,

@@ -5,6 +5,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.List;
 
 import mq.com.chuohapps.data.DataCallBack;
+import mq.com.chuohapps.data.helpers.network.response.GetLocationResponse;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.data.usecases.UseCaseGetListLocation;
 import mq.com.chuohapps.ui.xbase.BaseAppPresenter;
@@ -15,10 +16,10 @@ public class MapsPresenter extends BaseAppPresenter<MapsConstract.View, UseCaseG
     public void getListLocation(String imei, String startDate, String endDate, boolean bool) {
         if (getView() != null)
             getView().onStartGetListLocation();
-        getUseCase().getListLocation(imei, startDate, endDate, bool, handleCallBack(new DataCallBack<List<String>>() {
+        getUseCase().getListLocation(imei, startDate, endDate, bool, handleCallBack(new DataCallBack<GetLocationResponse>() {
             @Override
-            public void onSuccess(List<String> response, String message) {
-                getView().onGetListLocationSuccess(response);
+            public void onSuccess(GetLocationResponse response, String message) {
+                getView().onGetListLocationSuccess(response.listLocation);
             }
 
             @Override
