@@ -139,7 +139,7 @@ public class MapsActivityLocation extends BaseActivity<MapsConstract.Presenter> 
             mMap.addMarker(marker);
             CameraPosition camera = new CameraPosition.Builder()
                     .target(location)
-                    .zoom(18)  //limite ->21
+                    .zoom(19)  //limite ->21
                     .bearing(0) // 0 - 365
                     .tilt(45) // limite ->90
                     .build();

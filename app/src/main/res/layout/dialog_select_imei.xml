@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorTextWhite"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/txtSelectTrunk"
+        style="@style/textNomalBold"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtTrunk"
+        android:text="From 00:00:00 to 23:59:59"
+        android:textColor="@color/colorPrimary" />
+
+    <EditText
+        android:id="@+id/editImei"
+        style="@style/EditSingleLine"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter imei"
+        android:inputType="number"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/editStartTime"
+        style="@style/EditSingleLine"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@mipmap/ic_show_down"
+        android:hint="Select day"
+        android:imeOptions="actionDone"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/buttonSearchOrder"
+        style="@style/ButtonNormal"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+        android:text="Tìm kiếm"
+        android:textSize="13dp" />
+</LinearLayout>

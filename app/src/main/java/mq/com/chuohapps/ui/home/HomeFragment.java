@@ -184,9 +184,6 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                 item.setChecked(true);
                 drawerLayout.closeDrawers();
                 switch (item.getItemId()) {
-                    case R.id.nav_history:
-                        option = 1;
-                        break;
                     case R.id.nav_direction:
 //                        option = 2;
                         Intent intent = new Intent(myActivity(), MapsActivity.class);
@@ -469,7 +466,6 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         if (vehiclesSearch.size() > 0) {
             for (int i = 0; i < vehiclesSearch.size(); i++) {
                 for (int j = 0; j < response.result.size(); j++) {
-                    logError("onGetImeiSuccess search" + vehiclesSearch.get(i).imei + " - " + response.result.get(j));
                     if (vehiclesSearch.get(i).imei.equals(response.result.get(j)))
                         adapter.updateItemDone(recyclerViewVehicle,
                                 vehiclesSearch.get(i).imei, response.listnumber.get(j));
@@ -477,7 +473,6 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             }
         } else for (int i = 0; i < vehicles.size(); i++) {
             for (int j = 0; j < response.result.size(); j++) {
-                logError("onGetImeiSuccess" + vehicles.get(i).imei + " - " + response.result.get(j));
                 if (vehicles.get(i).imei.equals(response.result.get(j)))
                     adapter.updateItemDone(recyclerViewVehicle, vehicles.get(i).imei, response.listnumber.get(j));
             }

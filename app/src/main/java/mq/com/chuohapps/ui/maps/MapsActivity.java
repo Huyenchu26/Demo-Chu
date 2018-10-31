@@ -11,7 +11,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -21,13 +20,9 @@ import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import io.socket.client.On;
 import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.OnClickListener;
-import mq.com.chuohapps.data.helpers.network.response.Vehicle;
-import mq.com.chuohapps.ui.history.event.ChangeDateEvent;
-import mq.com.chuohapps.ui.home.dialog.DateDialog;
+import mq.com.chuohapps.ui.maps.dialog.DateEndImeiDialog;
 import mq.com.chuohapps.ui.xbase.BaseActivity;
 import mq.com.chuohapps.utils.data.DateUtils;
 import mq.com.chuohapps.utils.functions.MessageUtils;
@@ -55,7 +50,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
         return MapsConstract.Presenter.class;
     }
 
-    String imei = "";
+    String curImei = "";
     String startDate = null;
     String endDate = null;
     List<LatLng> latLngs = new ArrayList<>();
@@ -80,7 +75,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     private void setupDate() {
         Date dateCurrent = Calendar.getInstance().getTime();
         long DAY_IN_MS = 1000 * 60 * 60 * 24;
-        imei = getIntent().getStringExtra("imei");
+        curImei = getIntent().getStringExtra("imei");
         startDate = DateUtils.dateToStringSent(new Date(dateCurrent.getTime() - (3 * DAY_IN_MS)));
         endDate = DateUtils.dateToStringSent(dateCurrent);
         doLoadData();
@@ -91,7 +86,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
         textTitle.setText(getString(R.string.title_location));
         imageRight.setVisibility(View.VISIBLE);
         textTime.setVisibility(View.VISIBLE);
-        textTime.setText(imei);
+        textTime.setText(curImei);
         imageRight.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
@@ -192,22 +187,23 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
 
     private void doLoadData() {
         count++;
-        if (imei.length() > 1)
-            getPresenter().getListLocation(imei.substring(1), startDate, endDate, true);
+        if (curImei.length() > 1)
+            getPresenter().getListLocation(curImei.substring(1), startDate, endDate, true);
     }
 
-    DateDialog dateDialog;
+    DateEndImeiDialog dateDialog;
 
     private void openDateDialog() {
         if (dateDialog != null && dateDialog.isShowing()) return;
-        dateDialog = new DateDialog(this);
+        dateDialog = new DateEndImeiDialog(this, curImei);
         dateDialog.setCanceledOnTouchOutside(true);
-        dateDialog.setOnChooseListener(new DateDialog.OnChooseListener() {
+        dateDialog.setOnChooseListener(new DateEndImeiDialog.OnChooseListener() {
             @Override
-            public void onDone(String startDate_) {
+            public void onDone(String startDate_, String imei) {
                 // TODO: 4/19/2018 some thing with dates
                 startDate = startDate_ + " 00:00:00";
                 endDate = startDate_ + " 23:59:59";
+                curImei = imei;
                 doLoadData();
             }
         });

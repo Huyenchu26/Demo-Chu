@@ -7,10 +7,6 @@
             android:title="Current"
             android:checked="true"/>
         <item
-            android:id="@+id/nav_history"
-            android:icon="@drawable/ic_check_white_48dp"
-            android:title="History" />
-        <item
             android:id="@+id/nav_direction"
             android:icon="@drawable/ic_check_white_48dp"
             android:title="Direction" />
