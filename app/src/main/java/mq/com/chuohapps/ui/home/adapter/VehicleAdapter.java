@@ -149,6 +149,7 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
             final Vehicle vehicle = data.get(position);
             final Vehicle vehicleData = vehicle;
 
+            if (vehicleData.imei == null) data.remove(position);
             linearName.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onDelayedClick(View v) {
