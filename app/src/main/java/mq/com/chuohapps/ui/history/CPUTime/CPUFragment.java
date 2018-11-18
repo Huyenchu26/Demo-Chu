@@ -39,7 +39,6 @@ public class CPUFragment extends BaseFragment<CPUContract.Presenter> implements 
     @BindView(R.id.listViewCPUtime)
     LoadMoreRecyclerView listViewCPUtime;
 
-    View view;
     CPUtimeAdapter adapter;
     List<Vehicle> vehicleList = new ArrayList<>();
     private Refresher refresher = new AppRefresher();

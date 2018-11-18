@@ -12,6 +12,8 @@ import mq.com.chuohapps.ui.home.HomeContract;
 import mq.com.chuohapps.ui.home.HomePresenter;
 import mq.com.chuohapps.ui.maps.MapsConstract;
 import mq.com.chuohapps.ui.maps.MapsPresenter;
+import mq.com.chuohapps.ui.rfid.RFIDContract;
+import mq.com.chuohapps.ui.rfid.RFIDPresenter;
 import mq.com.chuohapps.ui.xbase.BasePresenter;
 import mq.com.chuohapps.ui.xbase.container.ContainerContract;
 import mq.com.chuohapps.ui.xbase.container.ContainerPresenter;
@@ -36,6 +38,8 @@ public class PresenterProvider {
             return new TrunkPresenter();
         } if (matched(classType, SOSContract.Presenter.class)) {
             return new SOSPresenter();
+        } if (matched(classType, RFIDContract.Presenter.class)) {
+            return new RFIDPresenter();
         }
 
         throw new IllegalArgumentException("Add [" + classType.getCanonicalName() + "]" + " to Presenter Provider!!!");

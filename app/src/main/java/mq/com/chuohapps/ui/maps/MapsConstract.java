@@ -21,6 +21,5 @@ public class MapsConstract extends BaseContract{
         void onGetListLocationSuccess(List<String> latLngs);
 
         void onGetListLocationError(String message);
-
     }
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_current"
+            android:checked="true"
             android:icon="@drawable/ic_check_white_48dp"
-            android:title="Current"
-            android:checked="true"/>
+            android:title="Current" />
         <item
             android:id="@+id/nav_direction"
             android:icon="@drawable/ic_check_white_48dp"
@@ -14,5 +14,10 @@
             android:id="@+id/nav_month"
             android:icon="@drawable/ic_check_white_48dp"
             android:title="Current month" />
+
+        <item
+            android:id="@+id/nav_rfid"
+            android:icon="@drawable/ic_check_white_48dp"
+            android:title="RFID" />
     </group>
 </menu>

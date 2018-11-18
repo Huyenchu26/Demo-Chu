@@ -193,6 +193,8 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                     case R.id.nav_month:
                         option = 3;
                         break;
+                    case R.id.nav_rfid:
+                        goToScreen(new HomeFragment());
                     default:
                         option = 0;
                         break;
