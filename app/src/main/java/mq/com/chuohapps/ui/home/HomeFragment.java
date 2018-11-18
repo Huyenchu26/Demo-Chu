@@ -39,6 +39,7 @@ import mq.com.chuohapps.ui.history.container.HistoryContainerFragment;
 import mq.com.chuohapps.ui.home.adapter.VehicleAdapter;
 import mq.com.chuohapps.ui.home.dialog.RFIDDialog;
 import mq.com.chuohapps.ui.maps.MapsActivityLocation;
+import mq.com.chuohapps.ui.rfid.RFIDFragment;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
 import mq.com.chuohapps.utils.AppLogger;
 import mq.com.chuohapps.utils.data.DateUtils;
@@ -194,7 +195,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                         option = 3;
                         break;
                     case R.id.nav_rfid:
-                        goToScreen(new HomeFragment());
+                        goToScreen(new RFIDFragment());
                     default:
                         option = 0;
                         break;
