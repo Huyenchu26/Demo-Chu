@@ -66,7 +66,7 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
 
     @Override
     protected void beginFlow(@NonNull View view) {
-
+        getPresenter().getRFID("", "", "");
     }
 
     @Override
@@ -75,7 +75,7 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
     }
 
     @Override
-    public void onGetRFIDSuccess() {
+    public void onGetRFIDSuccess(List<Vehicle> vehicles) {
 
     }
 
