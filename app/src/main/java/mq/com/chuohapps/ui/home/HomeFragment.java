@@ -29,6 +29,7 @@ import mq.com.chuohapps.data.helpers.network.response.GetImeiSavedResponse;
 import mq.com.chuohapps.data.helpers.network.response.SaveImeiResponse;
 import mq.com.chuohapps.lib.swiperefresh.AppRefresher;
 import mq.com.chuohapps.lib.swiperefresh.Refresher;
+import mq.com.chuohapps.ui.home.dialog.OptionsDialog;
 import mq.com.chuohapps.ui.home.dialog.UpdateNumberCarDialog;
 import mq.com.chuohapps.ui.maps.MapsActivity;
 import mq.com.chuohapps.R;
@@ -253,8 +254,8 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             }
 
             @Override
-            public void onOpenDialogRfid(List<String> rfid) {
-                openDialogRfid(rfid);
+            public void onOpenDialogRfid(List<String> rfid, String imei) {
+                openDialogOption(rfid, imei);
             }
 
             @Override
@@ -297,6 +298,38 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
             }
         });
         updateDataDialog.show();
+    }
+
+    OptionsDialog optionsDialog;
+    private void openDialogOption(List<String> rfid, String imei) {
+        if (optionsDialog != null && optionsDialog.isShowing()) return;
+        optionsDialog = new OptionsDialog(myActivity(), rfid, imei);
+        optionsDialog.setCanceledOnTouchOutside(true);
+        optionsDialog.setListener(new OptionsDialog.ItemClickListener() {
+            @Override
+            public void onBtn1Click(List<String> rfid) {
+                openDialogRfid(rfid);
+            }
+
+            @Override
+            public void onBtn2Click(String imei) {
+                Intent intent = new Intent(myActivity(), MapsActivity.class);
+                intent.putExtra("imei", imei);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onBtn3Click(String imei) {
+                goToScreen(RFIDFragment.newInstance(imei));
+            }
+        });
+        optionsDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                optionsDialog.release();
+            }
+        });
+        optionsDialog.show();
     }
 
     RFIDDialog rfidDialog;

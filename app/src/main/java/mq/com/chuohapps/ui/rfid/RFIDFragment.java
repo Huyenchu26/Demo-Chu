@@ -1,11 +1,15 @@
 package mq.com.chuohapps.ui.rfid;
 
+import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -13,8 +17,10 @@ import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.LoadMoreRecyclerView;
 import mq.com.chuohapps.customview.OnClickListener;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
+import mq.com.chuohapps.ui.home.dialog.DateDialog;
 import mq.com.chuohapps.ui.rfid.adapter.RFIDAdapter;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
+import mq.com.chuohapps.utils.data.DateUtils;
 
 public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implements RFIDContract.View {
 
@@ -29,6 +35,18 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
 
     List<Vehicle> vehicles = new ArrayList<>();
     RFIDAdapter adapter;
+
+    private String imei;
+    String startDate = null;
+    String endDate = null;
+    public RFIDFragment setImei(String imei) {
+        this.imei = imei;
+        return this;
+    }
+
+    public static RFIDFragment newInstance(String imei) {
+        return new RFIDFragment().setImei(imei);
+    }
 
     @Override
     protected int provideLayout() {
@@ -56,7 +74,7 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
         imageRight.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
-                // TODO: 11/20/2018 search
+                openDateDialog();
             }
         });
         textTitle.setText("RFID");
@@ -64,9 +82,24 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
 //        listRFID.setAdapter(adapter);
     }
 
+    private void setupDate() {
+        Date dateCurrent = Calendar.getInstance().getTime();
+        long DAY_IN_MS = 1000 * 60 * 60 * 24;
+        startDate = DateUtils.dateToStringSent(new Date(dateCurrent.getTime() - (DAY_IN_MS)));
+        endDate = DateUtils.dateToStringSent(dateCurrent);
+        doLoadData();
+    }
+
+    private void doLoadData() {
+        if (imei.length() > 0)
+            getPresenter().getRFID(imei.substring(1), startDate, endDate);
+        else return;
+    }
+
+
     @Override
     protected void beginFlow(@NonNull View view) {
-        getPresenter().getRFID("", "", "");
+        setupDate();
     }
 
     @Override
@@ -82,5 +115,29 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
     @Override
     public void onGetFRIDFailed(String message) {
 
+    }
+
+    DateDialog dateDialog;
+
+    private void openDateDialog() {
+        if (dateDialog != null && dateDialog.isShowing()) return;
+        dateDialog = new DateDialog(getContext());
+        dateDialog.setCanceledOnTouchOutside(true);
+        dateDialog.setOnChooseListener(new DateDialog.OnChooseListener() {
+            @Override
+            public void onDone(String startDate_) {
+                // TODO: 4/19/2018 some thing with dates
+                startDate = startDate_ + " 00:00:00";
+                endDate = startDate_ + " 23:59:59";
+                doLoadData();
+            }
+        });
+        dateDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                dateDialog.release();
+            }
+        });
+        dateDialog.show();
     }
 }
