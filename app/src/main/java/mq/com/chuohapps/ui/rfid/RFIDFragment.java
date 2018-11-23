@@ -21,6 +21,7 @@ import mq.com.chuohapps.ui.home.dialog.DateDialog;
 import mq.com.chuohapps.ui.rfid.adapter.RFIDAdapter;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
 import mq.com.chuohapps.utils.data.DateUtils;
+import mq.com.chuohapps.utils.functions.MessageUtils;
 
 public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implements RFIDContract.View {
 
@@ -79,7 +80,7 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
         });
         textTitle.setText("RFID");
         adapter = new RFIDAdapter();
-//        listRFID.setAdapter(adapter);
+        listRFID.setAdapter(adapter);
     }
 
     private void setupDate() {
@@ -104,17 +105,21 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
 
     @Override
     public void onStartGetRFID() {
-
+        showLoading();
     }
 
     @Override
     public void onGetRFIDSuccess(List<Vehicle> vehicles) {
-
+        hideLoading();
+        if (vehicles != null) {
+            adapter.addData(vehicles);
+        }
     }
 
     @Override
     public void onGetFRIDFailed(String message) {
-
+        hideLoading();
+        showMessage(message, MessageUtils.ERROR_CODE);
     }
 
     DateDialog dateDialog;
