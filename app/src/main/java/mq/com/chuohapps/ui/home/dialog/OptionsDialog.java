@@ -4,7 +4,9 @@ import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,17 +16,19 @@ import butterknife.OnClick;
 import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.MyAlertDialog;
 import mq.com.chuohapps.ui.home.adapter.LineRfidAdapter;
+import mq.com.chuohapps.utils.AppLogger;
+import mq.com.chuohapps.utils.AppUtils;
 import mq.com.chuohapps.utils.views.KeyboardUtils;
 
 public class OptionsDialog extends MyAlertDialog {
 
     @BindView(R.id.container)
     View container;
-    @BindView(R.id.btnListRFID)
+    @BindView(R.id.btnList)
     Button btnListRFID;
-    @BindView(R.id.btnDirection)
+    @BindView(R.id.btnDirectionn)
     Button btnDirection;
-    @BindView(R.id.btnRFID)
+    @BindView(R.id.btnRFIDD)
     Button btnRFID;
 
     private List<String> rfid = new ArrayList<>();
@@ -52,7 +56,7 @@ public class OptionsDialog extends MyAlertDialog {
         });
     }
 
-    @OnClick(R.id.btnListRFID)
+    @OnClick(R.id.btnList)
     public void onBtn1Click() {
         if (listener != null) {
             listener.onBtn1Click(rfid);
@@ -60,7 +64,7 @@ public class OptionsDialog extends MyAlertDialog {
         dismiss();
     }
 
-    @OnClick(R.id.btnDirection)
+    @OnClick(R.id.btnDirectionn)
     public void onBtn2Click() {
         if (listener != null) {
             listener.onBtn2Click(imei);
@@ -68,11 +72,12 @@ public class OptionsDialog extends MyAlertDialog {
         dismiss();
     }
 
-    @OnClick(R.id.btnRFID)
+    @OnClick(R.id.btnRFIDD)
     public void onBtn3Click() {
         if (listener != null) {
             listener.onBtn3Click(imei);
         }
+        AppLogger.error("onBtn3Click");
         dismiss();
     }
 

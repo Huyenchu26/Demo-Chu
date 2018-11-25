@@ -2,25 +2,66 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:padding="@dimen/_18sdp"
+    android:layout_gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <Button
+    <RelativeLayout
         android:id="@+id/btnListRFID"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <Button
+        <Button
+            android:id="@+id/btnList"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@mipmap/ic_check_list"
+            android:layout_margin="@dimen/_8sdp"/>
+
+        <TextView
+            android:layout_below="@+id/btnList"
+            style="@style/textOptions"
+            android:layout_centerInParent="true"
+            android:text="List RFID"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/btnDirection"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <Button
+        <Button
+            android:id="@+id/btnDirectionn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@mipmap/icon_location"
+            android:layout_margin="@dimen/_8sdp"/>
+
+        <TextView
+            android:layout_below="@+id/btnDirectionn"
+            style="@style/textOptions"
+            android:layout_centerInParent="true"
+            android:text="Direction"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/btnRFID"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
+        <Button
+            android:id="@+id/btnRFIDD"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@mipmap/ic_check_list"
+            android:layout_margin="@dimen/_8sdp"/>
+
+        <TextView
+            android:layout_below="@+id/btnRFIDD"
+            style="@style/textOptions"
+            android:text="RFID"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
 </LinearLayout>
