@@ -16,7 +16,7 @@
             android:id="@+id/btnList"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@mipmap/ic_check_list"
+            android:background="@mipmap/ic_rfid"
             android:layout_margin="@dimen/_8sdp"/>
 
         <TextView
@@ -55,7 +55,7 @@
             android:id="@+id/btnRFIDD"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@mipmap/ic_check_list"
+            android:background="@mipmap/ic_checklist"
             android:layout_margin="@dimen/_8sdp"/>
 
         <TextView
