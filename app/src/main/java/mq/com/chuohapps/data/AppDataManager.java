@@ -8,18 +8,21 @@ import mq.com.chuohapps.data.helpers.local.PreferencesHelper;
 import mq.com.chuohapps.data.helpers.network.ApiHelper;
 import mq.com.chuohapps.data.helpers.network.response.GetImeiSavedResponse;
 import mq.com.chuohapps.data.helpers.network.response.GetLocationResponse;
+import mq.com.chuohapps.data.helpers.network.response.RFIDModel;
 import mq.com.chuohapps.data.helpers.network.response.SaveImeiResponse;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.data.usecases.BaseUseCase;
 import mq.com.chuohapps.data.usecases.UseCaseGetListLocation;
 import mq.com.chuohapps.data.usecases.UseCaseGetVehicle;
 import mq.com.chuohapps.data.usecases.UseCaseHistoryContainer;
+import mq.com.chuohapps.data.usecases.UseCaseRFID;
 
 
 public class AppDataManager extends BaseDataManager implements
         UseCaseGetVehicle,
         UseCaseHistoryContainer,
         UseCaseGetListLocation,
+        UseCaseRFID,
         BaseUseCase {
 
     public AppDataManager(ApiHelper apiHelper, PreferencesHelper preferencesHelper) {
@@ -50,5 +53,10 @@ public class AppDataManager extends BaseDataManager implements
     @Override
     public void getImei(@NonNull DataCallBack<GetImeiSavedResponse> callBack) {
         apiHelper.getSavedImei(handleCallBack(callBack));
+    }
+
+    @Override
+    public void getRFID(String imei, String startDate, String endDate, @NonNull DataCallBack<List<RFIDModel>> callBack) {
+        apiHelper.getRFID(imei, startDate, endDate, handleCallBack(callBack));
     }
 }

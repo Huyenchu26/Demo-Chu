@@ -4,6 +4,7 @@ import java.util.List;
 
 import mq.com.chuohapps.data.helpers.network.response.GetImeiSavedResponse;
 import mq.com.chuohapps.data.helpers.network.response.GetLocationResponse;
+import mq.com.chuohapps.data.helpers.network.response.RFIDModel;
 import mq.com.chuohapps.data.helpers.network.response.SaveImeiResponse;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import retrofit2.Call;
@@ -37,5 +38,10 @@ public interface ApiClient {
 
     @GET("SaveImei")
     Call<GetImeiSavedResponse> getImeiSaved();
+
+    @GET("SaveImei")
+    Call<List<RFIDModel>> getRFID(@Query("imei") String imei,
+                                  @Query("startDate") String startDate,
+                                  @Query("endDate") String endDate);
 
 }

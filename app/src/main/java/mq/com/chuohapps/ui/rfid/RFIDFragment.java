@@ -16,6 +16,7 @@ import butterknife.BindView;
 import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.LoadMoreRecyclerView;
 import mq.com.chuohapps.customview.OnClickListener;
+import mq.com.chuohapps.data.helpers.network.response.RFIDModel;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.home.dialog.DateDialog;
 import mq.com.chuohapps.ui.rfid.adapter.RFIDAdapter;
@@ -40,6 +41,7 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
     private String imei;
     String startDate = null;
     String endDate = null;
+
     public RFIDFragment setImei(String imei) {
         this.imei = imei;
         return this;
@@ -109,7 +111,7 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
     }
 
     @Override
-    public void onGetRFIDSuccess(List<Vehicle> vehicles) {
+    public void onGetRFIDSuccess(List<RFIDModel> vehicles) {
         hideLoading();
         if (vehicles != null) {
             adapter.addData(vehicles);

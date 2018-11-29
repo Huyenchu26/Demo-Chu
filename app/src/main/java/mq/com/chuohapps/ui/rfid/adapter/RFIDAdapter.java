@@ -5,12 +5,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import butterknife.BindView;
 import mq.com.chuohapps.R;
+import mq.com.chuohapps.data.helpers.network.response.RFIDModel;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.xbase.BaseAdapter;
 
-public class RFIDAdapter extends BaseAdapter<RFIDAdapter.ItemViewHolder, RFIDAdapter.ItemListener, Vehicle> {
+public class RFIDAdapter extends BaseAdapter<RFIDAdapter.ItemViewHolder, RFIDAdapter.ItemListener, RFIDModel> {
 
     @Override
     protected ItemViewHolder getCustomItemViewHolder(ViewGroup parent) {
@@ -50,7 +53,7 @@ public class RFIDAdapter extends BaseAdapter<RFIDAdapter.ItemViewHolder, RFIDAda
             needUpdate = false;
             isBindData = true;
 
-            final Vehicle vehicle = data.get(position);
+            final RFIDModel rfidModel = data.get(position);
             textHour.setText(String.valueOf(position + 1));
             textRFIDYes.setText("");
             textRFIDNo.setText("");

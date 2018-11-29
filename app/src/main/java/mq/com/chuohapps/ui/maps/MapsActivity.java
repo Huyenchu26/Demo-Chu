@@ -23,6 +23,7 @@ import butterknife.BindView;
 import mq.com.chuohapps.R;
 import mq.com.chuohapps.customview.OnClickListener;
 import mq.com.chuohapps.ui.maps.dialog.DateEndImeiDialog;
+import mq.com.chuohapps.ui.rfid.RFIDFragment;
 import mq.com.chuohapps.ui.xbase.BaseActivity;
 import mq.com.chuohapps.utils.data.DateUtils;
 import mq.com.chuohapps.utils.functions.MessageUtils;
@@ -39,6 +40,16 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     ImageView imageRight;
     @BindView(R.id.texttime)
     TextView textTime;
+
+
+    public MapsActivity setImei(String imei) {
+        this.curImei = imei;
+        return this;
+    }
+
+    public static MapsActivity newInstance(String imei) {
+        return new MapsActivity().setImei(imei);
+    }
 
     @Override
     protected int provideLayout() {

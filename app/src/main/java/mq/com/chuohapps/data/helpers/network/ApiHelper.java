@@ -8,6 +8,7 @@ import mq.com.chuohapps.data.DataCallBack;
 import mq.com.chuohapps.data.helpers.network.base.BaseApiHelper;
 import mq.com.chuohapps.data.helpers.network.response.GetImeiSavedResponse;
 import mq.com.chuohapps.data.helpers.network.response.GetLocationResponse;
+import mq.com.chuohapps.data.helpers.network.response.RFIDModel;
 import mq.com.chuohapps.data.helpers.network.response.SaveImeiResponse;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import okhttp3.OkHttpClient;
@@ -40,5 +41,10 @@ public class ApiHelper extends BaseApiHelper {
 
     public void getSavedImei(@NonNull DataCallBack<GetImeiSavedResponse> callBack) {
         getClient().getImeiSaved().enqueue(handle(callBack));
+    }
+
+    public void getRFID(String imei, String startDate, String endDate,
+                           @NonNull DataCallBack<List<RFIDModel>> callBack) {
+        getClient().getRFID(imei, startDate, endDate).enqueue(handle(callBack));
     }
 }
