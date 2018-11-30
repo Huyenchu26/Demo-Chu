@@ -2,7 +2,6 @@ package mq.com.chuohapps.ui.home;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,14 +13,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import mq.com.chuohapps.customview.TextChangedListener;
@@ -42,8 +37,6 @@ import mq.com.chuohapps.ui.home.dialog.RFIDDialog;
 import mq.com.chuohapps.ui.maps.MapsActivityLocation;
 import mq.com.chuohapps.ui.rfid.RFIDFragment;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
-import mq.com.chuohapps.utils.AppLogger;
-import mq.com.chuohapps.utils.data.DateUtils;
 import mq.com.chuohapps.utils.functions.MessageUtils;
 
 public class HomeFragment extends BaseFragment<HomeContract.Presenter> implements HomeContract.View {
@@ -196,7 +189,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                         option = 3;
                         break;
                     case R.id.nav_rfid:
-                        goToScreen(new RFIDFragment());
+                        goToScreen(new RFIDFragment().setImei(vehicles.get(0).imei));
                     default:
                         option = 0;
                         break;
@@ -301,6 +294,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     }
 
     OptionsDialog optionsDialog;
+
     private void openDialogOption(List<String> rfid, String imei) {
         if (optionsDialog != null && optionsDialog.isShowing()) return;
         optionsDialog = new OptionsDialog(myActivity(), rfid, imei);
@@ -308,7 +302,9 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         optionsDialog.setListener(new OptionsDialog.ItemClickListener() {
             @Override
             public void onBtn1Click(List<String> rfid) {
-                openDialogRfid(rfid);
+                if (rfid.size() > 0)
+                    openDialogRfid(rfid);
+                else showMessage("No RFID in current time!");
             }
 
             @Override
@@ -372,6 +368,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     }
 
     private boolean isGetDataDone = false;
+
     @Override
     public void onGetVehicleSuccess(List<Vehicle> vehicle) {
         hideLoading();

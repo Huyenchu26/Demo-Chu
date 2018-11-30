@@ -5,19 +5,19 @@
     android:padding="@dimen/_18sdp"
     android:layout_gravity="center"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/button_home">
 
     <RelativeLayout
         android:id="@+id/btnListRFID"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_home">
 
         <Button
             android:id="@+id/btnList"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@mipmap/ic_rfid"
-            android:layout_margin="@dimen/_8sdp"/>
+            style="@style/btnOptions"
+            android:background="@mipmap/ic_rfid"/>
 
         <TextView
             android:layout_below="@+id/btnList"
@@ -29,14 +29,13 @@
     <RelativeLayout
         android:id="@+id/btnDirection"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_home">
 
         <Button
             android:id="@+id/btnDirectionn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@mipmap/icon_location"
-            android:layout_margin="@dimen/_8sdp"/>
+            style="@style/btnOptions"
+            android:background="@mipmap/icon_location"/>
 
         <TextView
             android:layout_below="@+id/btnDirectionn"
@@ -49,14 +48,13 @@
     <RelativeLayout
         android:id="@+id/btnRFID"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_home">
 
         <Button
             android:id="@+id/btnRFIDD"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@mipmap/ic_checklist"
-            android:layout_margin="@dimen/_8sdp"/>
+            style="@style/btnOptions"
+            android:background="@mipmap/ic_checklist"/>
 
         <TextView
             android:layout_below="@+id/btnRFIDD"

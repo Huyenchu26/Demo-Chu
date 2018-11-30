@@ -19,6 +19,7 @@ import mq.com.chuohapps.customview.OnClickListener;
 import mq.com.chuohapps.data.helpers.network.response.RFIDModel;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
 import mq.com.chuohapps.ui.home.dialog.DateDialog;
+import mq.com.chuohapps.ui.maps.dialog.DateEndImeiDialog;
 import mq.com.chuohapps.ui.rfid.adapter.RFIDAdapter;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
 import mq.com.chuohapps.utils.data.DateUtils;
@@ -35,7 +36,6 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
     @BindView(R.id.textTitle)
     TextView textTitle;
 
-    List<Vehicle> vehicles = new ArrayList<>();
     RFIDAdapter adapter;
 
     private String imei;
@@ -107,7 +107,7 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
 
     @Override
     public void onStartGetRFID() {
-        showLoading();
+//        showLoading();
     }
 
     @Override
@@ -124,18 +124,19 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
         showMessage(message, MessageUtils.ERROR_CODE);
     }
 
-    DateDialog dateDialog;
+    DateEndImeiDialog dateDialog;
 
     private void openDateDialog() {
         if (dateDialog != null && dateDialog.isShowing()) return;
-        dateDialog = new DateDialog(getContext());
+        dateDialog = new DateEndImeiDialog(getContext(), imei);
         dateDialog.setCanceledOnTouchOutside(true);
-        dateDialog.setOnChooseListener(new DateDialog.OnChooseListener() {
+        dateDialog.setOnChooseListener(new DateEndImeiDialog.OnChooseListener() {
             @Override
-            public void onDone(String startDate_) {
+            public void onDone(String startDate_, String imei_) {
                 // TODO: 4/19/2018 some thing with dates
                 startDate = startDate_ + " 00:00:00";
                 endDate = startDate_ + " 23:59:59";
+                imei = imei_;
                 doLoadData();
             }
         });
