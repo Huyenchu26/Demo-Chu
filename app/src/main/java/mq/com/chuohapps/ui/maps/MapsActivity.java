@@ -215,6 +215,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
                 startDate = startDate_ + " 00:00:00";
                 endDate = startDate_ + " 23:59:59";
                 curImei = imei;
+                textTitle.setText(imei);
                 doLoadData();
             }
         });

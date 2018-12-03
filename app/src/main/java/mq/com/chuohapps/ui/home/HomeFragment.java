@@ -181,7 +181,7 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                 switch (item.getItemId()) {
                     case R.id.nav_direction:
 //                        option = 2;
-                        Intent intent = new Intent(myActivity(), MapsActivity.class);
+                        Intent intent = new Intent(myActivity(), MapsActivity.newInstance(vehicles.get(0).imei).getClass());
                         intent.putExtra("imei", adapter.getFirstItem().imei);
                         startActivity(intent);
                         break;
@@ -365,6 +365,8 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
     public void onStop() {
         super.onStop();
         refresher.release();
+        if (drawerLayout != null)
+            drawerLayout.closeDrawers();
     }
 
     private boolean isGetDataDone = false;
