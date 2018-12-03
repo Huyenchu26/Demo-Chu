@@ -85,7 +85,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
 
     private void setupDate() {
         Date dateCurrent = Calendar.getInstance().getTime();
-        long DAY_IN_MS = 1000 * 60 * 60 * 24;
+        long DAY_IN_MS = 3600000 * 24;
         curImei = getIntent().getStringExtra("imei");
         startDate = DateUtils.dateToStringSent(new Date(dateCurrent.getTime() - (3 * DAY_IN_MS)));
         endDate = DateUtils.dateToStringSent(dateCurrent);

@@ -22,6 +22,7 @@ import mq.com.chuohapps.ui.home.dialog.DateDialog;
 import mq.com.chuohapps.ui.maps.dialog.DateEndImeiDialog;
 import mq.com.chuohapps.ui.rfid.adapter.RFIDAdapter;
 import mq.com.chuohapps.ui.xbase.BaseFragment;
+import mq.com.chuohapps.utils.GetRFID;
 import mq.com.chuohapps.utils.data.DateUtils;
 import mq.com.chuohapps.utils.functions.MessageUtils;
 
@@ -87,7 +88,7 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
 
     private void setupDate() {
         Date dateCurrent = Calendar.getInstance().getTime();
-        long DAY_IN_MS = 1000 * 60 * 60 * 24;
+        long DAY_IN_MS = 3600000 * 24;
         startDate = DateUtils.dateToStringSent(new Date(dateCurrent.getTime() - (DAY_IN_MS)));
         endDate = DateUtils.dateToStringSent(dateCurrent);
         doLoadData();
@@ -111,10 +112,16 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
     }
 
     @Override
-    public void onGetRFIDSuccess(List<RFIDModel> vehicles) {
-        hideLoading();
-        if (vehicles != null) {
-            adapter.addData(vehicles);
+    public void onGetRFIDSuccess(List<RFIDModel> response) {
+        // TODO: 12/3/2018 3 record lay 1 (hen xui :))) de tam vay di)
+        if (response != null && response.size() > 0) {
+            List<RFIDModel> modelsFilter = new ArrayList<>();
+            for (int i = 0; i < response.size(); i += 6) {
+                if (GetRFID.getRFID(response.get(i).rfid).size() > 0) {
+                    modelsFilter.add(response.get(i));
+                }
+            }
+            adapter.addData(modelsFilter);
         }
     }
 
@@ -148,4 +155,5 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
         });
         dateDialog.show();
     }
+    // TODO: 12/3/2018 24*60*60/5=24*60*12=
 }

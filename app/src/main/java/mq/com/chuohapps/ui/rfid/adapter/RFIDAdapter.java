@@ -53,6 +53,7 @@ public class RFIDAdapter extends BaseAdapter<RFIDAdapter.ItemViewHolder, RFIDAda
             needUpdate = false;
             isBindData = true;
 
+            if (position > 24) return;
             final RFIDModel rfidModel = data.get(position);
             textHour.setText(String.valueOf(position + 1));
             textRFIDYes.setText("");

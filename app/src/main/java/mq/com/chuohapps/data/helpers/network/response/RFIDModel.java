@@ -10,5 +10,5 @@ public class RFIDModel {
 
     @SerializedName("rfid")
     @Expose
-    public int rfid;
+    public String rfid;
 }
