@@ -11,6 +11,5 @@ public interface UseCaseGetListLocation extends BaseUseCase {
     void getListLocation(String imei,
                     String startDate,
                     String endDate,
-                    boolean bool,
                     @NonNull DataCallBack<GetLocationResponse> callBack);
 }
