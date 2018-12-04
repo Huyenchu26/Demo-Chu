@@ -87,7 +87,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
         Date dateCurrent = Calendar.getInstance().getTime();
         long DAY_IN_MS = 3600000 * 24;
         curImei = getIntent().getStringExtra("imei");
-        startDate = DateUtils.dateToStringSent(new Date(dateCurrent.getTime() - (3 * DAY_IN_MS)));
+        startDate = DateUtils.dateToStringSent(new Date(dateCurrent.getTime() - DAY_IN_MS));
         endDate = DateUtils.dateToStringSent(dateCurrent);
         doLoadData();
     }
@@ -199,7 +199,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     private void doLoadData() {
         count++;
         if (curImei.length() > 1)
-            getPresenter().getListLocation(curImei.substring(1), startDate, endDate, true);
+            getPresenter().getListLocation(curImei.substring(1), startDate, endDate, false);
     }
 
     DateEndImeiDialog dateDialog;
