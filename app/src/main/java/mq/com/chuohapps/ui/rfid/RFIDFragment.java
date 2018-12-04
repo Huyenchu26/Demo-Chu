@@ -10,7 +10,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import mq.com.chuohapps.R;
@@ -113,15 +115,24 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
 
     @Override
     public void onGetRFIDSuccess(List<RFIDModel> response) {
-        // TODO: 12/3/2018 3 record lay 1 (hen xui :))) de tam vay di)
+        // TODO: 12/3/2018 6 record lay 1 (hen xui :))) de tam vay di) ----- 2018/03/08 11:38:05 -----
         if (response != null && response.size() > 0) {
             List<RFIDModel> modelsFilter = new ArrayList<>();
+            Set<String> hourSet = new HashSet<>();
             for (int i = 0; i < response.size(); i += 6) {
-                if (GetRFID.getRFID(response.get(i).rfid).size() > 0) {
-                    modelsFilter.add(response.get(i));
+                RFIDModel model = response.get(i);
+                // TODO: 12/4/2018 nếu có checksum
+                if (GetRFID.getRFID(model.rfid).size() > 0) {
+                    String hour = model.time.split(" ")[1].substring(0, 2);
+                    if (!hourSet.contains(hour)) {
+                        model.hour = hour;
+                        modelsFilter.add(model);
+                    }
+                    hourSet.add(hour);
                 }
             }
             adapter.addData(modelsFilter);
+            // TODO: 12/4/2018 max size cua list la 24
         }
     }
 
