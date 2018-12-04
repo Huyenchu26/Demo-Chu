@@ -377,7 +377,6 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
         getPresenter().getSavedImei();
         isGetDataDone = true;
         vehicles.addAll(vehicle);
-        logError("do onGetVehicleSuccess");
 
         String str = editSearchQuery.getText().toString().trim();
         if (str.length() > 0) {
