@@ -185,6 +185,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
             }
         }
         updateMaps();
+        showMessage(startDate + " - " + endDate);
     }
 
     @Override
@@ -193,9 +194,12 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
         showMessage(message, MessageUtils.ERROR_CODE);
     }
 
+    int count = 0;
+
     private void doLoadData() {
+        count++;
         if (curImei.length() > 1)
-            getPresenter().getListLocation(curImei.substring(1), startDate, endDate);
+            getPresenter().getListLocation(curImei.substring(1), startDate, endDate, true);
     }
 
     DateEndImeiDialog dateDialog;
