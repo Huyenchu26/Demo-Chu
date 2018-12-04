@@ -72,7 +72,6 @@ public class GetRFID {
             }
 
         }
-        Log.e("HuyenChu", rfid.toString());
         return rfid;
     }
 
