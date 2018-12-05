@@ -107,7 +107,8 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
 
     @Override
     protected void setupViews(@NonNull View view) {
-
+        textTitle.setVisibility(View.VISIBLE);
+        textTitle.setText(imei);
         imageBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onDelayedClick(View v) {
@@ -209,6 +210,7 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
                 startDate = startDate_ + " 00:00:00";
                 endDate = startDate_ + " 23:59:59";
                 imei = imei_;
+                textTitle.setText(imei);
                 doLoadData();
             }
         });
