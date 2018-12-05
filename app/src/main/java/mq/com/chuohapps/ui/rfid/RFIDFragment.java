@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -156,18 +157,32 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
         if (response != null && response.size() > 0) {
             List<RFIDModel> modelsFilter = new ArrayList<>();
             Set<String> hourSet = new HashSet<>();
-            for (int i = 0; i < response.size(); i += 6) {
+            for (int i = 0; i < (response.size() - 12); i += 12) {
                 RFIDModel model = response.get(i);
                 // TODO: 12/4/2018 nếu có checksum
                 if (GetRFID.getRFID(model.rfid).size() > 0) {
                     String hour = model.time.split(" ")[1].substring(0, 2);
                     if (!hourSet.contains(hour)) {
                         model.hour = hour;
+                        model.isChecksum = true;
                         modelsFilter.add(model);
                     }
                     hourSet.add(hour);
                 }
             }
+
+            for (int i = 0; i < 24; i++) {
+                String str = "";
+                if (i < 10)
+                    str = "0" + i;
+                else str = String.valueOf(i);
+                if (!hourSet.contains(str)) {
+                    RFIDModel model = new RFIDModel();
+                    model.hour = str;
+                    modelsFilter.add(model);
+                }
+            }
+            Collections.sort(modelsFilter, RFIDModel.VehicleHour);
             adapter.addData(modelsFilter);
             // TODO: 12/4/2018 max size cua list la 24
         } else {

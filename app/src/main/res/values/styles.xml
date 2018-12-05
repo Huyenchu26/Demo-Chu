@@ -307,6 +307,16 @@
         <item name="android:layout_marginTop">2dp</item>
     </style>
 
+    <style name="textNomalHeaderRFID">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
     <style name="textNomal">
         <item name="android:color">@color/colorFacebook</item>
         <item name="android:textSize">16sp</item>

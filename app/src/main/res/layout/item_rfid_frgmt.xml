@@ -10,23 +10,30 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="@dimen/_36sdp"
+            android:layout_width="64dp"
             android:layout_height="wrap_content"
             android:id="@+id/txtHour"
+            android:gravity="center"
             style="@style/textNomal"/>
+
+        <View style="@style/LineDivideHorizontal" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:id="@+id/rfidYes"
+            android:gravity="center"
             style="@style/textNomal"/>
+
+        <View style="@style/LineDivideHorizontal" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:id="@+id/rfidNo"
+            android:gravity="center"
             style="@style/textNomal"/>
 
     </LinearLayout>
