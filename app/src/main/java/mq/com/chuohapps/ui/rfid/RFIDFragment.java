@@ -20,6 +20,8 @@ import mq.com.chuohapps.customview.LoadMoreRecyclerView;
 import mq.com.chuohapps.customview.OnClickListener;
 import mq.com.chuohapps.data.helpers.network.response.RFIDModel;
 import mq.com.chuohapps.data.helpers.network.response.Vehicle;
+import mq.com.chuohapps.lib.swiperefresh.AppRefresher;
+import mq.com.chuohapps.lib.swiperefresh.Refresher;
 import mq.com.chuohapps.ui.home.dialog.DateDialog;
 import mq.com.chuohapps.ui.maps.dialog.DateEndImeiDialog;
 import mq.com.chuohapps.ui.rfid.adapter.RFIDAdapter;
@@ -70,6 +72,42 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        bindRefresh();
+    }
+
+    private Refresher refresher = new AppRefresher();
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        refresher.release();
+    }
+
+    private void bindRefresh() {
+        refresher.setup(getView(), R.id.swipeRefresh);
+        refresher.onBeginRefresh(new Runnable() {
+            @Override
+            public void run() {
+                doRefresh();
+            }
+        });
+    }
+
+    private void doRefresh() {
+        if (listRFID.isLoading()) {
+            return;
+        } else {
+            adapter.clearData();
+            listRFID.refreshLoadMore();
+            doLoadData();
+        }
+    }
+
+
+
+    @Override
     protected void setupViews(@NonNull View view) {
         imageBack.setOnClickListener(new OnClickListener() {
             @Override
@@ -110,6 +148,7 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
 
     @Override
     public void onStartGetRFID() {
+        adapter.clearData();
 //        showLoading();
     }
 
@@ -133,6 +172,8 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
             }
             adapter.addData(modelsFilter);
             // TODO: 12/4/2018 max size cua list la 24
+        } else {
+            adapter.addData(null);
         }
     }
 
