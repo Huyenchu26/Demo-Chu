@@ -1,5 +1,6 @@
 package mq.com.chuohapps.data.helpers.network.client;
 
+import java.net.CacheRequest;
 import java.util.List;
 
 import mq.com.chuohapps.data.helpers.network.response.GetImeiSavedResponse;
@@ -26,7 +27,7 @@ public interface ApiClient {
                               @Query("startDate") String startDate,
                               @Query("endDate") String endDate);
 
-    @GET("ParseFile")
+    @GET("Values")
     Call<GetLocationResponse> getLocation(@Query("imei") String imei,
                                           @Query("startDate") String startDate,
                                           @Query("endDate") String endDate,
