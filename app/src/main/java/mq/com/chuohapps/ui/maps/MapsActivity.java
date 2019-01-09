@@ -1,5 +1,6 @@
 package mq.com.chuohapps.ui.maps;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.view.View;
 import android.widget.ImageView;
@@ -41,6 +42,7 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
     @BindView(R.id.texttime)
     TextView textTime;
 
+    public static ProgressDialog dialog;
 
     public MapsActivity setImei(String imei) {
         this.curImei = imei;

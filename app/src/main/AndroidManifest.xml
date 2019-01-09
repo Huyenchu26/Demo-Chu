@@ -63,6 +63,14 @@
         <activity
             android:name=".ui.maps.MapsActivityLocation"
             android:label="@string/title_activity_maps"></activity>
+
+        <activity
+            android:name=".ui.demomaps.MapsActivityDemo"
+            android:label="@string/title_activity_maps"></activity>
+
+        <activity
+            android:name=".ui.demomaps.MainActivityDemo"
+            android:label="@string/title_activity_maps"></activity>
     </application>
 
 </manifest>
