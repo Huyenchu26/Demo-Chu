@@ -397,7 +397,6 @@ public class HomeFragment extends BaseFragment<HomeContract.Presenter> implement
                     sortImei();
                     break;
             }
-//            Collections.sort(vehicles, Vehicle.VehicleImei);
 //            adapter.addData(vehicles);
         }
     }
