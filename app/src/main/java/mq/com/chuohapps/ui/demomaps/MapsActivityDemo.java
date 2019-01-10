@@ -43,7 +43,7 @@ public class MapsActivityDemo extends FragmentActivity implements OnMapReadyCall
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         dialog = new ProgressDialog(this);
-        dialog.setMessage("Loading");
+        dialog.setMessage("Loading...");
         dialog.setCanceledOnTouchOutside(false);
 
     }
