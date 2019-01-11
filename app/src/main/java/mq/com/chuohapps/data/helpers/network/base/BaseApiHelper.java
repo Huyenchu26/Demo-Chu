@@ -74,7 +74,6 @@ public abstract class BaseApiHelper {
                 if (dataCallBack != null)
                     dataCallBack.onSuccess(response, message);
                 callList.clear();
-                AppLogger.error("Api callback success");
             }
 
             @Override
@@ -82,7 +81,6 @@ public abstract class BaseApiHelper {
                 if (dataCallBack == null) return;
                 dataCallBack.onError(throwable, message);
                 callList.clear();
-                AppLogger.error("Api callback error");
             }
         };
 
