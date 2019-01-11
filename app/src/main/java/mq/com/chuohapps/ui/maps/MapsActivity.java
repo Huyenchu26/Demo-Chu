@@ -41,6 +41,7 @@ import mq.com.chuohapps.ui.demomaps.MapsActivityDemo;
 import mq.com.chuohapps.ui.maps.dialog.DateEndImeiDialog;
 import mq.com.chuohapps.ui.rfid.RFIDFragment;
 import mq.com.chuohapps.ui.xbase.BaseActivity;
+import mq.com.chuohapps.utils.AppLogger;
 import mq.com.chuohapps.utils.data.DateUtils;
 import mq.com.chuohapps.utils.functions.MessageUtils;
 
@@ -87,6 +88,10 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
 
     @Override
     protected void setupViews() {
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading...");
+        dialog.setCanceledOnTouchOutside(false);
+
         setupDate();
         setupHeader();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -102,11 +107,11 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
 
     private void setupDate() {
         Date dateCurrent = Calendar.getInstance().getTime();
-        long DAY_IN_MS = 3600000 * 24;
+        long DAY_IN_MS = 3600000 * 6;
         curImei = getIntent().getStringExtra("imei");
         startDate = DateUtils.dateToStringSent(new Date(dateCurrent.getTime() - DAY_IN_MS));
         endDate = DateUtils.dateToStringSent(dateCurrent);
-        doLoadData(curImei, startDate, endDate);
+        doLoadData(startDate, endDate);
     }
 
     private void setupHeader() {
@@ -201,7 +206,6 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
             }
         }
         updateMaps();
-        showMessage(startDate + " - " + endDate);
     }
 
     @Override
@@ -210,13 +214,17 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
         showMessage(message, MessageUtils.ERROR_CODE);
     }
 
-    private String url = "http://navistardev.cloudapp.net:5005/api/Values?imei=";
-    private void doLoadData(String imei, String startDate, String endDate) {
+    private void doLoadData(String startDate, String endDate) {
 //        if (curImei.length() > 1)
 //            getPresenter().getListLocation(curImei.substring(1), startDate, endDate, false);
-        url = url + imei + "&startDate=" + startDate + "&endDate=" + endDate;
+        startDate = startDate.replace(" ", "%20");
+        endDate = endDate.replace(" ", "%20");
+        String url = "http://navistardev.cloudapp.net:5005/api/Values?imei="
+                + curImei.substring(1) + "&startDate=" + startDate + "&endDate=" + endDate;
+        String link = "http://navistardev.cloudapp.net:5005/api/Values?imei=011712120219351&startDate=2019/01/06%2020:29:25&endDate=2019/01/07%2007:29:25";
         DirectionTask directionTask = new DirectionTask();
-        directionTask.execute(url);
+        directionTask.execute(link);
+        AppLogger.error("url: " + url);
     }
 
     DateEndImeiDialog dateDialog;
@@ -229,11 +237,11 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
             @Override
             public void onDone(String startDate_, String imei) {
                 // TODO: 4/19/2018 some thing with dates
-                startDate = startDate_ + " 00:00:00";
-                endDate = startDate_ + " 23:59:59";
+                startDate = startDate_ + " 11:59:59";
+                endDate = startDate_ + " 17:59:59";
                 curImei = imei;
                 textTitle.setText(imei);
-                doLoadData(curImei, startDate, endDate);
+                doLoadData(startDate, endDate);
             }
         });
         dateDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -390,47 +398,44 @@ public class MapsActivity extends BaseActivity<MapsConstract.Presenter> implemen
         protected void onPreExecute() {
             super.onPreExecute();
             dialog.show();
-
         }
 
         @Override
         protected void onPostExecute(Data data) {
             super.onPostExecute(data);
             dialog.dismiss();
-            List<String> aaa = data.getListLocation();
-            List<String> list = new ArrayList<>();
-            for (int i = 0; i < aaa.size(); i++) {
+            List<String> response = data.getListLocation();
+            List<LatLng> list = new ArrayList<>();
+            for (int i = 0; i < response.size(); i++) {
                 if (i % 120 == 0) {
-                    list.add(aaa.get(i));
+                    list.add(new LatLng(Double.parseDouble(response.get(i).split("-")[1]),
+                            Double.parseDouble(response.get(i).split("-")[0])));
                 }
             }
+            if (list.size() > 2) {
+                for (int i = 0; i < list.size() - 1; i += 1) {
+                    LatLng from = list.get(i);
+                    LatLng to = list.get(i + 1);
+                    PolylineOptions polylines = new PolylineOptions().
+                            geodesic(true).
+                            color(Color.RED).
+                            width(2);
+                    polylines.add(from, to);
+                    mMap.addPolyline(polylines);
+                    DrawArrowHead(mMap, from, to);
+                }
 
-
-            for (int i = 0; i < list.size() - 1; i += 1) {
-
-
-                LatLng from = new LatLng(Double.parseDouble(list.get(i).split("-")[1]), Double.parseDouble(list.get(i).split("-")[0]));
-                LatLng to = new LatLng(Double.parseDouble(list.get(i + 1).split("-")[1]), Double.parseDouble(list.get(i + 1).split("-")[0]));
-
-
-                PolylineOptions polylines = new PolylineOptions().
-                        geodesic(true).
-                        color(Color.RED).
-                        width(2);
-                polylines.add(from, to);
-                mMap.addPolyline(polylines);
-
-
-                DrawArrowHead(mMap, from, to);
-
-
+                LatLng location = list.get(list.size()-1);
+                CameraPosition camera = new CameraPosition.Builder()
+                        .target(location)
+                        .zoom(12)  //limite ->21
+                        .bearing(0) // 0 - 365
+                        .tilt(45) // limite ->90
+                        .build();
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera));
+                mMap.addMarker(new MarkerOptions().position(location).title("Your location"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12));
             }
-
-
-            mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(list.get(0).split("-")[1]), Double.parseDouble(list.get(0).split("-")[0]))).title("Marker in Sydney"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(Double.parseDouble(list.get(0).split("-")[1]), Double.parseDouble(list.get(0).split("-")[0]))));
-
-
         }
 
         @Override

@@ -122,7 +122,8 @@
             android:layout_marginBottom="@dimen/_18sdp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:src="@mipmap/ic_rfid" />
+            android:src="@mipmap/ic_rfid"
+            android:background="@drawable/button_state"/>
 
         <View
             android:id="@+id/viewEnd"
@@ -153,6 +154,7 @@
             android:layout_above="@+id/viewEnd2"
             android:layout_alignParentRight="true"
             android:layout_margin="8dp"
+            android:background="@drawable/button_state"
             android:src="@mipmap/icon_location" />
 
         <View

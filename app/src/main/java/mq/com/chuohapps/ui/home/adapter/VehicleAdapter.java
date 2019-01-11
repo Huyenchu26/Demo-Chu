@@ -171,10 +171,11 @@ public class VehicleAdapter extends BaseAdapter<VehicleAdapter.ItemViewHolder, V
                 }
             });
 
-            if (DataFormatUtils.getString(vehicleData.status).equals("1"))
-                imgRunning.setImageResource(R.mipmap.icon_running);
-            else
-                imgRunning.setImageResource(R.mipmap.icon_stop);
+//            if (DataFormatUtils.getString(vehicleData.status).equals("1"))
+//                imgRunning.setImageResource(R.mipmap.icon_running);
+//            else
+//                imgRunning.setImageResource(R.mipmap.icon_stop);
+            imgRunning.setImageResource(R.mipmap.ic_rfid);
             imgRunning.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onDelayedClick(View v) {
