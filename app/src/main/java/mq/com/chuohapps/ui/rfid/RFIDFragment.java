@@ -105,8 +105,6 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
         }
     }
 
-
-
     @Override
     protected void setupViews(@NonNull View view) {
         imageBack.setOnClickListener(new OnClickListener() {
@@ -128,7 +126,7 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
 
     private void setupDate() {
         Date dateCurrent = Calendar.getInstance().getTime();
-        long DAY_IN_MS = 3600000 * 24;
+        long DAY_IN_MS = 3600000 * 6;
         startDate = DateUtils.dateToStringSent(new Date(dateCurrent.getTime() - (DAY_IN_MS)));
         endDate = DateUtils.dateToStringSent(dateCurrent);
         doLoadData();
@@ -193,7 +191,7 @@ public class RFIDFragment extends BaseFragment<RFIDContract.Presenter> implement
             @Override
             public void onDone(String startDate_, String imei_) {
                 // TODO: 4/19/2018 some thing with dates
-                startDate = startDate_ + " 00:00:00";
+                startDate = startDate_ + " 18:00:00";
                 endDate = startDate_ + " 23:59:59";
                 imei = imei_;
                 doLoadData();
